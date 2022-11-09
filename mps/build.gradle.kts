@@ -1,5 +1,9 @@
 import de.itemis.mps.gradle.BuildLanguages
 
+plugins {
+    java
+}
+
 buildscript {
     repositories {
         maven { url = uri("https://artifacts.itemis.cloud/repository/maven-mps/") }
@@ -15,7 +19,7 @@ repositories {
 }
 
 val api_gen_version: String by project
-val rest_access_version: String by project
+val json_bulk_access_version: String by project
 val mps_version: String by project
 val mpsExtensions_version: String by project
 
@@ -28,7 +32,7 @@ dependencies {
     mps("com.jetbrains:mps:$mps_version")
     mpsDependencies("de.itemis.mps:extensions:$mpsExtensions_version")
     mpsDependencies("org.modelix.mps.api-gen:mps-plugin:$api_gen_version")
-    mpsDependencies("org.modelix.mps-rest-model-access:mps-plugin:$rest_access_version")
+    mpsDependencies("org.modelix.mps-json-bulk-model-access:mps-plugin:$json_bulk_access_version")
 }
 
 val mpsDir = file("$buildDir/mps")
@@ -86,6 +90,4 @@ val genApi by tasks.registering(BuildLanguages::class) {
     dependsOn(buildLanguages)
 }
 
-val build by tasks.registering {
-    dependsOn(buildLanguages)
-}
+tasks.getByName("build").dependsOn(buildLanguages)

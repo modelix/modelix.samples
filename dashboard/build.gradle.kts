@@ -5,16 +5,19 @@ plugins {
 }
 
 val ktor_version : String by project
+val json_bulk_access_version: String by project
+val api_gen_version: String by project
 
 dependencies {
     implementation(project(":mps:solutions:University.Schedule.api"))
     implementation("io.ktor:ktor-server-core:$ktor_version")
     implementation("io.ktor:ktor-server-netty:$ktor_version")
-    implementation("io.ktor:ktor-html-builder:$ktor_version")
+    implementation("io.ktor:ktor-server-html-builder:$ktor_version")
     implementation("ch.qos.logback:logback-classic:1.4.0")
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
-    implementation("org.modelix.mps-rest-model-access:model-client:1.3")
-    implementation("org.modelix.mps-rest-model-access:model-api:1.0")
+    implementation("org.modelix.mps-json-bulk-model-access:model-client:$json_bulk_access_version")
+    implementation("org.modelix.mps-json-bulk-model-access:model-api:$json_bulk_access_version")
+    implementation("org.modelix.mps.api-gen:runtime:$api_gen_version")
 }
 
 node {
