@@ -55,7 +55,7 @@ micronaut {
 configurations.all {
     resolutionStrategy.dependencySubstitution {
         substitute(module("io.micronaut:micronaut-jackson-databind"))
-                .using(module("jakarta.json.bind:jakarta.json.bind-api:2.0.0"))
+                .using(module("jakarta.json.bind:jakarta.json.bind-api:3.0.0"))
         substitute(module("io.micronaut:micronaut-jackson-core"))
                 .using(module("io.micronaut.serde:micronaut-serde-jsonp:1.1.0"))
         substitute(module("io.micronaut:micronaut-jackson-databind"))
