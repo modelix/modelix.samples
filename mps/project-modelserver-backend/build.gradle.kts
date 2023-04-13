@@ -18,7 +18,6 @@ repositories {
     mavenCentral()
 }
 
-val api_gen_version: String by project
 val mps_version: String by project
 val mpsExtensions_version: String by project
 val mps_model_plugin_version: String by project

@@ -18,8 +18,6 @@ repositories {
     mavenCentral()
 }
 
-val api_gen_version: String by project
-val json_bulk_access_version: String by project
 val mps_version: String by project
 val mpsExtensions_version: String by project
 val mps_model_plugin_version: String by project
@@ -32,7 +30,6 @@ dependencies {
     buildDependencies("org.apache.ant:ant-junit:1.10.13")
     mps("com.jetbrains:mps:$mps_version")
     mpsDependencies("de.itemis.mps:extensions:$mpsExtensions_version")
-    mpsDependencies("org.modelix.mps-json-bulk-model-access:mps-plugin:$json_bulk_access_version")
     mpsDependencies("org.modelix:mps-model-plugin:$mps_model_plugin_version")
 }
 

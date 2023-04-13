@@ -35,7 +35,7 @@ In this example project, an extra domain-specific API layer is added which is de
 This layer is meant educational as no noteworthy abstractions from the language itself happen in this definition.
 It intends to show how one introduces a clearly defined domain-specific abstraction decoupling the language engineering (meta-modeling) and the web development.
 
-We provide two backends (i.e. implementations of the API layer): The xref:samples:reference/rest-api-json-bulk.adoc[] and xref:samples:reference/rest-api-model-server.adoc[] components.
+We provide two backends (i.e. implementations of the API layer): The xref:samples:reference/rest-api-model-ql.adoc[] and xref:samples:reference/rest-api-model-server.adoc[] components.
 
 ▶️ For more details, see the xref:samples:reference/openapi.adoc[OpenAPI component documentation].
 
@@ -47,13 +47,11 @@ This project provides two implementations of the xref:samples:reference/openapi.
 [ordered]
 MPS as a source::
 +
-⚠️ Deprecated!
-+
 This backend provides access to the model by obtaining the model knowledge directly from a running MPS instance.
-It is implemented using ktor and connects to the https://github.com/modelix/mps-rest-model-access[`json-bulk-model-access`] plugin running inside of MPS.
-This component can only provide **read only access** as the `json-bulk-model-access` is read only.
+It is implemented using ktor and connects to a `model-client` plugin running inside of MPS.
+This component can only provide **read and write access**.
 +
-▶️ For more details, see the xref:samples:reference/rest-api-json-bulk.adoc[] for details.
+▶️ For more details, see the xref:samples:reference/rest-api-model-ql.adoc[] for details.
 
 model-server as a source::
 +

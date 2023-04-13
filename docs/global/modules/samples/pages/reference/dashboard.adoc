@@ -33,7 +33,7 @@ You can build this subproject individually from the parent folder via via Gradle
 To run this application you will need a component which provides an API implementation conforming to the OpenAPI spec.
 Thus, you need to start one of the available OpenAPI implementations in this project:
 
-* Either start the xref:samples:reference/rest-api-json-bulk.adoc[rest-api-json-bulk] implementation,
+* Either start the xref:samples:reference/rest-api-model-ql.adoc[rest-api-model-ql] implementation,
 * or alternatively you can start the xref:samples:reference/rest-api-model-server[rest-api-model-server] implementation.
 
 Check the documentation of the corresponding project parts on how to start them.
