@@ -3,9 +3,16 @@ plugins {
     kotlin("kapt") version "1.8.20" apply false
     id("com.specificlanguages.mps") version "1.5.0" apply false
     id ("com.github.node-gradle.node") version "3.2.1" apply false
+    java
 }
 
 subprojects {
+    apply(plugin = "java")
+    val modelix_platform_version: String by project
+    dependencies {
+        implementation(enforcedPlatform("org.modelix:platform:$modelix_platform_version"))
+    }
+
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().all {
         kotlinOptions {
             jvmTarget = "11"

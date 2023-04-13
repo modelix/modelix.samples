@@ -2,11 +2,8 @@ plugins {
     application
 }
 
-val modelix_platform_version: String by project
 
 dependencies {
-    implementation(enforcedPlatform("org.modelix:platform:$modelix_platform_version"))
-
     implementation("org.modelix:model-server")
 }
 
