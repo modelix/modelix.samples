@@ -5,14 +5,10 @@ plugins {
 }
 
 val ktor_version : String by project
-val modelix_platform_version: String by project
 
 val openApiFile = layout.projectDirectory.file("../openapi/openapi.yaml")
 
-
 dependencies {
-    implementation(enforcedPlatform("org.modelix:platform:$modelix_platform_version"))
-
     // api-gen v2
     implementation(project(":mps:metamodel"))
 
