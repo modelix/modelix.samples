@@ -2,6 +2,7 @@ package org.modelix.sample.restapimodelserver
 
 import University.Schedule.N_Lecture
 import University.Schedule.N_Room
+import org.modelix.metamodel.typedReference
 import org.modelix.model.api.serialize
 import org.slf4j.LoggerFactory
 
@@ -12,11 +13,14 @@ private val logger = LoggerFactory.getLogger("Serialization")
  * data class [Lecture].
  */
 fun N_Lecture.toJson() = Lecture(
-    lectureRef = this.unwrap().reference.serialize(),
+    lectureRef = this.typedReference().ref.serialize(),
     name = this.name,
     description = this.description,
     maxParticipants = this.maxParticipants,
-    room = this.raw_room?.reference?.serialize() ?: ""
+    // TODO: this is a workaround for MODELIX-423
+    // https://issues.modelix.org/issue/MODELIX-423/Serialization-of-references-do-not-add-prefix
+    room = ""
+    // room = this.raw_room?.reference?.serialize() ?: ""
 )
 
 /**
