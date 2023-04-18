@@ -20,7 +20,7 @@ repositories {
 
 val mps_version: String by project
 val mpsExtensions_version: String by project
-val mps_model_plugin_version: String by project
+val mps_model_server_sync_plugin: String by project
 
 val mps: Configuration by configurations.creating
 val buildDependencies: Configuration by configurations.creating
@@ -30,7 +30,7 @@ dependencies {
     buildDependencies("org.apache.ant:ant-junit:1.10.13")
     mps("com.jetbrains:mps:$mps_version")
     mpsDependencies("de.itemis.mps:extensions:$mpsExtensions_version")
-    mpsDependencies("org.modelix:mps-model-plugin:$mps_model_plugin_version")
+    mpsDependencies("org.modelix.mps:model-server-sync-plugin:$mps_model_server_sync_plugin")
 }
 
 val mpsDir = file("$buildDir/mps")
