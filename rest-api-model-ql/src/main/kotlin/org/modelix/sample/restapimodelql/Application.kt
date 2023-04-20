@@ -11,7 +11,9 @@ import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.plugins.cors.routing.*
 import io.ktor.server.plugins.defaultheaders.*
 import io.ktor.server.routing.*
+import io.ktor.server.websocket.*
 import org.modelix.sample.restapijsonbulk.models.apis.ModelQLAPI
+import org.modelix.sample.restapijsonbulk.models.apis.UpdateSocket
 
 suspend fun main() {
     val config = ConfigFactory.load()
@@ -35,9 +37,12 @@ suspend fun main() {
         install(ContentNegotiation) { gson() }
         install(AutoHeadResponse)
         install(Locations)
+        install(WebSockets)
+
         install(Routing) {
             // the BulkApi provides the routs defined in our OpenAPI specification
             ModelQLAPI(lightModelClientWrapper)
+            UpdateSocket()
         }
     }.start(wait = true)
 }
