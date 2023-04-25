@@ -37,8 +37,6 @@ class Api(private val repo: ReplicatedRepository) : DefaultApi {
      */
     private fun safeDeserializeRefString(nodeRef: String): INodeReference {
         return try {
-            // TODO: this is a workaround for MODELIX-423
-            // https://issues.modelix.org/issue/MODELIX-423/Serialization-of-references-do-not-add-prefix
             INodeReferenceSerializer.deserialize(nodeRef)
         } catch (e: RuntimeException) {
             throw BadRequestException("Invalid reference format given: $nodeRef", e)
