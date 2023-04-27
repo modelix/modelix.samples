@@ -4,13 +4,6 @@
     <annotationProcessing>
       <profile default="true" name="Default" enabled="true" />
     </annotationProcessing>
-    <bytecodeTargetLevel target="11">
-      <module name="rest-api" target="11" />
-    </bytecodeTargetLevel>
-  </component>
-  <component name="JavacSettings">
-    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="rest-api" options="-parameters -Amicronaut.processing.group=org.modelix.some.samples -Amicronaut.processing.module=rest-api" />
-    </option>
+    <bytecodeTargetLevel target="11" />
   </component>
 </project>

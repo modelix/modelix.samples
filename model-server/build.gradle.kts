@@ -2,15 +2,13 @@ plugins {
     application
 }
 
-val modelix_version: String by project
 
 dependencies {
-    implementation("org.modelix:model-server:$modelix_version")
+    implementation("org.modelix:model-server")
 }
 
 application {
     mainClass.set("org.modelix.model.server.Main")
-    applicationDefaultJvmArgs = listOf("-XX:MaxRAMPercentage=85")
 }
 
 tasks.run.configure {
