@@ -40,8 +40,6 @@ include("model-server")
 //
 // APIs
 //
-// legacy API using ktor and the json-bulk access MPS plugin
-include("rest-api-json-bulk")
 //  API using ktor and a light model-server client (light)
 include("rest-api-model-ql")
 // API using quarkus and a direct model-server connection (advanced)

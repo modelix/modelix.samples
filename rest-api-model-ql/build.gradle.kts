@@ -32,6 +32,12 @@ dependencies {
     implementation("io.ktor:ktor-client-cio:$ktor_version")
 }
 
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    kotlinOptions {
+        jvmTarget = "11"
+    }
+}
+
 val basePackage = "org.modelix.sample.restapimodelql"
 
 // Use the OpenAPI generator to generate data classes representing the REST response data types.

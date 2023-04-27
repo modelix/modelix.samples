@@ -2,7 +2,6 @@ package org.modelix.sample.restapimodelserver
 
 import University.Schedule.*
 import jetbrains.mps.lang.core.N_BaseConcept
-import org.modelix.metamodel.ITypedConcept
 import org.modelix.metamodel.typed
 import org.modelix.model.api.INode
 import org.modelix.model.api.INodeReference
@@ -36,11 +35,11 @@ class Api(private val repo: ReplicatedRepository) : DefaultApi {
      * Deserializes a client-provided node reference. If this fails, a [BadRequestException] is thrown.
      * The client most likely provided an invalid reference format.
      */
-    private fun safeDeserializeRefString(lectureRef: String): INodeReference {
+    private fun safeDeserializeRefString(nodeRef: String): INodeReference {
         return try {
-            INodeReferenceSerializer.deserialize(lectureRef)
+            INodeReferenceSerializer.deserialize(nodeRef)
         } catch (e: RuntimeException) {
-            throw BadRequestException("Invalid reference format given: $lectureRef", e)
+            throw BadRequestException("Invalid reference format given: $nodeRef", e)
         }
     }
 

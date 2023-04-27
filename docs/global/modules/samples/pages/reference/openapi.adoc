@@ -14,7 +14,6 @@ Consequently, this openAPI provides a contract of the API behaviour for web team
 
 There are currently three implementations of this OpenAPI specification:
 
-1. xref:samples:reference/rest-api-json-bulk.adoc[] (deprecated)
-2. xref:samples:reference/rest-api-model-server.adoc[]
-3. xref:samples:reference/rest-api-model-ql.adoc[]
+1. xref:samples:reference/rest-api-model-server.adoc[]
+2. xref:samples:reference/rest-api-model-ql.adoc[]
 

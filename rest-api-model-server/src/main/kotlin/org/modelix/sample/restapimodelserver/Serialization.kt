@@ -2,6 +2,8 @@ package org.modelix.sample.restapimodelserver
 
 import University.Schedule.N_Lecture
 import University.Schedule.N_Room
+import org.modelix.metamodel.typedReference
+import org.modelix.metamodel.untypedReference
 import org.modelix.model.api.serialize
 import org.slf4j.LoggerFactory
 
@@ -12,11 +14,11 @@ private val logger = LoggerFactory.getLogger("Serialization")
  * data class [Lecture].
  */
 fun N_Lecture.toJson() = Lecture(
-    lectureRef = this.unwrap().reference.serialize(),
+    lectureRef = this.typedReference().ref.serialize(),
     name = this.name,
     description = this.description,
     maxParticipants = this.maxParticipants,
-    room = this.raw_room?.reference?.serialize() ?: ""
+    room = this.room.untypedReference().serialize()
 )
 
 /**
@@ -24,7 +26,7 @@ fun N_Lecture.toJson() = Lecture(
  * data class [Room].
  */
 fun N_Room.toJson() = Room(
-    roomRef = this.unwrap().reference.serialize(),
+    roomRef = this.untypedReference().serialize(),
     name = this.name,
     maxPlaces = this.maxPlaces,
     hasRemoteEquipment = this.hasRemoteEquipment
