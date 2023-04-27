@@ -1,7 +1,7 @@
 plugins {
     application
     kotlin("jvm")
-    id("org.openapi.generator") version "6.4.0"
+    id("org.openapi.generator") version "6.5.0"
 }
 
 val ktor_version : String by project
