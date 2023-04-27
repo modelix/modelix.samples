@@ -14,5 +14,5 @@ application {
 }
 
 tasks.run.configure {
-    args("-inmemory", "-dumpin", "courses.modelsever.dump")
+    args("-inmemory", "-dumpin", "courses.modelserver.dump")
 }
