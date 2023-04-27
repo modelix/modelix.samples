@@ -16,7 +16,7 @@ subprojects {
     apply(plugin = "java")
     val modelix_platform_version: String by project
     dependencies {
-        implementation(enforcedPlatform("org.modelix:platform:$modelix_platform_version"))
+        implementation(enforcedPlatform("org.modelix:platform-mps-2021-2:$modelix_platform_version"))
     }
 
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().all {

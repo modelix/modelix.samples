@@ -25,7 +25,7 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
 
     // model-server-light
-    api("org.modelix:model-api:2.1.10-text.editor.8")
+    api("org.modelix:model-api")
     implementation("org.modelix:light-model-client")
     implementation("org.modelix:model-server-api")
     implementation("org.modelix:model-client")
