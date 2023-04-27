@@ -12,7 +12,7 @@ import org.modelix.model.server.api.buildModelQuery
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
-val logger: Logger = LoggerFactory.getLogger("org.modelix.sample.restapimodelql.ModelServerLightWrapper")
+private val logger: Logger = LoggerFactory.getLogger("org.modelix.sample.restapimodelql.ModelServerLightWrapper")
 
 class LightModelClientWrapper(
     private val host: String = "localhost",
@@ -34,19 +34,19 @@ class LightModelClientWrapper(
         // the modelQL query
         this.lightModelClient.changeQuery(buildModelQuery {
             // we traverse from the root (a repository)
-            root {
-                // to all modules
-                children("modules") {
-                    // selecting the ones that contain our desired model name
-                    whereProperty("name").contains(modelNameSubstring)
-                    children("models") {
-                        // and extract all root nodes, so Rooms and Courses, and their descendants
-                        children("rootNodes") {
-                            descendants { }
+                root {
+                    // to all modules
+                    children("modules") {
+                        // selecting the ones that contain our desired model name
+                        whereProperty("name").contains(modelNameSubstring)
+                        children("models") {
+                            // and extract all root nodes, so Rooms and Courses, and their descendants
+                            children("rootNodes") {
+                                descendants { }
+                            }
                         }
                     }
                 }
-            }
         })
         logger.info("Connection successful")
     }
@@ -95,6 +95,10 @@ class LightModelClientWrapper(
         return lightModelClient.runRead {
             body()
         }
+    }
+
+    fun getArea(): LightModelClient.Area {
+        return this.lightModelClient.Area()
     }
 
 }
