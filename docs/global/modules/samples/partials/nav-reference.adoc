@@ -5,6 +5,5 @@
 ** xref:samples:reference/dashboard.adoc[]
 ** xref:samples:reference/model-server.adoc[]
 ** xref:samples:reference/openapi.adoc[]
-*** xref:samples:reference/rest-api-json-bulk.adoc[]
 *** xref:samples:reference/rest-api-model-ql.adoc[]
 *** xref:samples:reference/rest-api-model-server.adoc[]
