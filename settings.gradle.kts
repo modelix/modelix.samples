@@ -15,7 +15,7 @@ pluginManagement {
         id(quarkus_plugin_id) version quarkus_plugin_version
 
         // TODO: this should be obtained from the modelix platform somehow?
-        id("org.modelix.model-api-gen") version "2.1.1"
+        id("org.modelix.model-api-gen") version "2.3.0"
     }
 }
 
