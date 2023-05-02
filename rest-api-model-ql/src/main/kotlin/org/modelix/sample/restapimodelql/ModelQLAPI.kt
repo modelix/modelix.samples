@@ -9,7 +9,6 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.websocket.*
 import org.modelix.client.light.LightModelClient
-import org.modelix.client.light.LightClientNodeReference
 import org.modelix.sample.restapimodelql.LightModelClientWrapper
 import org.modelix.sample.restapimodelql.Paths
 import org.modelix.sample.restapimodelql.models.Lecture
@@ -93,13 +92,5 @@ fun Route.ModelQLAPI(lightModelClientWrapper: LightModelClientWrapper) {
         } catch (e: RuntimeException) {
             call.respond(HttpStatusCode.NotFound, "Can not load Room: " + e.message)
         }
-    }
-}
-
-
-fun Route.UpdateSocket(){
-    webSocket("/updates") {
-
-
     }
 }

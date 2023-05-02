@@ -64,9 +64,8 @@ fun Route.UpdateSocketRoute(lightModelClientWrapper: LightModelClientWrapper) {
         override fun areaChanged(changes: IAreaChangeList) {
             changes.visitChanges {
                 application.launch {
+                    // todo: implement once available in API
                     // todo: get all nodes that were changed and call handleChange for each
-                    //it. ?
-                    // todo: actually hand over
                     // handleChange(...)
                 }
                 true// ???
