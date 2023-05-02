@@ -34,19 +34,19 @@ class LightModelClientWrapper(
         // the modelQL query
         this.lightModelClient.changeQuery(buildModelQuery {
             // we traverse from the root (a repository)
-                root {
-                    // to all modules
-                    children("modules") {
-                        // selecting the ones that contain our desired model name
-                        whereProperty("name").contains(modelNameSubstring)
-                        children("models") {
-                            // and extract all root nodes, so Rooms and Courses, and their descendants
-                            children("rootNodes") {
-                                descendants { }
-                            }
+            root {
+                // to all modules
+                children("modules") {
+                    // selecting the ones that contain our desired model name
+                    whereProperty("name").contains(modelNameSubstring)
+                    children("models") {
+                        // and extract all root nodes, so Rooms and Courses, and their descendants
+                        children("rootNodes") {
+                            descendants { }
                         }
                     }
                 }
+            }
         })
         logger.info("Connection successful")
     }
