@@ -22,7 +22,7 @@ dependencies {
     implementation("io.ktor:ktor-client-core:$ktor_version")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("io.quarkus:quarkus-arc")
-    implementation("org.modelix:model-client:2.1.10-text.editor.8")
+    implementation("org.modelix:model-client")
 
     testImplementation("io.quarkus:quarkus-junit5")
     testImplementation("io.rest-assured:rest-assured")

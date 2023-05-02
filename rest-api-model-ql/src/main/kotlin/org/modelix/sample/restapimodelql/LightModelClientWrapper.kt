@@ -12,7 +12,7 @@ import org.modelix.model.server.api.buildModelQuery
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
-val logger: Logger = LoggerFactory.getLogger("org.modelix.sample.restapimodelql.ModelServerLightWrapper")
+private val logger: Logger = LoggerFactory.getLogger("org.modelix.sample.restapimodelql.ModelServerLightWrapper")
 
 class LightModelClientWrapper(
     private val host: String = "localhost",
@@ -95,6 +95,10 @@ class LightModelClientWrapper(
         return lightModelClient.runRead {
             body()
         }
+    }
+
+    fun getArea(): LightModelClient.Area {
+        return this.lightModelClient.Area()
     }
 
 }
