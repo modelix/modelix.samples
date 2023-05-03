@@ -9,6 +9,16 @@ import {MessageService} from '../message.service';
 import { UpdateService } from '../update.service';
 
 
+export interface RoomUpdate{
+    whatChanged: "ROOM";
+    change: {
+        roomRef: string  // "pnode:40000000b@courses",
+        name: string // "Eiaanstein",
+        maxPlaces: number // ":331113,"
+        hasRemoteEquipment: boolean //true
+    }
+}
+
 @Injectable({providedIn: 'root'})
 export class RoomService {
 
@@ -18,6 +28,20 @@ export class RoomService {
         private updateService: UpdateService) {
     }
 
+
+    updateRoom(room: Room): void {
+        const roomUpdate: RoomUpdate = {
+            whatChanged: "ROOM",
+            change: {
+                roomRef: room.roomRef,
+                name: room.name,
+                maxPlaces: room.maxPlaces,
+                hasRemoteEquipment: room.hasRemoteEquipment
+            }
+        }
+
+        this.updateService.sendUpdateSubject.next(JSON.stringify(roomUpdate))
+    }
 
     getRoomUpdates(): Observable<RoomList|Room> {
         return this.updateService.updateSubject.pipe(

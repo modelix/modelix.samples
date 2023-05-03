@@ -5,6 +5,7 @@ import { URLLibrary } from "./Container";
 @Injectable({providedIn: 'root'})
 export class UpdateService {
     public updateSubject: Subject<MessageEvent>;
+    public sendUpdateSubject: Subject<any> = new Subject();
 
     constructor() {
         this.updateSubject = this.connectWebSocket(URLLibrary.API_URL_UPDATES);
@@ -21,6 +22,10 @@ export class UpdateService {
 
         const subject: Subject<MessageEvent> = new Subject();
         observable.subscribe(subject);
+
+        this.sendUpdateSubject.subscribe(data => {
+            ws.send(data);
+        });
 
         return subject;
     }
