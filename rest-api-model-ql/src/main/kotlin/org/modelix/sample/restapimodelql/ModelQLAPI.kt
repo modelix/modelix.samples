@@ -8,7 +8,9 @@ import io.ktor.server.locations.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.websocket.*
+import org.modelix.client.light.LightClientNodeReference
 import org.modelix.client.light.LightModelClient
+import org.modelix.metamodel.typedReference
 import org.modelix.sample.restapimodelql.LightModelClientWrapper
 import org.modelix.sample.restapimodelql.Paths
 import org.modelix.sample.restapimodelql.models.Lecture
@@ -37,8 +39,8 @@ fun Route.ModelQLAPI(lightModelClientWrapper: LightModelClientWrapper) {
             LectureList(lectures = allLectures.map { lectureInstance ->
                 Lecture(name = lectureInstance.name,
                         description = lectureInstance.description,
-                        lectureRef = RouteHelper.urlEncode((lectureInstance.unwrap().reference as LightModelClient.NodeAdapter).nodeId),
-                        room = RouteHelper.urlEncode((lectureInstance.room.unwrap().reference as LightModelClient.NodeAdapter).nodeId),
+                        lectureRef = RouteHelper.urlEncode((lectureInstance.unwrap().reference as LightClientNodeReference).nodeId),
+                        room = RouteHelper.urlEncode((lectureInstance.room.unwrap().reference as LightClientNodeReference).nodeId),
                         maxParticipants = lectureInstance.maxParticipants)
             })
         }
@@ -52,8 +54,8 @@ fun Route.ModelQLAPI(lightModelClientWrapper: LightModelClientWrapper) {
             val lecture: Lecture = lightModelClientWrapper.runRead {
                 Lecture(name = resolvedLecture.name,
                         maxParticipants = resolvedLecture.maxParticipants,
-                        lectureRef = RouteHelper.urlEncode((resolvedLecture.unwrap().reference as LightModelClient.NodeAdapter).nodeId),
-                        room = RouteHelper.urlEncode((resolvedLecture.room.unwrap().reference as LightModelClient.NodeAdapter).nodeId),
+                        lectureRef = RouteHelper.urlEncode((resolvedLecture.unwrap().reference as LightClientNodeReference).nodeId),
+                        room = RouteHelper.urlEncode((resolvedLecture.room.unwrap().reference as LightClientNodeReference).nodeId),
                         description = resolvedLecture.description
                 )
             }
@@ -70,7 +72,7 @@ fun Route.ModelQLAPI(lightModelClientWrapper: LightModelClientWrapper) {
             RoomList(rooms = allRooms.map { roomInstance ->
                 Room(name = roomInstance.name,
                         maxPlaces = roomInstance.maxPlaces,
-                        roomRef = RouteHelper.urlEncode((roomInstance.unwrap().reference as LightModelClient.NodeAdapter).nodeId),
+                        roomRef = RouteHelper.urlEncode((roomInstance.typedReference().ref as LightClientNodeReference).nodeId),
                         hasRemoteEquipment = roomInstance.hasRemoteEquipment)
             })
         }
@@ -83,7 +85,7 @@ fun Route.ModelQLAPI(lightModelClientWrapper: LightModelClientWrapper) {
 
             val room: Room = lightModelClientWrapper.runRead {
                 Room(name = resolvedRoom.name,
-                        roomRef = RouteHelper.urlEncode((resolvedRoom.unwrap().reference as LightModelClient.NodeAdapter).nodeId),
+                        roomRef = RouteHelper.urlEncode((resolvedRoom.unwrap().reference as LightClientNodeReference).nodeId),
                         maxPlaces = resolvedRoom.maxPlaces,
                         hasRemoteEquipment = resolvedRoom.hasRemoteEquipment
                 )
