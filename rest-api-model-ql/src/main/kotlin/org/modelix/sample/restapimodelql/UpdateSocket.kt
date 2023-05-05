@@ -7,18 +7,23 @@ import University.Schedule.N_Rooms
 import com.google.gson.Gson
 import io.ktor.server.routing.*
 import io.ktor.server.websocket.*
+import io.ktor.utils.io.charsets.*
 import io.ktor.websocket.*
 import kotlinx.coroutines.channels.ClosedReceiveChannelException
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 import org.modelix.client.light.LightModelClient
 import org.modelix.metamodel.typed
 import org.modelix.model.api.INode
 import org.modelix.model.area.IAreaChangeList
 import org.modelix.model.area.IAreaListener
+import org.modelix.sample.restapimodelql.models.Room
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import java.net.URLDecoder
 import java.util.*
 import java.util.concurrent.atomic.AtomicInteger
 import kotlin.collections.LinkedHashSet
@@ -83,17 +88,34 @@ fun Route.UpdateSocketRoute(lightModelClientWrapper: LightModelClientWrapper) {
 
         try {
             while (true) {
-                for (frame in incoming) {
-                    // we ignore inputs from clients
+                when(val frame = incoming.receive()){
+                    is Frame.Text -> {
+
+                        println("NEW DATA: " + frame)
+//                        val changeNotification: ChangeNotification2 = Json.decodeFromString<ChangeNotification2>(frame.readText())
+
+                        val whatChanged = Json{ignoreUnknownKeys = true}.decodeFromString<ChangeNotification3>(frame.readText()).whatChanged
+                        when (whatChanged) {
+                            WhatChanged.ROOM -> lightModelClientWrapper.updateRoom(Json.decodeFromString<ChangeNotificationRoom>(frame.readText()).change as Rooom)
+                            WhatChanged.ROOM_LIST -> logger.debug("Not implemented yet")
+                            WhatChanged.LECTURE -> logger.debug("Not implemented yet")
+                            WhatChanged.LECTURE_LIST -> logger.debug("Not implemented yet")
+                            else -> logger.debug("Got unknown change, ignoring. [whatChanged={}]", whatChanged)
+                        }
+                        // TODO: broadcast the change to all clients after applying
+                        // send(Frame.Text(processRequest(text)))
+                    }
+                    else -> logger.debug("Got unknown frame on WS, ignoring. [frame={}]", frame)
                 }
-                delay(500)
+                // TODO: investigate if a delay is required at all?
+                // delay(500)
             }
         } catch (e: ClosedReceiveChannelException) {
             // closing a connection regularly
-            org.modelix.sample.restapijsonbulk.models.apis.logger.debug("Closing connection regularly ${closeReason.await()} [connection={}]", thisConnection.id)
+            logger.debug("Closing connection regularly ${closeReason.await()} [connection={}]", thisConnection.id)
         } catch (e: Throwable) {
             // closing a connection on error
-            org.modelix.sample.restapijsonbulk.models.apis.logger.warn("Closing connection after error. [connection={}, throwable={}]", thisConnection.id, e, e)
+            logger.warn("Closing connection after error. [connection={}, throwable={}]", thisConnection.id, e, e)
             e.printStackTrace()
         } finally {
             thisConnection.session.close()

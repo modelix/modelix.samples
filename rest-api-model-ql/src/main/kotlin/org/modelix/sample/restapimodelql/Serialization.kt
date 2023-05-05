@@ -2,6 +2,8 @@ package org.modelix.sample.restapimodelql
 
 import University.Schedule.N_Lecture
 import University.Schedule.N_Room
+import kotlinx.serialization.*
+import kotlinx.serialization.json.*
 import org.modelix.metamodel.typedReference
 import org.modelix.metamodel.untypedReference
 import org.modelix.model.api.serialize
@@ -54,14 +56,35 @@ fun List<N_Lecture>.toJson() = LectureList(this.mapNotNull {
     }
 })
 
+
+@Serializable
 enum class WhatChanged {
     ROOM,
     ROOM_LIST,
     LECTURE,
     LECTURE_LIST
 }
+@Serializable
+data class Rooom (
+    val roomRef: kotlin.String,
+    val name: kotlin.String,
+    val maxPlaces: kotlin.Int,
+    val hasRemoteEquipment: kotlin.Boolean? = false
+)
 
+@Serializable
+data class ChangeNotificationRoom(
+        val whatChanged: WhatChanged,
+        val change: Rooom
+)
+
+@Serializable
 data class ChangeNotification(
-    val whatChanged: WhatChanged,
-    val change: Any
+        val whatChanged: WhatChanged,
+        @Contextual val change:  Any
+)
+
+@Serializable
+data class ChangeNotification3(
+        val whatChanged: WhatChanged
 )

@@ -52,10 +52,7 @@ export class RoomDetailComponent implements OnInit {
 
     update(): void{
         this.roomService.updateRoom(Object.assign(new Room(), this.room));
-        //this.roomService.updateRoom(this.room);
-
     }
 
     favoriteColorControl = new FormControl('');
-
 }

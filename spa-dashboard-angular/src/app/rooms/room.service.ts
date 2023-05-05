@@ -4,20 +4,9 @@ import {HttpClient} from '@angular/common/http';
 import {Observable, of, map} from 'rxjs';
 import {catchError, filter, tap} from 'rxjs/operators';
 
-import {Room, RoomList, URLLibrary} from '../Container';
+import {Updatable, Room, RoomList, URLLibrary, WhatChanged, ChangeNotification} from '../Container';
 import {MessageService} from '../message.service';
 import { UpdateService } from '../update.service';
-
-
-export interface RoomUpdate{
-    whatChanged: "ROOM";
-    change: {
-        roomRef: string  // "pnode:40000000b@courses",
-        name: string // "Eiaanstein",
-        maxPlaces: number // ":331113,"
-        hasRemoteEquipment: boolean //true
-    }
-}
 
 @Injectable({providedIn: 'root'})
 export class RoomService {
@@ -28,19 +17,13 @@ export class RoomService {
         private updateService: UpdateService) {
     }
 
-
     updateRoom(room: Room): void {
-        const roomUpdate: RoomUpdate = {
-            whatChanged: "ROOM",
-            change: {
-                roomRef: room.roomRef,
-                name: room.name,
-                maxPlaces: room.maxPlaces,
-                hasRemoteEquipment: room.hasRemoteEquipment
-            }
+        const roomUpdate: ChangeNotification = {
+            whatChanged: WhatChanged.ROOM,
+            change: Object.assign(new Room(), room)
         }
-
         this.updateService.sendUpdateSubject.next(JSON.stringify(roomUpdate))
+        this.log(`sent room update roomRef=${(roomUpdate.change as Room).roomRef}`)
     }
 
     getRoomUpdates(): Observable<RoomList|Room> {
@@ -48,9 +31,9 @@ export class RoomService {
             tap(console.log),
             map(event => JSON.parse(event.data)),
             map(data => {
-                if (data.whatChanged === "ROOM_LIST") {
+                if (data.whatChanged === WhatChanged.ROOM_LIST) {
                     return Object.assign(new RoomList(), data.change);
-                } else if (data.whatChanged === "ROOM") {
+                } else if (data.whatChanged === WhatChanged.ROOM) {
                     return Object.assign(new Room(), data.change);
                 } else {
                     return null;

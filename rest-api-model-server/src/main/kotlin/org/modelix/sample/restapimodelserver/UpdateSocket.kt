@@ -12,10 +12,7 @@ import org.modelix.model.area.PArea
 import org.modelix.model.client.ReplicatedRepository
 import org.slf4j.LoggerFactory
 import javax.enterprise.context.ApplicationScoped
-import javax.websocket.OnClose
-import javax.websocket.OnError
-import javax.websocket.OnOpen
-import javax.websocket.Session
+import javax.websocket.*
 import javax.websocket.server.ServerEndpoint
 
 @ServerEndpoint("/updates")
@@ -106,6 +103,13 @@ class UpdateSocket(private val repo: ReplicatedRepository, private val mapper: O
     fun onError(session: Session, throwable: Throwable) {
         logger.warn("Closing session after error. [session={}, throwable={}]", session, throwable, throwable)
         sessions.remove(session)
+    }
+
+    @OnMessage
+    fun onMessage(session: Session, message: String) {
+//        val msg: ChangeNotification = ObjectMapper().readValue(message, ChangeNotification::class.java)
+        logger.warn("New Message [session={} message={}]", session, message)
+        broadcast(message)
     }
 
 }
