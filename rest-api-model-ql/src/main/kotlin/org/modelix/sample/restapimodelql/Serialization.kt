@@ -2,8 +2,12 @@ package org.modelix.sample.restapimodelql
 
 import University.Schedule.N_Lecture
 import University.Schedule.N_Room
-import kotlinx.serialization.*
-import kotlinx.serialization.json.*
+import com.google.gson.Gson
+import com.google.gson.JsonDeserializationContext
+import com.google.gson.JsonDeserializer
+import com.google.gson.JsonElement
+import com.google.gson.JsonObject
+import com.google.gson.JsonParseException
 import org.modelix.metamodel.typedReference
 import org.modelix.metamodel.untypedReference
 import org.modelix.model.api.serialize
@@ -12,6 +16,7 @@ import org.modelix.sample.restapimodelql.models.LectureList
 import org.modelix.sample.restapimodelql.models.Room
 import org.modelix.sample.restapimodelql.models.RoomList
 import org.slf4j.LoggerFactory
+import java.lang.reflect.Type
 
 private val logger = LoggerFactory.getLogger("Serialization")
 
@@ -56,35 +61,38 @@ fun List<N_Lecture>.toJson() = LectureList(this.mapNotNull {
     }
 })
 
-
-@Serializable
 enum class WhatChanged {
     ROOM,
     ROOM_LIST,
     LECTURE,
     LECTURE_LIST
 }
-@Serializable
-data class Rooom (
-    val roomRef: kotlin.String,
-    val name: kotlin.String,
-    val maxPlaces: kotlin.Int,
-    val hasRemoteEquipment: kotlin.Boolean? = false
-)
 
-@Serializable
-data class ChangeNotificationRoom(
-        val whatChanged: WhatChanged,
-        val change: Rooom
-)
-
-@Serializable
 data class ChangeNotification(
         val whatChanged: WhatChanged,
-        @Contextual val change:  Any
+        val change:  Any
 )
 
-@Serializable
-data class ChangeNotification3(
-        val whatChanged: WhatChanged
-)
+internal class ChangeNotificationDeserializer() : JsonDeserializer<ChangeNotification> {
+
+    private var gson: Gson = Gson()
+    private var changeTypeRegistry: MutableMap<WhatChanged, Class<out Any?>> = HashMap()
+    private var changeTypeElementName: String = "whatChanged"
+
+    fun registerChangeType(changeTypeName: WhatChanged, changeType: Class<out Any?>) {
+        changeTypeRegistry[changeTypeName] = changeType
+    }
+
+    override fun deserialize(json: JsonElement?, typeOfT: Type?, context: JsonDeserializationContext?): ChangeNotification {
+        val changeNotificationObject: JsonObject = json!!.asJsonObject
+
+        return when (val whatChanged: WhatChanged = WhatChanged.valueOf(changeNotificationObject[changeTypeElementName].asString)) {
+            WhatChanged.ROOM -> ChangeNotification(whatChanged = whatChanged , change = gson.fromJson(changeNotificationObject["change"], Room::class.java))
+            WhatChanged.ROOM_LIST -> ChangeNotification(whatChanged = whatChanged , change = gson.fromJson(changeNotificationObject["change"], RoomList::class.java))
+            WhatChanged.LECTURE -> ChangeNotification(whatChanged = whatChanged , change = gson.fromJson(changeNotificationObject["change"], Lecture::class.java))
+            WhatChanged.LECTURE_LIST -> ChangeNotification(whatChanged = whatChanged , change = gson.fromJson(changeNotificationObject["change"], LectureList::class.java))
+            else -> throw  JsonParseException("Malformed data: $json")
+        }
+
+    }
+}

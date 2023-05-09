@@ -15,6 +15,10 @@
         <dd class="property-list__value"><input type="number" [(ngModel)]="lecture.maxParticipants" (blur)="update()"></dd>
     </dl>
     <dl class="property-list">
+        <dt class="property-list__key">Description</dt>
+        <dd class="property-list__value"><textarea [(ngModel)]="lecture.description" name="Description" mdInput  rows="5" (blur)="update()"></textarea></dd>
+    </dl>
+    <dl class="property-list">
         <dt class="property-list__key">Is in Room</dt>
         <dd class="property-list__value,code"><a routerLink="/rooms/{{lecture.room}}">
             <span class="badge">{{lecture.room}}</span> {{lecture.room}}

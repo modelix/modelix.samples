@@ -15,6 +15,7 @@ import org.modelix.model.repositoryconcepts.N_Repository
 import org.modelix.model.repositoryconcepts.models
 import org.modelix.model.repositoryconcepts.rootNodes
 import org.modelix.model.server.api.buildModelQuery
+import org.modelix.sample.restapimodelql.models.Lecture
 import org.modelix.sample.restapimodelql.models.Room
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -116,7 +117,7 @@ class LightModelClientWrapper(
 
 
 
-    suspend fun updateRoom(newRoom: Rooom){
+    suspend fun updateRoom(newRoom: Room){
         var result: N_Room? = null
         val root = lightModelClient.waitForRootNode()
         if (root != null) {
@@ -134,6 +135,32 @@ class LightModelClientWrapper(
                 result.name = newRoom.name
                 result.maxPlaces = newRoom.maxPlaces
                 result.hasRemoteEquipment = newRoom.hasRemoteEquipment!!
+            }
+        }
+    }
+    suspend fun updateLecture(newLecture: Lecture){
+        println("UPDATE LECTURE")
+        var result: N_Lecture? = null
+        val root = lightModelClient.waitForRootNode()
+        if (root != null) {
+
+            var decodedReference = URLDecoder.decode(newLecture.lectureRef, Charset.defaultCharset())
+            val result = resolveNodeIdToConcept(decodedReference) as N_Lecture
+
+            var decodedRoomReference = URLDecoder.decode(newLecture.room, Charset.defaultCharset())
+            val roomRefConcept = resolveNodeIdToConcept(decodedRoomReference) as N_Room
+            // TODO: test ways to resolve concept
+            // "the right way"
+            //INodeReferenceSerializer.deserialize(actualRef).resolveNode(lightModelClient.getRootNode()?.getArea())
+
+            // warning this is not performant!
+            // root.typed<N_Repository>().descendants(true).ofType<N_Room>()
+
+            lightModelClient.runWrite {
+                result.name = newLecture.name
+                result.description = newLecture.description
+                result.room = roomRefConcept
+                result.maxParticipants = newLecture.maxParticipants
             }
         }
     }

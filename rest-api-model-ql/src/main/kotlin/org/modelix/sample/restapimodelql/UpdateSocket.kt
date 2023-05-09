@@ -5,28 +5,26 @@ import University.Schedule.N_Lecture
 import University.Schedule.N_Room
 import University.Schedule.N_Rooms
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import io.ktor.server.routing.*
 import io.ktor.server.websocket.*
+import io.ktor.util.Identity.decode
 import io.ktor.utils.io.charsets.*
 import io.ktor.websocket.*
 import kotlinx.coroutines.channels.ClosedReceiveChannelException
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import org.modelix.client.light.LightModelClient
 import org.modelix.metamodel.typed
 import org.modelix.model.api.INode
 import org.modelix.model.area.IAreaChangeList
 import org.modelix.model.area.IAreaListener
+import org.modelix.sample.restapimodelql.models.Lecture
 import org.modelix.sample.restapimodelql.models.Room
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import java.net.URLDecoder
 import java.util.*
 import java.util.concurrent.atomic.AtomicInteger
-import kotlin.collections.LinkedHashSet
 
 private val logger: Logger = LoggerFactory.getLogger(Connection::class.java)
 
@@ -43,6 +41,13 @@ fun Route.UpdateSocketRoute(lightModelClientWrapper: LightModelClientWrapper) {
     // the list of connections to the update socket
     val connections = Collections.synchronizedSet<Connection?>(LinkedHashSet())
 
+    val deserializer = ChangeNotificationDeserializer()
+    deserializer.registerChangeType(WhatChanged.ROOM, Room::class.java)
+    deserializer.registerChangeType(WhatChanged.LECTURE, Room::class.java)
+
+    val gson: Gson = GsonBuilder().registerTypeAdapter(ChangeNotification::class.java, deserializer).create()
+
+
     suspend fun broadcast(data: String) {
         connections.forEach {
             try {
@@ -55,10 +60,10 @@ fun Route.UpdateSocketRoute(lightModelClientWrapper: LightModelClientWrapper) {
 
     suspend fun handleChange(node: INode) {
         when (node.typed()) {
-            is N_Room -> broadcast(Gson().toJson(ChangeNotification(WhatChanged.ROOM, node.typed<N_Room>().toJson())))
-            is N_Rooms -> broadcast(Gson().toJson(ChangeNotification(WhatChanged.ROOM_LIST, node.typed<N_Rooms>().rooms.toList().toJson())))
-            is N_Lecture -> broadcast(Gson().toJson(ChangeNotification(WhatChanged.LECTURE, node.typed<N_Lecture>().toJson())))
-            is N_Courses -> broadcast(Gson().toJson(ChangeNotification(WhatChanged.LECTURE_LIST, node.typed<N_Courses>().lectures.toList().toJson())))
+            is N_Room -> broadcast(gson.toJson(ChangeNotification(WhatChanged.ROOM, node.typed<N_Room>().toJson())))
+            is N_Rooms -> broadcast(gson.toJson(ChangeNotification(WhatChanged.ROOM_LIST, node.typed<N_Rooms>().rooms.toList().toJson())))
+            is N_Lecture -> broadcast(gson.toJson(ChangeNotification(WhatChanged.LECTURE, node.typed<N_Lecture>().toJson())))
+            is N_Courses -> broadcast(gson.toJson(ChangeNotification(WhatChanged.LECTURE_LIST, node.typed<N_Courses>().lectures.toList().toJson())))
             else -> logger.warn("Could not handle change")
         }
     }
@@ -94,14 +99,27 @@ fun Route.UpdateSocketRoute(lightModelClientWrapper: LightModelClientWrapper) {
                         println("NEW DATA: " + frame)
 //                        val changeNotification: ChangeNotification2 = Json.decodeFromString<ChangeNotification2>(frame.readText())
 
-                        val whatChanged = Json{ignoreUnknownKeys = true}.decodeFromString<ChangeNotification3>(frame.readText()).whatChanged
-                        when (whatChanged) {
-                            WhatChanged.ROOM -> lightModelClientWrapper.updateRoom(Json.decodeFromString<ChangeNotificationRoom>(frame.readText()).change as Rooom)
+                        val cn: ChangeNotification = gson.fromJson(frame.readText(), ChangeNotification::class.java)
+
+                        when (cn.whatChanged){
+                            WhatChanged.ROOM -> lightModelClientWrapper.updateRoom(cn.change as Room)
                             WhatChanged.ROOM_LIST -> logger.debug("Not implemented yet")
-                            WhatChanged.LECTURE -> logger.debug("Not implemented yet")
+                            WhatChanged.LECTURE -> lightModelClientWrapper.updateLecture(cn.change as Lecture)
                             WhatChanged.LECTURE_LIST -> logger.debug("Not implemented yet")
-                            else -> logger.debug("Got unknown change, ignoring. [whatChanged={}]", whatChanged)
+                            else -> logger.debug("Got unknown change, ignoring. [whatChanged={}]", cn.whatChanged)
                         }
+
+
+                        //old
+//                        val whatChanged = Json{ignoreUnknownKeys = true}.decodeFromString<ChangeNotification3>(frame.readText()).whatChanged
+//                        when (whatChanged) {
+//                            WhatChanged.ROOM -> lightModelClientWrapper.updateRoom(Json.decodeFromString<ChangeNotificationRoom>(frame.readText()).change as Rooom)
+//                            WhatChanged.ROOM_LIST -> logger.debug("Not implemented yet")
+//                            WhatChanged.LECTURE -> logger.debug("Not implemented yet")
+//                            WhatChanged.LECTURE_LIST -> logger.debug("Not implemented yet")
+//                            else -> logger.debug("Got unknown change, ignoring. [whatChanged={}]", whatChanged)
+//                        }
+
                         // TODO: broadcast the change to all clients after applying
                         // send(Frame.Text(processRequest(text)))
                     }
