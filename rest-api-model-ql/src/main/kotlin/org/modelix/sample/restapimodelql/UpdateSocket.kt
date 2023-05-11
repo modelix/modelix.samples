@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory
 import java.util.*
 import java.util.concurrent.atomic.AtomicInteger
 
-private val logger: Logger = LoggerFactory.getLogger(Connection::class.java)
+private val logger: Logger = LoggerFactory.getLogger("UpdateSocket")
 
 class Connection(val session: DefaultWebSocketSession) {
     companion object {
@@ -82,6 +82,8 @@ fun Route.UpdateSocketRoute(lightModelClientWrapper: LightModelClientWrapper) {
         }
     })
 
+    // the updates websocket is able to send and receive changes to the model
+    // whatever is transmitted is expected to be a ChangeNotification
     webSocket("/updates") {
 
         // adding a new connection when a new client shows up
@@ -103,12 +105,12 @@ fun Route.UpdateSocketRoute(lightModelClientWrapper: LightModelClientWrapper) {
                             else -> logger.debug("Got unknown change, ignoring. [whatChanged={}, change={}]", changeNotification.whatChanged, changeNotification.change)
                         }
 
-                        // TODO: broadcast the change to all clients after applying
+                        // once we processed the changes, we broadcast them to all registered clients to keep them in sync
                         broadcast(frame.readText())
                     }
                     else -> logger.debug("Got unknown frame on WS, ignoring. [frame={}]", frame)
                 }
-                // TODO: investigate if a delay is required at all?
+                // TODO: investigate if a delay is required
                 // delay(500)
             }
         } catch (e: ClosedReceiveChannelException) {

@@ -15,12 +15,8 @@ import org.modelix.sample.restapimodelql.models.Lecture
 import org.modelix.sample.restapimodelql.models.LectureList
 import org.modelix.sample.restapimodelql.models.Room
 import org.modelix.sample.restapimodelql.models.RoomList
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import java.net.URLEncoder
 import java.nio.charset.Charset
-
-val logger: Logger = LoggerFactory.getLogger("org.modelix.sample.restapimodelql.ModelQLAPI")
 
 object RouteHelper {
     @JvmStatic

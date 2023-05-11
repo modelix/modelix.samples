@@ -2,12 +2,7 @@ package org.modelix.sample.restapimodelql
 
 import University.Schedule.N_Lecture
 import University.Schedule.N_Room
-import com.google.gson.Gson
-import com.google.gson.JsonDeserializationContext
-import com.google.gson.JsonDeserializer
-import com.google.gson.JsonElement
-import com.google.gson.JsonObject
-import com.google.gson.JsonParseException
+import com.google.gson.*
 import org.modelix.metamodel.typedReference
 import org.modelix.metamodel.untypedReference
 import org.modelix.model.api.serialize
@@ -61,18 +56,26 @@ fun List<N_Lecture>.toJson() = LectureList(this.mapNotNull {
     }
 })
 
+/**
+ * A data class to represent the type of change that was sent/received by the websocket
+ */
 enum class WhatChanged {
     ROOM,
     ROOM_LIST,
     LECTURE,
     LECTURE_LIST
 }
-
+/**
+ * A data class to represent the change notification sent/received by the update websocket
+ */
 data class ChangeNotification(
         val whatChanged: WhatChanged,
         val change:  Any
 )
-
+/**
+ * A Gson deserializer which can distinguish between the different WhatChanged types.
+ * Will return the deserialized ChangeNotification
+ */
 class ChangeNotificationDeserializer() : JsonDeserializer<ChangeNotification> {
 
     private var gson: Gson = Gson()
@@ -91,7 +94,6 @@ class ChangeNotificationDeserializer() : JsonDeserializer<ChangeNotification> {
             WhatChanged.ROOM_LIST -> ChangeNotification(whatChanged, gson.fromJson(changeNotificationObject["change"], RoomList::class.java))
             WhatChanged.LECTURE -> ChangeNotification(whatChanged, gson.fromJson(changeNotificationObject["change"], Lecture::class.java))
             WhatChanged.LECTURE_LIST -> ChangeNotification(whatChanged, gson.fromJson(changeNotificationObject["change"], LectureList::class.java))
-            else -> throw  JsonParseException("Malformed data: $json")
         }
     }
 }

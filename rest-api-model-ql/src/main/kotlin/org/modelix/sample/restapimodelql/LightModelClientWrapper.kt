@@ -1,15 +1,10 @@
 package org.modelix.sample.restapimodelql
 
 import University.Schedule.*
-import io.ktor.server.routing.*
 import io.ktor.utils.io.charsets.*
 import jetbrains.mps.lang.core.N_BaseConcept
-import kotlinx.coroutines.launch
 import org.modelix.client.light.LightModelClient
-import org.modelix.metamodel.*
-import org.modelix.model.api.INodeReference
-import org.modelix.model.api.INodeReferenceSerializer
-import org.modelix.model.api.serialize
+import org.modelix.metamodel.typed
 import org.modelix.model.repositoryconcepts.N_Module
 import org.modelix.model.repositoryconcepts.N_Repository
 import org.modelix.model.repositoryconcepts.models
@@ -23,8 +18,11 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.net.URLDecoder
 
-private val logger: Logger = LoggerFactory.getLogger("org.modelix.sample.restapimodelql.ModelServerLightWrapper")
+private val logger: Logger = LoggerFactory.getLogger("LightModelClientWrapper")
 
+/**
+ * A wrapper for the LightModelClient which holds the model query executed on the model storage.
+ */
 class LightModelClientWrapper(
     private val host: String = "localhost",
     private val port: Int = 48302,
@@ -118,13 +116,14 @@ class LightModelClientWrapper(
     }
 
 
-
     suspend fun updateRooms(newRoomList: RoomList){
         newRoomList.rooms?.forEach { updateRoom(it) }
     }
 
+    /**
+     * Update a given room by writing to the storage using the LightModelClient.
+     */
     suspend fun updateRoom(newRoom: Room){
-        val root = lightModelClient.waitForRootNode() ?: return
         val decodedReference = URLDecoder.decode(newRoom.roomRef, Charset.defaultCharset())
         val result = resolveNodeIdToConcept(decodedReference) as N_Room
 
@@ -133,12 +132,14 @@ class LightModelClientWrapper(
         //INodeReferenceSerializer.deserialize(actualRef).resolveNode(lightModelClient.getRootNode()?.getArea())
 
         // warning this is not performant!
+        // val root = lightModelClient.waitForRootNode() ?: return
         // root.typed<N_Repository>().descendants(true).ofType<N_Room>()
 
         lightModelClient.runWrite {
             result.name = newRoom.name
             result.maxPlaces = newRoom.maxPlaces
             result.hasRemoteEquipment = newRoom.hasRemoteEquipment!!
+            logger.info("Updated Room '${newRoom.roomRef}'")
         }
     }
 
@@ -146,9 +147,10 @@ class LightModelClientWrapper(
         newLectureList.lectures?.forEach { updateLecture(it) }
     }
 
+    /**
+     * Update a given lecture by writing to the storage using the LightModelClient.
+     */
     suspend fun updateLecture(newLecture: Lecture){
-        println("UPDATE LECTURE")
-        val root = lightModelClient.waitForRootNode() ?: return
 
         val decodedReference = URLDecoder.decode(newLecture.lectureRef, Charset.defaultCharset())
         val result = resolveNodeIdToConcept(decodedReference) as N_Lecture
@@ -161,8 +163,7 @@ class LightModelClientWrapper(
             result.description = newLecture.description
             result.room = roomRefConcept
             result.maxParticipants = newLecture.maxParticipants
+            logger.info("Updated Lecture '${newLecture.lectureRef}'")
         }
-
     }
-
 }
