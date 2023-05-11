@@ -118,7 +118,6 @@ class LightModelClientWrapper(
 
 
     suspend fun updateRoom(newRoom: Room){
-        var result: N_Room? = null
         val root = lightModelClient.waitForRootNode()
         if (root != null) {
 
@@ -140,7 +139,6 @@ class LightModelClientWrapper(
     }
     suspend fun updateLecture(newLecture: Lecture){
         println("UPDATE LECTURE")
-        var result: N_Lecture? = null
         val root = lightModelClient.waitForRootNode()
         if (root != null) {
 

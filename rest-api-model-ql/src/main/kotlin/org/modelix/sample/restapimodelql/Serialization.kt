@@ -87,10 +87,10 @@ internal class ChangeNotificationDeserializer() : JsonDeserializer<ChangeNotific
         val changeNotificationObject: JsonObject = json!!.asJsonObject
 
         return when (val whatChanged: WhatChanged = WhatChanged.valueOf(changeNotificationObject[changeTypeElementName].asString)) {
-            WhatChanged.ROOM -> ChangeNotification(whatChanged = whatChanged , change = gson.fromJson(changeNotificationObject["change"], Room::class.java))
-            WhatChanged.ROOM_LIST -> ChangeNotification(whatChanged = whatChanged , change = gson.fromJson(changeNotificationObject["change"], RoomList::class.java))
-            WhatChanged.LECTURE -> ChangeNotification(whatChanged = whatChanged , change = gson.fromJson(changeNotificationObject["change"], Lecture::class.java))
-            WhatChanged.LECTURE_LIST -> ChangeNotification(whatChanged = whatChanged , change = gson.fromJson(changeNotificationObject["change"], LectureList::class.java))
+            WhatChanged.ROOM -> ChangeNotification(whatChanged,  gson.fromJson(changeNotificationObject["change"], Room::class.java))
+            WhatChanged.ROOM_LIST -> ChangeNotification(whatChanged, gson.fromJson(changeNotificationObject["change"], RoomList::class.java))
+            WhatChanged.LECTURE -> ChangeNotification(whatChanged, gson.fromJson(changeNotificationObject["change"], Lecture::class.java))
+            WhatChanged.LECTURE_LIST -> ChangeNotification(whatChanged, gson.fromJson(changeNotificationObject["change"], LectureList::class.java))
             else -> throw  JsonParseException("Malformed data: $json")
         }
 
