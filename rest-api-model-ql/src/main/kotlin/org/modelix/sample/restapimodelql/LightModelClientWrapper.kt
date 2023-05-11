@@ -16,7 +16,9 @@ import org.modelix.model.repositoryconcepts.models
 import org.modelix.model.repositoryconcepts.rootNodes
 import org.modelix.model.server.api.buildModelQuery
 import org.modelix.sample.restapimodelql.models.Lecture
+import org.modelix.sample.restapimodelql.models.LectureList
 import org.modelix.sample.restapimodelql.models.Room
+import org.modelix.sample.restapimodelql.models.RoomList
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.net.URLDecoder
@@ -117,50 +119,50 @@ class LightModelClientWrapper(
 
 
 
+    suspend fun updateRooms(newRoomList: RoomList){
+        newRoomList.rooms?.forEach { updateRoom(it) }
+    }
+
     suspend fun updateRoom(newRoom: Room){
-        val root = lightModelClient.waitForRootNode()
-        if (root != null) {
+        val root = lightModelClient.waitForRootNode() ?: return
+        val decodedReference = URLDecoder.decode(newRoom.roomRef, Charset.defaultCharset())
+        val result = resolveNodeIdToConcept(decodedReference) as N_Room
 
-            var decodedReference = URLDecoder.decode(newRoom.roomRef, Charset.defaultCharset())
-            val result = resolveNodeIdToConcept(decodedReference) as N_Room
-            // test these
-            // "the right way"
-            //INodeReferenceSerializer.deserialize(actualRef).resolveNode(lightModelClient.getRootNode()?.getArea())
+        // TODO: test ways to resolve concept
+        // "the right way"
+        //INodeReferenceSerializer.deserialize(actualRef).resolveNode(lightModelClient.getRootNode()?.getArea())
 
-            // warning not performant!
-            // root.typed<N_Repository>().descendants(true).ofType<N_Room>()
+        // warning this is not performant!
+        // root.typed<N_Repository>().descendants(true).ofType<N_Room>()
 
-            lightModelClient.runWrite {
-                result.name = newRoom.name
-                result.maxPlaces = newRoom.maxPlaces
-                result.hasRemoteEquipment = newRoom.hasRemoteEquipment!!
-            }
+        lightModelClient.runWrite {
+            result.name = newRoom.name
+            result.maxPlaces = newRoom.maxPlaces
+            result.hasRemoteEquipment = newRoom.hasRemoteEquipment!!
         }
     }
+
+    suspend fun updateLectures(newLectureList: LectureList){
+        newLectureList.lectures?.forEach { updateLecture(it) }
+    }
+
     suspend fun updateLecture(newLecture: Lecture){
         println("UPDATE LECTURE")
-        val root = lightModelClient.waitForRootNode()
-        if (root != null) {
+        val root = lightModelClient.waitForRootNode() ?: return
 
-            var decodedReference = URLDecoder.decode(newLecture.lectureRef, Charset.defaultCharset())
-            val result = resolveNodeIdToConcept(decodedReference) as N_Lecture
+        val decodedReference = URLDecoder.decode(newLecture.lectureRef, Charset.defaultCharset())
+        val result = resolveNodeIdToConcept(decodedReference) as N_Lecture
 
-            var decodedRoomReference = URLDecoder.decode(newLecture.room, Charset.defaultCharset())
-            val roomRefConcept = resolveNodeIdToConcept(decodedRoomReference) as N_Room
-            // TODO: test ways to resolve concept
-            // "the right way"
-            //INodeReferenceSerializer.deserialize(actualRef).resolveNode(lightModelClient.getRootNode()?.getArea())
+        val decodedRoomReference = URLDecoder.decode(newLecture.room, Charset.defaultCharset())
+        val roomRefConcept = resolveNodeIdToConcept(decodedRoomReference) as N_Room
 
-            // warning this is not performant!
-            // root.typed<N_Repository>().descendants(true).ofType<N_Room>()
-
-            lightModelClient.runWrite {
-                result.name = newLecture.name
-                result.description = newLecture.description
-                result.room = roomRefConcept
-                result.maxParticipants = newLecture.maxParticipants
-            }
+        lightModelClient.runWrite {
+            result.name = newLecture.name
+            result.description = newLecture.description
+            result.room = roomRefConcept
+            result.maxParticipants = newLecture.maxParticipants
         }
+
     }
 
 }

@@ -7,9 +7,7 @@ import io.ktor.server.application.*
 import io.ktor.server.locations.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import io.ktor.server.websocket.*
 import org.modelix.client.light.LightClientNodeReference
-import org.modelix.client.light.LightModelClient
 import org.modelix.metamodel.typedReference
 import org.modelix.sample.restapimodelql.LightModelClientWrapper
 import org.modelix.sample.restapimodelql.Paths

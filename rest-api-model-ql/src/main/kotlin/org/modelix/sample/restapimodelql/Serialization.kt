@@ -73,7 +73,7 @@ data class ChangeNotification(
         val change:  Any
 )
 
-internal class ChangeNotificationDeserializer() : JsonDeserializer<ChangeNotification> {
+class ChangeNotificationDeserializer() : JsonDeserializer<ChangeNotification> {
 
     private var gson: Gson = Gson()
     private var changeTypeRegistry: MutableMap<WhatChanged, Class<out Any?>> = HashMap()
@@ -93,6 +93,5 @@ internal class ChangeNotificationDeserializer() : JsonDeserializer<ChangeNotific
             WhatChanged.LECTURE_LIST -> ChangeNotification(whatChanged, gson.fromJson(changeNotificationObject["change"], LectureList::class.java))
             else -> throw  JsonParseException("Malformed data: $json")
         }
-
     }
 }

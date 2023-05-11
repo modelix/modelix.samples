@@ -8,19 +8,17 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import io.ktor.server.routing.*
 import io.ktor.server.websocket.*
-import io.ktor.util.Identity.decode
-import io.ktor.utils.io.charsets.*
 import io.ktor.websocket.*
 import kotlinx.coroutines.channels.ClosedReceiveChannelException
 import kotlinx.coroutines.launch
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.json.Json
 import org.modelix.metamodel.typed
 import org.modelix.model.api.INode
 import org.modelix.model.area.IAreaChangeList
 import org.modelix.model.area.IAreaListener
 import org.modelix.sample.restapimodelql.models.Lecture
+import org.modelix.sample.restapimodelql.models.LectureList
 import org.modelix.sample.restapimodelql.models.Room
+import org.modelix.sample.restapimodelql.models.RoomList
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.util.*
@@ -32,7 +30,6 @@ class Connection(val session: DefaultWebSocketSession) {
     companion object {
         val lastId = AtomicInteger(0)
     }
-
     val id = "${lastId.getAndIncrement()}"
 }
 
@@ -41,12 +38,14 @@ fun Route.UpdateSocketRoute(lightModelClientWrapper: LightModelClientWrapper) {
     // the list of connections to the update socket
     val connections = Collections.synchronizedSet<Connection?>(LinkedHashSet())
 
+    // we register our custom deserializers for the various ChangeNotifications
     val deserializer = ChangeNotificationDeserializer()
     deserializer.registerChangeType(WhatChanged.ROOM, Room::class.java)
-    deserializer.registerChangeType(WhatChanged.LECTURE, Room::class.java)
+    deserializer.registerChangeType(WhatChanged.ROOM_LIST, RoomList::class.java)
+    deserializer.registerChangeType(WhatChanged.LECTURE, Lecture::class.java)
+    deserializer.registerChangeType(WhatChanged.LECTURE_LIST, LectureList::class.java)
 
     val gson: Gson = GsonBuilder().registerTypeAdapter(ChangeNotification::class.java, deserializer).create()
-
 
     suspend fun broadcast(data: String) {
         connections.forEach {
@@ -68,7 +67,6 @@ fun Route.UpdateSocketRoute(lightModelClientWrapper: LightModelClientWrapper) {
         }
     }
 
-
     // add the listener to the light model client
     lightModelClientWrapper.getArea().addListener(object : IAreaListener {
         override fun areaChanged(changes: IAreaChangeList) {
@@ -86,7 +84,7 @@ fun Route.UpdateSocketRoute(lightModelClientWrapper: LightModelClientWrapper) {
 
     webSocket("/updates") {
 
-        // adding a new connection
+        // adding a new connection when a new client shows up
         val thisConnection = Connection(this)
         logger.debug("Opening new update socket connection. [connection={}]", thisConnection.id)
         connections += thisConnection
@@ -95,33 +93,18 @@ fun Route.UpdateSocketRoute(lightModelClientWrapper: LightModelClientWrapper) {
             while (true) {
                 when(val frame = incoming.receive()){
                     is Frame.Text -> {
-
-                        println("NEW DATA: " + frame)
-//                        val changeNotification: ChangeNotification2 = Json.decodeFromString<ChangeNotification2>(frame.readText())
-
-                        val cn: ChangeNotification = gson.fromJson(frame.readText(), ChangeNotification::class.java)
-
-                        when (cn.whatChanged){
-                            WhatChanged.ROOM -> lightModelClientWrapper.updateRoom(cn.change as Room)
-                            WhatChanged.ROOM_LIST -> logger.debug("Not implemented yet")
-                            WhatChanged.LECTURE -> lightModelClientWrapper.updateLecture(cn.change as Lecture)
-                            WhatChanged.LECTURE_LIST -> logger.debug("Not implemented yet")
-                            else -> logger.debug("Got unknown change, ignoring. [whatChanged={}]", cn.whatChanged)
+                        // we iterate over all incoming messages and handle the supported change notifications
+                        var changeNotification: ChangeNotification = gson.fromJson(frame.readText(), ChangeNotification::class.java)
+                        when (changeNotification.whatChanged){
+                            WhatChanged.ROOM -> lightModelClientWrapper.updateRoom(changeNotification.change as Room)
+                            WhatChanged.ROOM_LIST -> lightModelClientWrapper.updateRooms(changeNotification.change as RoomList)
+                            WhatChanged.LECTURE -> lightModelClientWrapper.updateLecture(changeNotification.change as Lecture)
+                            WhatChanged.LECTURE_LIST -> lightModelClientWrapper.updateLectures(changeNotification.change as LectureList)
+                            else -> logger.debug("Got unknown change, ignoring. [whatChanged={}, change={}]", changeNotification.whatChanged, changeNotification.change)
                         }
 
-
-                        //old
-//                        val whatChanged = Json{ignoreUnknownKeys = true}.decodeFromString<ChangeNotification3>(frame.readText()).whatChanged
-//                        when (whatChanged) {
-//                            WhatChanged.ROOM -> lightModelClientWrapper.updateRoom(Json.decodeFromString<ChangeNotificationRoom>(frame.readText()).change as Rooom)
-//                            WhatChanged.ROOM_LIST -> logger.debug("Not implemented yet")
-//                            WhatChanged.LECTURE -> logger.debug("Not implemented yet")
-//                            WhatChanged.LECTURE_LIST -> logger.debug("Not implemented yet")
-//                            else -> logger.debug("Got unknown change, ignoring. [whatChanged={}]", whatChanged)
-//                        }
-
                         // TODO: broadcast the change to all clients after applying
-                        // send(Frame.Text(processRequest(text)))
+                        broadcast(frame.readText())
                     }
                     else -> logger.debug("Got unknown frame on WS, ignoring. [frame={}]", frame)
                 }
