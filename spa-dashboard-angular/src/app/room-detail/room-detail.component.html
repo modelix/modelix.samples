@@ -9,11 +9,11 @@
     </dl>
     <dl class="property-list">
         <dt class="property-list__key">Room name</dt>
-        <dd class="property-list__value"><input type="text" [(ngModel)]="room.name" (blur)="update()"></dd>
+        <dd class="property-list__value"><input type="text" [(ngModel)]="room.name" (keyup)="update()"></dd>
     </dl>
     <dl class="property-list">
         <dt class="property-list__key">Max places</dt>
-        <dd class="property-list__value"><input type="number" [(ngModel)]="room.maxPlaces" (blur)="update()"></dd>
+        <dd class="property-list__value"><input type="number" [(ngModel)]="room.maxPlaces" (keyup)="update()"></dd>
     </dl>
     <dl class="property-list">
         <dt class="property-list__key">Has remote equipment:</dt>

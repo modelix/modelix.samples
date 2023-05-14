@@ -8,15 +8,15 @@
     </dl>
     <dl class="property-list">
         <dt class="property-list__key">Lecture name</dt>
-        <dd class="property-list__value"><input type="text" [(ngModel)]="lecture.name" (blur)="update()"></dd>
+        <dd class="property-list__value"><input type="text" [(ngModel)]="lecture.name" (keyup)="update()"></dd>
     </dl>
     <dl class="property-list">
         <dt class="property-list__key">Max participants</dt>
-        <dd class="property-list__value"><input type="number" [(ngModel)]="lecture.maxParticipants" (blur)="update()"></dd>
+        <dd class="property-list__value"><input type="number" [(ngModel)]="lecture.maxParticipants" (keyup)="update()"></dd>
     </dl>
     <dl class="property-list">
         <dt class="property-list__key">Description</dt>
-        <dd class="property-list__value"><textarea [(ngModel)]="lecture.description" name="Description" mdInput  rows="5" (blur)="update()"></textarea></dd>
+        <dd class="property-list__value"><textarea [(ngModel)]="lecture.description" name="Description" mdInput  rows="5" (keyup)="update()"></textarea></dd>
     </dl>
     <dl class="property-list">
         <dt class="property-list__key">Is in Room</dt>
