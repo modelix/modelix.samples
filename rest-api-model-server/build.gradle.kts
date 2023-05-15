@@ -2,7 +2,7 @@ plugins {
     kotlin("jvm")
     kotlin("plugin.allopen") version "1.8.21"
     id("io.quarkus")
-    id("org.openapi.generator") version "6.5.0"
+    id("org.openapi.generator") version "6.6.0"
 }
 
 val quarkus_platform_group_id: String by project
