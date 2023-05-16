@@ -4,7 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {catchError, filter, map, tap} from 'rxjs/operators';
 
-import {Lecture, LectureList, URLLibrary} from '../Container';
+import {Lecture, LectureList, ChangeNotification, WhatChanged, URLLibrary} from '../Container';
 import {MessageService} from '../message.service';
 import { UpdateService } from '../update.service';
 
@@ -16,6 +16,15 @@ export class LectureService {
         private http: HttpClient,
         private messageService: MessageService,
         private updateService: UpdateService) {
+    }
+
+    updateLecture(lecture: Lecture): void {
+        const lectureUpdate: ChangeNotification = {
+            whatChanged: WhatChanged.LECTURE,
+            change: Object.assign(new Lecture(), lecture)
+        }
+        this.updateService.sendUpdateSubject.next(JSON.stringify(lectureUpdate))
+        this.log(`sent room update roomRef=${(lectureUpdate.change as Lecture).lectureRef}`)
     }
 
     getLectureUpdates(): Observable<LectureList|Lecture> {

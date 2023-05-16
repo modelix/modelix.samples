@@ -1,7 +1,7 @@
 plugins {
     application
     kotlin("jvm")
-    id("org.openapi.generator") version "6.5.0"
+    id("org.openapi.generator") version "6.6.0"
 }
 
 val ktor_version : String by project
@@ -21,6 +21,7 @@ dependencies {
     implementation("io.ktor:ktor-server-locations:$ktor_version")
     implementation("io.ktor:ktor-server-netty:$ktor_version")
     implementation("io.ktor:ktor-server-cors:$ktor_version")
+    implementation("io.ktor:ktor-server-websockets:$ktor_version")
 
     testImplementation("junit:junit:4.13.2")
 

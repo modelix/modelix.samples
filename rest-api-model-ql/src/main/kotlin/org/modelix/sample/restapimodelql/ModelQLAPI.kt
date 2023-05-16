@@ -8,18 +8,15 @@ import io.ktor.server.locations.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import org.modelix.client.light.LightClientNodeReference
+import org.modelix.metamodel.typedReference
 import org.modelix.sample.restapimodelql.LightModelClientWrapper
 import org.modelix.sample.restapimodelql.Paths
 import org.modelix.sample.restapimodelql.models.Lecture
 import org.modelix.sample.restapimodelql.models.LectureList
 import org.modelix.sample.restapimodelql.models.Room
 import org.modelix.sample.restapimodelql.models.RoomList
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import java.net.URLEncoder
 import java.nio.charset.Charset
-
-val logger: Logger = LoggerFactory.getLogger("org.modelix.sample.restapimodelql.ModelQLAPI")
 
 object RouteHelper {
     @JvmStatic
@@ -69,7 +66,7 @@ fun Route.ModelQLAPI(lightModelClientWrapper: LightModelClientWrapper) {
             RoomList(rooms = allRooms.map { roomInstance ->
                 Room(name = roomInstance.name,
                         maxPlaces = roomInstance.maxPlaces,
-                        roomRef = RouteHelper.urlEncode((roomInstance.unwrap().reference as LightClientNodeReference).nodeId),
+                        roomRef = RouteHelper.urlEncode((roomInstance.typedReference().ref as LightClientNodeReference).nodeId),
                         hasRemoteEquipment = roomInstance.hasRemoteEquipment)
             })
         }

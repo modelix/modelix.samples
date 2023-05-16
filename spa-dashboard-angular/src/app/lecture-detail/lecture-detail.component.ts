@@ -44,6 +44,9 @@ export class LectureDetailComponent implements OnInit {
         });
     }
 
+    update(): void{
+        this.lectureService.updateLecture(Object.assign(new Lecture(), this.lecture));
+    }
     goBack(): void {
         this.location.back();
     }
