@@ -96,7 +96,7 @@ fun Route.UpdateSocketRoute(lightModelClientWrapper: LightModelClientWrapper) {
                 when(val frame = incoming.receive()){
                     is Frame.Text -> {
                         // we iterate over all incoming messages and handle the supported change notifications
-                        var changeNotification: ChangeNotification = gson.fromJson(frame.readText(), ChangeNotification::class.java)
+                        val changeNotification: ChangeNotification = gson.fromJson(frame.readText(), ChangeNotification::class.java)
                         when (changeNotification.whatChanged){
                             WhatChanged.ROOM -> lightModelClientWrapper.updateRoom(changeNotification.change as Room)
                             WhatChanged.ROOM_LIST -> lightModelClientWrapper.updateRooms(changeNotification.change as RoomList)

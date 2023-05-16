@@ -69,27 +69,27 @@ enum class WhatChanged {
  * A data class to represent the change notification sent/received by the update websocket
  */
 data class ChangeNotification(
-        val whatChanged: WhatChanged,
-        val change:  Any
+    val whatChanged: WhatChanged,
+    val change: Any
 )
 /**
  * A Gson deserializer which can distinguish between the different WhatChanged types.
  * Will return the deserialized ChangeNotification
  */
-class ChangeNotificationDeserializer() : JsonDeserializer<ChangeNotification> {
+class ChangeNotificationDeserializer : JsonDeserializer<ChangeNotification> {
 
-    private var gson: Gson = Gson()
-    private var changeTypeRegistry: MutableMap<WhatChanged, Class<out Any?>> = HashMap()
-    private var changeTypeElementName: String = "whatChanged"
+    private val gson = Gson()
+    private val changeTypeRegistry: MutableMap<WhatChanged, Class<out Any?>> = EnumMap(WhatChanged::class.java)
+    private val changeTypeElementName = "whatChanged"
 
     fun registerChangeType(changeTypeName: WhatChanged, changeType: Class<out Any?>) {
         changeTypeRegistry[changeTypeName] = changeType
     }
 
     override fun deserialize(json: JsonElement?, typeOfT: Type?, context: JsonDeserializationContext?): ChangeNotification {
-        val changeNotificationObject: JsonObject = json!!.asJsonObject
+        val changeNotificationObject = json!!.asJsonObject
 
-        return when (val whatChanged: WhatChanged = WhatChanged.valueOf(changeNotificationObject[changeTypeElementName].asString)) {
+        return when (val whatChanged = WhatChanged.valueOf(changeNotificationObject[changeTypeElementName].asString)) {
             WhatChanged.ROOM -> ChangeNotification(whatChanged,  gson.fromJson(changeNotificationObject["change"], Room::class.java))
             WhatChanged.ROOM_LIST -> ChangeNotification(whatChanged, gson.fromJson(changeNotificationObject["change"], RoomList::class.java))
             WhatChanged.LECTURE -> ChangeNotification(whatChanged, gson.fromJson(changeNotificationObject["change"], Lecture::class.java))
