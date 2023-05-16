@@ -12,6 +12,7 @@ import org.modelix.sample.restapimodelql.models.Room
 import org.modelix.sample.restapimodelql.models.RoomList
 import org.slf4j.LoggerFactory
 import java.lang.reflect.Type
+import java.util.EnumMap
 
 private val logger = LoggerFactory.getLogger("Serialization")
 

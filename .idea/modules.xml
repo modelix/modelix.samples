@@ -4,6 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modelix-samples.iml" filepath="$PROJECT_DIR$/.idea/modules/modelix-samples.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/mps/metamodel/modelix-samples.mps.metamodel.main.iml" filepath="$PROJECT_DIR$/.idea/modules/mps/metamodel/modelix-samples.mps.metamodel.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mps/project-modelserver-backend/modelix-samples.mps.project-modelserver-backend.iml" filepath="$PROJECT_DIR$/.idea/modules/mps/project-modelserver-backend/modelix-samples.mps.project-modelserver-backend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mps/project-mps-backend/modelix-samples.mps.project-mps-backend.iml" filepath="$PROJECT_DIR$/.idea/modules/mps/project-mps-backend/modelix-samples.mps.project-mps-backend.iml" />
     </modules>
   </component>
 </project>
