@@ -1,10 +1,5 @@
 <div *ngIf="lecture">
     <h2>Lecture Details</h2>
-
-    <dl class="property-list">
-        <dt class="property-list__key">Lecture name</dt>
-        <dd class="property-list__value">{{lecture.name}}</dd>
-    </dl>
     <dl class="property-list">
         <dt class="property-list__key">Lecture reference</dt>
         <dd class="property-list__value">
@@ -12,8 +7,16 @@
         </dd>
     </dl>
     <dl class="property-list">
+        <dt class="property-list__key">Lecture name</dt>
+        <dd class="property-list__value"><input type="text" [(ngModel)]="lecture.name" (keyup)="update()"></dd>
+    </dl>
+    <dl class="property-list">
         <dt class="property-list__key">Max participants</dt>
-        <dd class="property-list__value">{{lecture.maxParticipants}}</dd>
+        <dd class="property-list__value"><input type="number" [(ngModel)]="lecture.maxParticipants" (keyup)="update()"></dd>
+    </dl>
+    <dl class="property-list">
+        <dt class="property-list__key">Description</dt>
+        <dd class="property-list__value"><textarea [(ngModel)]="lecture.description" name="Description" mdInput  rows="5" (keyup)="update()"></textarea></dd>
     </dl>
     <dl class="property-list">
         <dt class="property-list__key">Is in Room</dt>

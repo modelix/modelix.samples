@@ -5,6 +5,8 @@ import {Location} from '@angular/common';
 import {RoomService} from '../rooms/room.service';
 import {Room, RoomList} from "../Container";
 
+import { FormControl } from '@angular/forms';
+
 @Component({
     selector: 'app-room-detail',
     templateUrl: './room-detail.component.html',
@@ -47,4 +49,10 @@ export class RoomDetailComponent implements OnInit {
     goBack(): void {
         this.location.back();
     }
+
+    update(): void{
+        this.roomService.updateRoom(Object.assign(new Room(), this.room));
+    }
+
+    favoriteColorControl = new FormControl('');
 }
