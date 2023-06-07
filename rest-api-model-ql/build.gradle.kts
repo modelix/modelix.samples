@@ -1,10 +1,8 @@
 plugins {
     application
-    kotlin("jvm")
-    id("org.openapi.generator") version "6.6.0"
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.openapi.generator)
 }
-
-val ktor_version : String by project
 
 val openApiFile = layout.projectDirectory.file("../openapi/openapi.yaml")
 
@@ -13,30 +11,23 @@ dependencies {
     implementation(project(":mps:metamodel"))
 
     // kotlin
-    implementation("ch.qos.logback:logback-classic:1.4.7")
-    implementation("io.ktor:ktor-server-default-headers:$ktor_version")
-    implementation("io.ktor:ktor-server-content-negotiation:$ktor_version")
-    implementation("io.ktor:ktor-server-auto-head-response:$ktor_version")
-    implementation("io.ktor:ktor-serialization-gson:$ktor_version")
-    implementation("io.ktor:ktor-server-locations:$ktor_version")
-    implementation("io.ktor:ktor-server-netty:$ktor_version")
-    implementation("io.ktor:ktor-server-cors:$ktor_version")
-    implementation("io.ktor:ktor-server-websockets:$ktor_version")
+    implementation(libs.logback.classic)
+    implementation(libs.ktor.server.default.headers)
+    implementation(libs.ktor.server.content.negotiation)
+    implementation(libs.ktor.server.auto.head.response)
+    implementation(libs.ktor.serialization.gson)
+    implementation(libs.ktor.server.locations)
+    implementation(libs.ktor.server.netty)
+    implementation(libs.ktor.server.cors)
+    implementation(libs.ktor.server.websockets)
 
-    testImplementation("junit:junit:4.13.2")
+    testImplementation(libs.junit.junit)
 
-    // model-server-light
-    api("org.modelix:model-api")
-    implementation("org.modelix:light-model-client")
-    implementation("org.modelix:model-server-api")
-    implementation("org.modelix:model-client")
-    implementation("io.ktor:ktor-client-cio:$ktor_version")
-}
-
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-    kotlinOptions {
-        jvmTarget = "11"
-    }
+    api(libs.modelix.model.api)
+    implementation(libs.modelix.light.model.client)
+    implementation(libs.modelix.model.server.api)
+    implementation(libs.modelix.model.client)
+    implementation(libs.ktor.client.cio)
 }
 
 val basePackage = "org.modelix.sample.restapimodelql"

@@ -1,21 +1,11 @@
 rootProject.name = "modelix-samples"
 
 pluginManagement {
-    val quarkus_plugin_version: String by settings
-    val quarkus_plugin_id: String by settings
-
     repositories {
         mavenCentral()
         gradlePluginPortal()
         maven { url = uri("https://artifacts.itemis.cloud/repository/maven-mps/") }
         mavenLocal()
-    }
-
-    plugins {
-        id(quarkus_plugin_id) version quarkus_plugin_version
-
-        // TODO: this should be obtained from the modelix platform somehow?
-        id("org.modelix.model-api-gen") version "2.4.0"
     }
 }
 
@@ -50,4 +40,3 @@ include("rest-api-model-server")
 //
 // a single page application which can use any of the APIs
 include("spa-dashboard-angular")
-

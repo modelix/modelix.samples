@@ -1,7 +1,7 @@
 plugins {
     application
-    kotlin("jvm")
-    id ("com.github.node-gradle.node")
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.node.gradle)
 }
 
 dependencies {
@@ -10,7 +10,7 @@ dependencies {
 
 node {
     download.set(true)
-    version.set("16.18.0")
+    version.set(libs.versions.node)
 }
 
 val npmRun by tasks.creating(com.github.gradle.node.npm.task.NpmTask::class) {
