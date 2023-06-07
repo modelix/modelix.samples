@@ -3,5 +3,5 @@ plugins {
 }
 
 dependencies {
-    api("org.modelix:model-api-gen-runtime")
+    api(libs.modelix.model.api.gen.runtime)
 }

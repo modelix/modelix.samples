@@ -1,8 +1,8 @@
 plugins {
-    kotlin("jvm") version "1.8.21" apply false
-    kotlin("kapt") version "1.8.21" apply false
-    id("com.specificlanguages.mps") version "1.5.0" apply false
-    id ("com.github.node-gradle.node") version "3.2.1" apply false
+    alias(libs.plugins.kotlin.jvm) apply false
+    alias(libs.plugins.kotlin.kapt) apply false
+    alias(libs.plugins.specificlanguages.mps) apply false
+    alias(libs.plugins.node.gradle) apply false
     // we use the java plugin so that we can use the implementation in the
     // subprojects block to declare modelix platform dependencies for all
     // subprojects
@@ -14,14 +14,15 @@ subprojects {
     // to be used everywhere here. as a result we will not have to pick
     // versions for individual modelix artifacts anywhere
     apply(plugin = "java")
-    val modelix_platform_version: String by project
-    dependencies {
-        implementation(enforcedPlatform("org.modelix:platform-mps-2021-2:$modelix_platform_version"))
-    }
+
+//    dependencies {
+//        // cannot use the catalog, see https://github.com/gradle/gradle/issues/23255#issuecomment-1364039826
+//        implementation(platform("org.modelix:platform-mps-2021-2"))
+//   }
 
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().all {
         kotlinOptions {
-            jvmTarget = "11"
+            jvmTarget = JavaVersion.VERSION_11.toString()
         }
     }
 

@@ -2,9 +2,8 @@ plugins {
     application
 }
 
-
 dependencies {
-    implementation("org.modelix:model-server")
+    implementation(libs.modelix.model.server)
 }
 
 application {

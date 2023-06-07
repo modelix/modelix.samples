@@ -1,15 +1,14 @@
 plugins {
     java
-    id("org.modelix.model-api-gen")
+    alias(libs.plugins.modelix.model.api.gen)
 }
 
 val mps: Configuration by configurations.creating
-val mps_version: String by project
 val mpsDependencies: Configuration by configurations.creating
-val mpsExtensions_version: String by project
+
 dependencies {
-    mps("com.jetbrains:mps:$mps_version")
-    mpsDependencies("de.itemis.mps:extensions:$mpsExtensions_version")
+    mps(libs.mps)
+    mpsDependencies(libs.mps.extensions)
 }
 
 val mpsDir = file("$buildDir/mps")

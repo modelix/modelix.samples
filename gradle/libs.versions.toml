@@ -1,0 +1,85 @@
+# This catalog provides all versions used in the samples.
+# Due to the fact that the samples explore the newest features of modeix,
+# they do not use the modelix platform, but rather the 'latest' versions.
+
+[versions]
+# MPS
+mpsBase = "2021.2.6"
+mpsExtensions = "2021.2.2569.a5e1b8d"
+specificlanguagesMps = "1.5.0"
+mpsGradlePlugin = "1.7.288.4ea765f"
+
+# modelix
+modelixCore = "2.6.0"
+mpsModelServerSyncPlugin = "2021.2.145"
+
+# backend 1 / SPA
+ktor = "2.2.4"
+
+# backend 2
+quarkusPlatform = "2.14.0.Final"
+quarkusPlugin = "2.14.0.Final"
+
+# other
+openapi = "6.6.0"
+kotlin = "1.8.21"
+antJunit = "1.10.13"
+junit = "4.13.2"
+logback = "1.4.7"
+nodeGradle = "3.2.1"
+node = "16.18.0"
+
+
+[libraries]
+# MPS
+mps = { group = "com.jetbrains", name = "mps", version.ref = "mpsBase" }
+mps-extensions = { group = "de.itemis.mps", name = "extensions", version.ref = "mpsExtensions" }
+itemis-mps-gradle-plugin = { group = "de.itemis.mps", name="mps-gradle-plugin", version.ref = "mpsGradlePlugin" }
+
+# modelix
+modelix-syncPlugin = { group = "org.modelix.mps", name = "model-server-sync-plugin", version.ref = "mpsModelServerSyncPlugin" }
+modelix-model-server = { group = "org.modelix", name = "model-server", version.ref = "modelixCore" }
+modelix-model-server-api = { group = "org.modelix", name = "model-server-api", version.ref = "modelixCore" }
+modelix-model-client = { group = "org.modelix", name = "model-client", version.ref = "modelixCore" }
+modelix-model-api = { group = "org.modelix", name = "model-api", version.ref = "modelixCore" }
+modelix-model-api-gen-runtime = { group = "org.modelix", name = "model-api-gen-runtime", version.ref = "modelixCore" }
+modelix-light-model-client = { group = "org.modelix", name = "light-model-client", version.ref = "modelixCore" }
+
+# quarkus
+quarkus-bom = { group = "io.quarkus.platform", name = "quarkus-bom", version.ref = "quarkusPlatform" }
+
+# kotlin/ktor
+kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib-jdk8", version.ref = "kotlin" }
+ktor-server-default-headers = { group = "io.ktor", name = "ktor-server-default-headers", version.ref = "ktor" }
+ktor-server-content-negotiation = { group = "io.ktor", name = "ktor-server-content-negotiation", version.ref = "ktor" }
+ktor-server-auto-head-response = { group = "io.ktor", name = "ktor-server-auto-head-response", version.ref = "ktor" }
+ktor-serialization-gson = { group = "io.ktor", name = "ktor-serialization-gson", version.ref = "ktor" }
+ktor-server-locations = { group = "io.ktor", name = "ktor-server-locations", version.ref = "ktor" }
+ktor-server-netty = { group = "io.ktor", name = "ktor-server-netty", version.ref = "ktor" }
+ktor-server-cors = { group = "io.ktor", name = "ktor-server-cors", version.ref = "ktor" }
+ktor-server-websockets = { group = "io.ktor", name = "ktor-server-websockets", version.ref = "ktor" }
+ktor-client-cio = { group = "io.ktor", name = "ktor-client-cio", version.ref = "ktor" }
+ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
+
+# other
+ant-junit = { group = "org.apache.ant", name = "ant-junit", version.ref = "antJunit" }
+junit-junit = { group = "junit", name = "junit", version.ref = "junit" }
+logback-classic = { group = "ch.qos.logback", name = "logback-classic", version.ref = "logback" }
+
+
+[plugins]
+# MPS/modelix
+specificlanguages-mps = {id = "com.specificlanguages.mps", version.ref = "specificlanguagesMps"}
+itemis-mps-gradle-common = { id = "de.itemis.mps.gradle.common", version.ref = "mpsBase" }
+modelix-model-api-gen = { id = "org.modelix.model-api-gen", version.ref = "modelixCore" }
+
+# kotlin
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+kotlin-plugin-allopen = { id = "org.jetbrains.kotlin.plugin.allopen", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+
+# other
+openapi-generator = {id = "org.openapi.generator", version.ref = "openapi"}
+quarkus-jvm = { id = "io.quarkus", version.ref = "quarkusPlugin" }
+node-gradle = { id = "com.github.node-gradle.node", version.ref = "nodeGradle" }

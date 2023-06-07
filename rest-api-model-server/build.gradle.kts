@@ -1,31 +1,24 @@
 plugins {
-    kotlin("jvm")
-    kotlin("plugin.allopen") version "1.8.21"
-    id("io.quarkus")
-    id("org.openapi.generator") version "6.6.0"
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.plugin.allopen)
+    alias(libs.plugins.quarkus.jvm)
+    alias(libs.plugins.openapi.generator)
 }
 
-val quarkus_platform_group_id: String by project
-val quarkus_platform_artifact_id: String by project
-val quarkus_platform_version: String by project
-val ktor_version: String by project
-val modelix_version: String by project
-
-
 dependencies {
-    implementation(enforcedPlatform("${quarkus_platform_group_id}:${quarkus_platform_artifact_id}:${quarkus_platform_version}"))
+    implementation(enforcedPlatform(libs.quarkus.bom))
     implementation("io.quarkus:quarkus-resteasy-reactive")
     implementation("io.quarkus:quarkus-kotlin")
     implementation("io.quarkus:quarkus-resteasy-reactive-jackson")
     implementation("io.quarkus:quarkus-smallrye-openapi")
     implementation("io.quarkus:quarkus-websockets")
-    implementation("io.ktor:ktor-client-core:$ktor_version")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("io.quarkus:quarkus-arc")
-    implementation("org.modelix:model-client")
-
     testImplementation("io.quarkus:quarkus-junit5")
     testImplementation("io.rest-assured:rest-assured")
+
+    implementation(libs.ktor.client.core)
+    implementation(libs.modelix.model.client)
+    implementation(libs.kotlin.stdlib)
 
     implementation(project(":mps:metamodel"))
 }

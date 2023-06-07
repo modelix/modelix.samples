@@ -11,31 +11,23 @@ buildscript {
     }
 
     dependencies {
-        classpath("de.itemis.mps:mps-gradle-plugin:1.7.288.4ea765f")
+        classpath(libs.itemis.mps.gradle.plugin)
     }
 }
+
 repositories {
     mavenCentral()
 }
-
-val mps_version: String by project
-val mpsExtensions_version: String by project
 
 val mps: Configuration by configurations.creating
 val buildDependencies: Configuration by configurations.creating
 val mpsDependencies: Configuration by configurations.creating
 
-// --- test this
-val modelix_platform_version: String by project
 dependencies {
-    mpsDependencies(enforcedPlatform("org.modelix:platform-mps-2021-2:$modelix_platform_version"))
-}
-
-dependencies {
-    buildDependencies("org.apache.ant:ant-junit:1.10.13")
-    mps("com.jetbrains:mps:$mps_version")
-    mpsDependencies("de.itemis.mps:extensions:$mpsExtensions_version")
-    mpsDependencies("org.modelix.mps:model-server-sync-plugin")
+    buildDependencies(libs.ant.junit)
+    mps(libs.mps)
+    mpsDependencies(libs.mps.extensions)
+    mpsDependencies(libs.modelix.syncPlugin)
 }
 
 val mpsDir = file("$buildDir/mps")
