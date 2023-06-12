@@ -18,7 +18,7 @@ ktor = "2.2.4"
 
 # backend 2
 quarkusPlatform = "2.14.0.Final"
-quarkusPlugin = "2.14.0.Final"
+quarkusPlugin = "3.1.1.Final"
 
 # other
 openapi = "6.6.0"
