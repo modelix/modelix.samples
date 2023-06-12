@@ -22,7 +22,7 @@ quarkusPlugin = "2.14.0.Final"
 
 # other
 openapi = "6.6.0"
-kotlin = "1.8.21"
+kotlin = "1.8.22"
 antJunit = "1.10.13"
 junit = "4.13.2"
 logback = "1.4.7"
