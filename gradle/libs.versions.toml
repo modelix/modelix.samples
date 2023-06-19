@@ -17,7 +17,7 @@ mpsModelServerSyncPlugin = "2021.2.145"
 ktor = "2.2.4"
 
 # backend 2
-quarkusPlatform = "2.14.0.Final"
+quarkusPlatform = "3.1.2.Final"
 quarkusPlugin = "2.14.0.Final"
 
 # other
