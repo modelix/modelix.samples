@@ -3,7 +3,7 @@
 <ul class="lectures">
     <li *ngFor="let lecture of lectures">
         <a routerLink="/lectures/{{lecture.lectureRef}}">
-            <span class="badge">{{lecture.lectureRef}}</span> {{lecture.name}}
+            <span class="badge">{{lecture.name}}</span> {{lecture.lectureRef}}
         </a>
     </li>
 </ul>

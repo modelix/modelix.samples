@@ -4,7 +4,7 @@
 
     <li *ngFor="let room of rooms">
         <a routerLink="/rooms/{{room.roomRef}}">
-            <span class="badge">{{room.roomRef}}<br></span>{{room.name}}
+            <span class="badge">{{room.name}}<br></span>{{room.roomRef}}
         </a>
     </li>
 
