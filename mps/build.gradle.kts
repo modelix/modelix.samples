@@ -32,12 +32,10 @@ metamodel {
 
     // restrictions on languages and solutions
     modulesFrom(projectDir.resolve("languages"))
-    modulesFrom(projectDir.resolve("solutions"))
 
     // further restrictions on language/solution names
     includeLanguage("University.Schedule.Time")
     includeLanguage("University.Schedule")
-    includeNamespace("University.Schedule.sandbox")
 
     // include dependencies from the shared dependencies folder
     modulesFrom(projectDir.resolve("build/dependencies"))

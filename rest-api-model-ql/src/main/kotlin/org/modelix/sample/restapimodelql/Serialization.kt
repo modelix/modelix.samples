@@ -21,12 +21,13 @@ private val logger = LoggerFactory.getLogger("Serialization")
  * data class [Lecture].
  */
 fun N_Lecture.toJson() = Lecture(
-    lectureRef = this.typedReference().ref.serialize(),
+    lectureRef = this.untypedReference().serialize(),
     name = this.name,
     description = this.description,
     maxParticipants = this.maximumCapacity,
     // todo: fix to new MM
-    room = this.isInRoom!!.untypedReference().serialize()
+    room = this.isInRoom?.untypedReference()?.serialize() ?: ""
+//            room = this.isInRoom != null ?: this.isInRoom.untypedReference().serialize() else ""
 )
 
 /**

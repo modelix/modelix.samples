@@ -12,7 +12,7 @@ import io.ktor.server.plugins.cors.routing.*
 import io.ktor.server.plugins.defaultheaders.*
 import io.ktor.server.routing.*
 import io.ktor.server.websocket.*
-import org.modelix.sample.restapijsonbulk.models.apis.ModelQLAPI
+import org.modelix.sample.restapimodelql.models.apis.ModelQLAPI
 
 suspend fun main() {
     val config = ConfigFactory.load()

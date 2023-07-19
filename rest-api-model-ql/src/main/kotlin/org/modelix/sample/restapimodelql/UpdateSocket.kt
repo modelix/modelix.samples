@@ -116,7 +116,7 @@ fun Route.UpdateSocketRoute(lightModelClientWrapper: LightModelClientWrapper) {
             }
         } catch (e: ClosedReceiveChannelException) {
             // closing a connection regularly
-            logger.debug("Closing connection regularly ${closeReason.await()} [connection={}]", thisConnection.id)
+            logger.debug("Closing connection regularly {} [connection={}]", closeReason.await(), thisConnection.id)
         } catch (e: Throwable) {
             // closing a connection on error
             logger.warn("Closing connection after error. [connection={}, throwable={}]", thisConnection.id, e, e)

@@ -4,7 +4,9 @@ import University.Schedule.*
 import io.ktor.utils.io.charsets.*
 import jetbrains.mps.lang.core.N_BaseConcept
 import org.modelix.client.light.LightModelClient
+import org.modelix.metamodel.ITypedNode
 import org.modelix.metamodel.typed
+import org.modelix.model.api.INodeReferenceSerializer
 import org.modelix.model.repositoryconcepts.N_Module
 import org.modelix.model.repositoryconcepts.N_Repository
 import org.modelix.model.repositoryconcepts.models
@@ -95,14 +97,11 @@ class LightModelClientWrapper(
     private inline fun <reified R> getAllRootNodesOfTypeInRepository(node: N_Repository) =
             node.unwrap().allChildren.filter { it.isValid }.map { it.typed<N_Module>() }.models.rootNodes.filterIsInstance<R>()
 
-    val resolveNodeIdToConcept: suspend (String) -> N_BaseConcept? = Any@{ ref: String ->
+    val resolveNodeIdToConcept: suspend (String) -> ITypedNode? = Any@{ ref: String ->
         logger.info("Resolving node $ref")
         return@Any lightModelClient.runRead {
-            // TODO: investigate if this approach can be improved
-            //INodeReferenceSerializer.deserialize(actualRef).resolveNode(lightModelClient.getRootNode()?.getArea())
-            lightModelClient.getNodeIfLoaded(ref)?.typed()?.let { it as N_BaseConcept }
+            INodeReferenceSerializer.deserialize(ref).resolveNode(lightModelClient.getRootNode()?.getArea())!!.typed()
         }
-
     }
 
     fun <T> runRead(body: () -> T): T {
