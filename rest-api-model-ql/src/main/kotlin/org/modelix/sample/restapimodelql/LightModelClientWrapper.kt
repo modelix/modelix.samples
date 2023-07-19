@@ -85,11 +85,11 @@ class LightModelClientWrapper(
     }
 
     private var loadRooms: (N_Repository) -> List<N_Room>? = Any@{ node: N_Repository ->
-        return@Any getAllRootNodesOfTypeInRepository<N_Rooms>(node).rooms
+        return@Any getAllRootNodesOfTypeInRepository<N_RoomList>(node).rooms
     }
 
     private var loadLectures: (N_Repository) -> List<N_Lecture>? = Any@{ node: N_Repository ->
-        return@Any getAllRootNodesOfTypeInRepository<N_Courses>(node).lectures
+        return@Any getAllRootNodesOfTypeInRepository<N_LectureList>(node).lectures
     }
 
     private inline fun <reified R> getAllRootNodesOfTypeInRepository(node: N_Repository) =
@@ -137,8 +137,10 @@ class LightModelClientWrapper(
 
         lightModelClient.runWrite {
             result.name = newRoom.name
-            result.maxPlaces = newRoom.maxPlaces
-            result.hasRemoteEquipment = newRoom.hasRemoteEquipment!!
+
+            result.maximumCapacity = newRoom.maxPlaces
+            // todo: handle new equipment
+//            result.hasRemoteEquipment = newRoom.hasRemoteEquipment!!
             logger.info("Updated Room '${newRoom.roomRef}'")
         }
     }
@@ -161,8 +163,8 @@ class LightModelClientWrapper(
         lightModelClient.runWrite {
             result.name = newLecture.name
             result.description = newLecture.description
-            result.room = roomRefConcept
-            result.maxParticipants = newLecture.maxParticipants
+            result.isInRoom = roomRefConcept
+            result.maximumCapacity = newLecture.maxParticipants
             logger.info("Updated Lecture '${newLecture.lectureRef}'")
         }
     }

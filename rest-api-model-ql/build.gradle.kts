@@ -8,7 +8,7 @@ val openApiFile = layout.projectDirectory.file("../openapi/openapi.yaml")
 
 dependencies {
     // api-gen v2
-    implementation(project(":mps:metamodel"))
+    implementation(project(":mps:metamodel-api-kts"))
 
     // kotlin
     implementation(libs.logback.classic)

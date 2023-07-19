@@ -64,9 +64,9 @@ class UpdateSocket(private val repo: ReplicatedRepository, private val mapper: O
             try {
                 when (node.typed()) {
                     is N_Room -> broadcast(ChangeNotification(WhatChanged.ROOM, node.typed<N_Room>().toJson()))
-                    is N_Rooms -> broadcast(ChangeNotification(WhatChanged.ROOM_LIST, node.typed<N_Rooms>().rooms.toList().toJson()))
+                    is N_RoomList -> broadcast(ChangeNotification(WhatChanged.ROOM_LIST, node.typed<N_RoomList>().rooms.toList().toJson()))
                     is N_Lecture -> broadcast(ChangeNotification(WhatChanged.LECTURE, node.typed<N_Lecture>().toJson()))
-                    is N_Courses -> broadcast(ChangeNotification(WhatChanged.LECTURE_LIST, node.typed<N_Courses>().lectures.toList().toJson()))
+                    is N_LectureList -> broadcast(ChangeNotification(WhatChanged.LECTURE_LIST, node.typed<N_LectureList>().lectures.toList().toJson()))
                     else -> logger.warn("Could not handle change")
                 }
             } catch (e: RuntimeException){

@@ -34,8 +34,9 @@ fun Route.ModelQLAPI(lightModelClientWrapper: LightModelClientWrapper) {
                 Lecture(name = lectureInstance.name,
                         description = lectureInstance.description,
                         lectureRef = RouteHelper.urlEncode((lectureInstance.unwrap().reference as LightClientNodeReference).nodeId),
-                        room = RouteHelper.urlEncode((lectureInstance.room.unwrap().reference as LightClientNodeReference).nodeId),
-                        maxParticipants = lectureInstance.maxParticipants)
+                        // todo handle eventually empty room
+                        room = RouteHelper.urlEncode((lectureInstance.isInRoom!!.unwrap().reference as LightClientNodeReference).nodeId),
+                        maxParticipants = lectureInstance.maximumCapacity)
             })
         }
         call.respond(lectureList)
@@ -47,9 +48,10 @@ fun Route.ModelQLAPI(lightModelClientWrapper: LightModelClientWrapper) {
 
             val lecture: Lecture = lightModelClientWrapper.runRead {
                 Lecture(name = resolvedLecture.name,
-                        maxParticipants = resolvedLecture.maxParticipants,
+                        maxParticipants = resolvedLecture.maximumCapacity,
                         lectureRef = RouteHelper.urlEncode((resolvedLecture.unwrap().reference as LightClientNodeReference).nodeId),
-                        room = RouteHelper.urlEncode((resolvedLecture.room.unwrap().reference as LightClientNodeReference).nodeId),
+                        // todo handle eventually empty room
+                        room = RouteHelper.urlEncode((resolvedLecture.isInRoom!!.unwrap().reference as LightClientNodeReference).nodeId),
                         description = resolvedLecture.description
                 )
             }
@@ -65,9 +67,11 @@ fun Route.ModelQLAPI(lightModelClientWrapper: LightModelClientWrapper) {
         val roomList: RoomList = lightModelClientWrapper.runRead {
             RoomList(rooms = allRooms.map { roomInstance ->
                 Room(name = roomInstance.name,
-                        maxPlaces = roomInstance.maxPlaces,
+
+                        maxPlaces = roomInstance.maximumCapacity,
                         roomRef = RouteHelper.urlEncode((roomInstance.typedReference().ref as LightClientNodeReference).nodeId),
-                        hasRemoteEquipment = roomInstance.hasRemoteEquipment)
+                        // TODO: fix to new MM
+                        hasRemoteEquipment = false)
             })
         }
         call.respond(roomList)
@@ -80,8 +84,9 @@ fun Route.ModelQLAPI(lightModelClientWrapper: LightModelClientWrapper) {
             val room: Room = lightModelClientWrapper.runRead {
                 Room(name = resolvedRoom.name,
                         roomRef = RouteHelper.urlEncode((resolvedRoom.unwrap().reference as LightClientNodeReference).nodeId),
-                        maxPlaces = resolvedRoom.maxPlaces,
-                        hasRemoteEquipment = resolvedRoom.hasRemoteEquipment
+                        maxPlaces = resolvedRoom.maximumCapacity,
+                        // TODO: fix to new MM
+                        hasRemoteEquipment = true
                 )
             }
             call.respond(room)

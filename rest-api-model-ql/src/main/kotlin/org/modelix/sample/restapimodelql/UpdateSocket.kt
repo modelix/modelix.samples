@@ -1,9 +1,10 @@
 package org.modelix.sample.restapimodelql
 
-import University.Schedule.N_Courses
+
 import University.Schedule.N_Lecture
+import University.Schedule.N_LectureList
 import University.Schedule.N_Room
-import University.Schedule.N_Rooms
+import University.Schedule.N_RoomList
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import io.ktor.server.routing.*
@@ -60,9 +61,9 @@ fun Route.UpdateSocketRoute(lightModelClientWrapper: LightModelClientWrapper) {
     suspend fun handleChange(node: INode) {
         when (node.typed()) {
             is N_Room -> broadcast(gson.toJson(ChangeNotification(WhatChanged.ROOM, node.typed<N_Room>().toJson())))
-            is N_Rooms -> broadcast(gson.toJson(ChangeNotification(WhatChanged.ROOM_LIST, node.typed<N_Rooms>().rooms.toList().toJson())))
+            is N_RoomList -> broadcast(gson.toJson(ChangeNotification(WhatChanged.ROOM_LIST, node.typed<N_RoomList>().rooms.toList().toJson())))
             is N_Lecture -> broadcast(gson.toJson(ChangeNotification(WhatChanged.LECTURE, node.typed<N_Lecture>().toJson())))
-            is N_Courses -> broadcast(gson.toJson(ChangeNotification(WhatChanged.LECTURE_LIST, node.typed<N_Courses>().lectures.toList().toJson())))
+            is N_LectureList -> broadcast(gson.toJson(ChangeNotification(WhatChanged.LECTURE_LIST, node.typed<N_LectureList>().lectures.toList().toJson())))
             else -> logger.warn("Could not handle change")
         }
     }

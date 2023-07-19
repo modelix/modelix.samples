@@ -20,7 +20,7 @@ dependencies {
     implementation(libs.modelix.model.client)
     implementation(libs.kotlin.stdlib)
 
-    implementation(project(":mps:metamodel"))
+    implementation(project(":mps:metamodel-api-kts"))
 }
 
 val basePackage = "org.modelix.sample.restapimodelserver"
