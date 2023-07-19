@@ -3,9 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modelix-samples.iml" filepath="$PROJECT_DIR$/.idea/modules/modelix-samples.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mps/modelix-samples.mps.iml" filepath="$PROJECT_DIR$/.idea/modules/mps/modelix-samples.mps.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/mps/metamodel/modelix-samples.mps.metamodel.main.iml" filepath="$PROJECT_DIR$/.idea/modules/mps/metamodel/modelix-samples.mps.metamodel.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/mps/project-modelserver-backend/modelix-samples.mps.project-modelserver-backend.iml" filepath="$PROJECT_DIR$/.idea/modules/mps/project-modelserver-backend/modelix-samples.mps.project-modelserver-backend.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/mps/project-mps-backend/modelix-samples.mps.project-mps-backend.iml" filepath="$PROJECT_DIR$/.idea/modules/mps/project-mps-backend/modelix-samples.mps.project-mps-backend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/spa-dashboard-angular/modelix-samples.spa-dashboard-angular.iml" filepath="$PROJECT_DIR$/.idea/modules/spa-dashboard-angular/modelix-samples.spa-dashboard-angular.iml" />
     </modules>
   </component>
 </project>

@@ -10,6 +10,7 @@ source_gen
 source_gen.caches
 !mps/solutions/University.Schedule.api/source_gen
 mps/metamodel-api-kts/src
+mps/metamodel-api-ts/src
 
 # generated test code and test results
 test_gen

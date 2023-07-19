@@ -16,6 +16,7 @@ pluginManagement {
 include("mps")
 // provides the meta-model a sub-project for the APIs as an implementation dependency
 include("mps:metamodel-api-kts")
+include("mps:metamodel-api-ts")
 // MPS project which uses the model-server as a storage backend
 include("mps:project-modelserver-backend")
 // MPS project which uses classic MPS XMLs a storage backend

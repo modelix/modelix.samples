@@ -47,6 +47,7 @@ metamodel {
     // the target project into which the kotlin API will be build
     // (requires the project to exist in the gradle setup)
     kotlinDir = project(":mps:metamodel-api-kts").projectDir.resolve("src/main/kotlin")
+    typescriptDir = project(":mps:metamodel-api-ts").projectDir.resolve("src/")
 
     // name of the registration helper class
     registrationHelperName = "University.Schedule.GeneratedLanguages"

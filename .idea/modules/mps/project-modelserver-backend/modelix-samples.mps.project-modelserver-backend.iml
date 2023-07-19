@@ -2,6 +2,7 @@
 <module version="4">
   <component name="AdditionalModuleElements">
     <content url="file://$MODULE_DIR$/../../../../mps/project-modelserver-backend" dumb="true">
+      <excludeFolder url="file://$MODULE_DIR$/../../../../mps/project-modelserver-backend/.mps-caches" />
       <excludeFolder url="file://$MODULE_DIR$/../../../../mps/project-modelserver-backend/.mpsconfig" />
     </content>
   </component>
