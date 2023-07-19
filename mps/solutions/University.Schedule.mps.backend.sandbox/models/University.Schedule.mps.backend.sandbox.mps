@@ -127,7 +127,7 @@
       <property role="TrG5h" value="New Stutent Welcoming" />
       <property role="1dfXjk" value="The initial welcoming of all new students" />
       <property role="1dfXji" value="99" />
-      <ref role="1de2TF" node="7nt_FL0QUC2" resolve="Schrödinger" />
+      <ref role="1de2TF" node="7nt_FL0QUC2" resolve="Rosalind" />
       <node concept="P1_2T" id="7nt_FL0QXQK" role="1de2T$">
         <node concept="VEhwm" id="4nVNu_YkUra" role="P1$se">
           <property role="VEhJF" value="10.09.2023" />

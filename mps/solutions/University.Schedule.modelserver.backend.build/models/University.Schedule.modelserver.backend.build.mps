@@ -61,6 +61,10 @@
       <concept id="868032131020265945" name="jetbrains.mps.build.mps.structure.BuildMPSPlugin" flags="ng" index="3b7kt6" />
       <concept id="5253498789149381388" name="jetbrains.mps.build.mps.structure.BuildMps_Module" flags="ng" index="3bQrTs">
         <child id="5253498789149547825" name="sources" index="3bR31x" />
+        <child id="5253498789149547704" name="dependencies" index="3bR37C" />
+      </concept>
+      <concept id="5253498789149585690" name="jetbrains.mps.build.mps.structure.BuildMps_ModuleDependencyOnModule" flags="ng" index="3bR9La">
+        <reference id="5253498789149547705" name="module" index="3bR37D" />
       </concept>
       <concept id="763829979718664966" name="jetbrains.mps.build.mps.structure.BuildMps_ModuleResources" flags="ng" index="3rtmxn">
         <child id="763829979718664967" name="files" index="3rtmxm" />
@@ -72,10 +76,19 @@
         <child id="8137134783396676835" name="location" index="1HemKq" />
       </concept>
       <concept id="3189788309731840248" name="jetbrains.mps.build.mps.structure.BuildMps_Language" flags="ng" index="1E1JtD" />
+      <concept id="322010710375794190" name="jetbrains.mps.build.mps.structure.BuildMps_DevKit" flags="ng" index="3LEwk6">
+        <child id="322010710375832962" name="exports" index="3LEDUa" />
+      </concept>
+      <concept id="322010710375832938" name="jetbrains.mps.build.mps.structure.BuildMps_DevKitExportLanguage" flags="ng" index="3LEDTy">
+        <reference id="322010710375832947" name="language" index="3LEDTV" />
+      </concept>
       <concept id="322010710375871467" name="jetbrains.mps.build.mps.structure.BuildMps_AbstractModule" flags="ng" index="3LEN3z">
         <property id="8369506495128725901" name="compact" index="BnDLt" />
         <property id="322010710375892619" name="uuid" index="3LESm3" />
         <child id="322010710375956261" name="path" index="3LF7KH" />
+      </concept>
+      <concept id="7259033139236285166" name="jetbrains.mps.build.mps.structure.BuildMps_ExtractedModuleDependency" flags="nn" index="1SiIV0">
+        <child id="7259033139236285167" name="dependency" index="1SiIV1" />
       </concept>
     </language>
   </registry>
@@ -133,6 +146,77 @@
           </node>
         </node>
       </node>
+      <node concept="1SiIV0" id="4d2Vr1a4Zr" role="3bR37C">
+        <node concept="3bR9La" id="4d2Vr1a4Zs" role="1SiIV1">
+          <ref role="3bR37D" node="4d2Vr1a4Yw" resolve="University.Schedule.Time" />
+        </node>
+      </node>
+    </node>
+    <node concept="1E1JtD" id="4d2Vr1a4Yw" role="3989C9">
+      <property role="BnDLt" value="true" />
+      <property role="TrG5h" value="University.Schedule.Time" />
+      <property role="3LESm3" value="cafa79c7-9e66-4df7-8f06-84e4e6a7c5e6" />
+      <node concept="398BVA" id="4d2Vr1a4YQ" role="3LF7KH">
+        <ref role="398BVh" node="BfH2HBsxUM" resolve="common.languages" />
+        <node concept="2Ry0Ak" id="4d2Vr1a4YW" role="iGT6I">
+          <property role="2Ry0Am" value="University.Schedule.Time" />
+          <node concept="2Ry0Ak" id="4d2Vr1a4Z1" role="2Ry0An">
+            <property role="2Ry0Am" value="University.Schedule.Time.mpl" />
+          </node>
+        </node>
+      </node>
+      <node concept="1BupzO" id="4d2Vr1a4Z9" role="3bR31x">
+        <property role="3ZfqAx" value="models" />
+        <property role="1Hdu6h" value="true" />
+        <property role="1HemKv" value="true" />
+        <node concept="3LXTmp" id="4d2Vr1a4Za" role="1HemKq">
+          <node concept="398BVA" id="4d2Vr1a4Z6" role="3LXTmr">
+            <ref role="398BVh" node="BfH2HBsxUM" resolve="common.languages" />
+            <node concept="2Ry0Ak" id="4d2Vr1a4Z7" role="iGT6I">
+              <property role="2Ry0Am" value="University.Schedule.Time" />
+              <node concept="2Ry0Ak" id="4d2Vr1a4Z8" role="2Ry0An">
+                <property role="2Ry0Am" value="models" />
+              </node>
+            </node>
+          </node>
+          <node concept="3qWCbU" id="4d2Vr1a4Zb" role="3LXTna">
+            <property role="3qWCbO" value="**/*.mps, **/*.mpsr, **/.model" />
+          </node>
+        </node>
+      </node>
+      <node concept="3rtmxn" id="4d2Vr1a51k" role="3bR31x">
+        <node concept="3LXTmp" id="4d2Vr1a51l" role="3rtmxm">
+          <node concept="398BVA" id="4d2Vr1a51m" role="3LXTmr">
+            <ref role="398BVh" node="BfH2HBsxUM" resolve="common.languages" />
+            <node concept="2Ry0Ak" id="4d2Vr1a51n" role="iGT6I">
+              <property role="2Ry0Am" value="University.Schedule.Time" />
+            </node>
+          </node>
+          <node concept="3qWCbU" id="4d2Vr1a51p" role="3LXTna">
+            <property role="3qWCbO" value="icons/**" />
+          </node>
+        </node>
+      </node>
+    </node>
+    <node concept="3LEwk6" id="4d2Vr1a504" role="3989C9">
+      <property role="BnDLt" value="true" />
+      <property role="TrG5h" value="University.Schedule.Devkit" />
+      <property role="3LESm3" value="3f0b14cf-38db-4a9e-ae9e-6c078c16c2da" />
+      <node concept="398BVA" id="4d2Vr1a50X" role="3LF7KH">
+        <ref role="398BVh" node="4d2Vr1a50A" resolve="common.devkits" />
+        <node concept="2Ry0Ak" id="4d2Vr1a513" role="iGT6I">
+          <property role="2Ry0Am" value="University.Schedule.Devkit" />
+          <node concept="2Ry0Ak" id="4d2Vr1a518" role="2Ry0An">
+            <property role="2Ry0Am" value="University.Schedule.Devkit.devkit" />
+          </node>
+        </node>
+      </node>
+      <node concept="3LEDTy" id="4d2Vr1a51g" role="3LEDUa">
+        <ref role="3LEDTV" node="4d2Vr1a4Yw" resolve="University.Schedule.Time" />
+      </node>
+      <node concept="3LEDTy" id="4d2Vr1a51h" role="3LEDUa">
+        <ref role="3LEDTV" node="6agEzqY1Y3D" resolve="University.Schedule" />
+      </node>
     </node>
     <node concept="10PD9b" id="7qrA4FyO$K0" role="10PD9s" />
     <node concept="3b7kt6" id="7qrA4FyO$K1" role="10PD9s" />
@@ -146,6 +230,17 @@
           <property role="2Ry0Am" value=".." />
           <node concept="2Ry0Ak" id="5xE_VKjp7$J" role="2Ry0An">
             <property role="2Ry0Am" value="languages" />
+          </node>
+        </node>
+      </node>
+    </node>
+    <node concept="398rNT" id="4d2Vr1a50A" role="1l3spd">
+      <property role="TrG5h" value="common.devkits" />
+      <node concept="55IIr" id="4d2Vr1a50B" role="398pKh">
+        <node concept="2Ry0Ak" id="4d2Vr1a50C" role="iGT6I">
+          <property role="2Ry0Am" value=".." />
+          <node concept="2Ry0Ak" id="4d2Vr1a50D" role="2Ry0An">
+            <property role="2Ry0Am" value="devkits" />
           </node>
         </node>
       </node>
