@@ -40,14 +40,20 @@ button:disabled {
 }
 
 .property-list__key {
-    flex: 1;
+    flex: 0.3;
 }
 
 .property-list__value {
-    margin-left: 0.5rem;
+    flex: 0.7;
+    text-align: right;
+}
+
+.text-detail {
+    text-align: right;
 }
 
 div.code {
+    text-align: right;
     background-color: #FEEEEE;
     font-family: Consolas, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New;
 }

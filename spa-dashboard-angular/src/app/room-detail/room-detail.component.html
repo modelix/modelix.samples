@@ -1,5 +1,4 @@
 <div *ngIf="room">
-
     <h2>Room Details</h2>
     <dl class="property-list">
         <dt class="property-list__key">Room reference</dt>
@@ -9,16 +8,20 @@
     </dl>
     <dl class="property-list">
         <dt class="property-list__key">Room name</dt>
-        <dd class="property-list__value"><input type="text" [(ngModel)]="room.name" (keyup)="update()"></dd>
+        <dd class="property-list__value">
+            <input type="text" class="text-detail" [(ngModel)]="room.name" (keyup)="update()">
+        </dd>
     </dl>
     <dl class="property-list">
         <dt class="property-list__key">Max places</dt>
-        <dd class="property-list__value"><input type="number" [(ngModel)]="room.maxPlaces" (keyup)="update()"></dd>
+        <dd class="property-list__value">
+            <input type="number" class="text-detail" [(ngModel)]="room.maxPlaces" (keyup)="update()">
+        </dd>
     </dl>
     <dl class="property-list">
         <dt class="property-list__key">Equipment</dt>
         <dd class="property-list__value">
-            <div class="code">{{room.equipment}}</div>
+            <div class="text-detail">{{room.equipment}}</div>
         </dd>
     </dl>
     <br>

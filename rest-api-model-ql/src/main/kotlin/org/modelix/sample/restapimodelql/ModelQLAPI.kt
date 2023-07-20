@@ -18,7 +18,7 @@ import java.nio.charset.Charset
 object RouteHelper {
     @JvmStatic
     public fun urlEncode(input: String): String {
-        return URLEncoder.encode(input, Charset.defaultCharset())!!
+        return URLEncoder.encode(input, Charset.defaultCharset())
     }
 }
 
