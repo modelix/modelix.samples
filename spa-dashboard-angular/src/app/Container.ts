@@ -9,7 +9,7 @@ export class Room extends Updatable{
     roomRef!: string
     name!: string
     maxPlaces!: number
-    hasRemoteEquipment: boolean = false
+    equipment!: string[]
 }
 
 export class RoomList {
@@ -21,6 +21,7 @@ export class Lecture {
     name!: string
     description!: string
     maxParticipants!: number
+    requiredEquipment!: string[]
     room!: string
 }
 

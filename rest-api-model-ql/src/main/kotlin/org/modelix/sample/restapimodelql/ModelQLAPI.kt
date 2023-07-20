@@ -11,10 +11,7 @@ import org.modelix.metamodel.untypedReference
 import org.modelix.model.api.serialize
 import org.modelix.sample.restapimodelql.LightModelClientWrapper
 import org.modelix.sample.restapimodelql.Paths
-import org.modelix.sample.restapimodelql.models.Lecture
-import org.modelix.sample.restapimodelql.models.LectureList
-import org.modelix.sample.restapimodelql.models.Room
-import org.modelix.sample.restapimodelql.models.RoomList
+import org.modelix.sample.restapimodelql.models.*
 import java.net.URLEncoder
 import java.nio.charset.Charset
 
@@ -35,7 +32,8 @@ fun Route.ModelQLAPI(lightModelClientWrapper: LightModelClientWrapper) {
                         description = lectureInstance.description,
                         lectureRef = RouteHelper.urlEncode(lectureInstance.untypedReference().serialize()),
                         room = RouteHelper.urlEncode(lectureInstance.isInRoom?.untypedReference()?.serialize() ?: "UNSET"),
-                        maxParticipants = lectureInstance.maximumCapacity)
+                        maxParticipants = lectureInstance.maximumCapacity,
+                        requiredEquipment = lectureInstance.requiredEquipment.map { it.equipment.name })
             })
         }
         call.respond(lectureList)
@@ -49,7 +47,8 @@ fun Route.ModelQLAPI(lightModelClientWrapper: LightModelClientWrapper) {
                         maxParticipants = resolvedLecture.maximumCapacity,
                         lectureRef = RouteHelper.urlEncode(resolvedLecture.untypedReference().serialize()),
                         room = RouteHelper.urlEncode(resolvedLecture.isInRoom?.untypedReference()?.serialize() ?: "UNSET"),
-                        description = resolvedLecture.description
+                        description = resolvedLecture.description,
+                        requiredEquipment = resolvedLecture.requiredEquipment.map { it.equipment.name }
                 )
             }
             call.respond(lecture)
@@ -66,8 +65,7 @@ fun Route.ModelQLAPI(lightModelClientWrapper: LightModelClientWrapper) {
                 Room(name = roomInstance.name,
                         maxPlaces = roomInstance.maximumCapacity,
                         roomRef = RouteHelper.urlEncode(roomInstance.untypedReference().serialize()),
-                        // TODO: fix to new MM
-                        hasRemoteEquipment = false)
+                        equipment = roomInstance.equipment.map { it.equipment.name })
             })
         }
         call.respond(roomList)
@@ -81,9 +79,7 @@ fun Route.ModelQLAPI(lightModelClientWrapper: LightModelClientWrapper) {
                 Room(name = resolvedRoom.name,
                         roomRef = RouteHelper.urlEncode(resolvedRoom.untypedReference().serialize()),
                         maxPlaces = resolvedRoom.maximumCapacity,
-                        // TODO: fix to new MM
-                        hasRemoteEquipment = true
-                )
+                        equipment = resolvedRoom.equipment.map { it.equipment.name })
             }
             call.respond(room)
         } catch (e: RuntimeException) {

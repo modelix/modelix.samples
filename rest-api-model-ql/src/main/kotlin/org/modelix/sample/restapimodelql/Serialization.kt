@@ -3,13 +3,9 @@ package org.modelix.sample.restapimodelql
 import University.Schedule.N_Lecture
 import University.Schedule.N_Room
 import com.google.gson.*
-import org.modelix.metamodel.typedReference
 import org.modelix.metamodel.untypedReference
 import org.modelix.model.api.serialize
-import org.modelix.sample.restapimodelql.models.Lecture
-import org.modelix.sample.restapimodelql.models.LectureList
-import org.modelix.sample.restapimodelql.models.Room
-import org.modelix.sample.restapimodelql.models.RoomList
+import org.modelix.sample.restapimodelql.models.*
 import org.slf4j.LoggerFactory
 import java.lang.reflect.Type
 import java.util.EnumMap
@@ -25,9 +21,8 @@ fun N_Lecture.toJson() = Lecture(
     name = this.name,
     description = this.description,
     maxParticipants = this.maximumCapacity,
-    // todo: fix to new MM
-    room = this.isInRoom?.untypedReference()?.serialize() ?: ""
-//            room = this.isInRoom != null ?: this.isInRoom.untypedReference().serialize() else ""
+    room = this.isInRoom?.untypedReference()?.serialize() ?: "",
+    requiredEquipment = this.requiredEquipment.map { it.equipment.name }
 )
 
 /**
@@ -38,9 +33,7 @@ fun N_Room.toJson() = Room(
     roomRef = this.untypedReference().serialize(),
     name = this.name,
     maxPlaces = this.maximumCapacity,
-//    hasRemoteEquipment = this.hasRemoteEquipment
-    // todo: fix to new MM
-    hasRemoteEquipment = false
+    equipment = this.equipment.map { it.equipment.name }
 )
 
 fun List<N_Room>.toJson() = RoomList(this.mapNotNull {

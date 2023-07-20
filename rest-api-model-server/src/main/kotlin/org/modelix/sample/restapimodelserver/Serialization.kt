@@ -18,8 +18,8 @@ fun N_Lecture.toJson() = Lecture(
     name = this.name,
     description = this.description,
     maxParticipants = this.maximumCapacity,
-    // todo: handle eventual empty reference
-    room = this.isInRoom!!.untypedReference().serialize()
+    requiredEquipment = this.requiredEquipment.map { it.equipment.name },
+    room = this.isInRoom?.untypedReference()?.serialize() ?: ""
 )
 
 /**
@@ -30,9 +30,7 @@ fun N_Room.toJson() = Room(
     roomRef = this.untypedReference().serialize(),
     name = this.name,
     maxPlaces = this.maximumCapacity,
-//    hasRemoteEquipment = this.hasRemoteEquipment
-    // todo: fix to new MM
-    hasRemoteEquipment = false
+    equipment = this.equipment.map { it.equipment.name }
 )
 
 fun List<N_Room>.toJson() = RoomList(this.mapNotNull {
