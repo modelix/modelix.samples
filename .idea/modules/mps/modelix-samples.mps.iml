@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="4">
+  <component name="AdditionalModuleElements">
+    <content url="file://$MODULE_DIR$/../../../mps" dumb="true">
+      <excludeFolder url="file://$MODULE_DIR$/../../../mps/languages/University.Schedule.Time/classes_gen" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../mps/languages/University.Schedule.Time/generator/classes_gen" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../mps/languages/University.Schedule.Time/generator/source_gen" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../mps/languages/University.Schedule.Time/generator/source_gen.caches" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../mps/languages/University.Schedule.Time/source_gen" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../mps/languages/University.Schedule.Time/source_gen.caches" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../mps/languages/University.Schedule/classes_gen" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../mps/languages/University.Schedule/source_gen" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../mps/languages/University.Schedule/source_gen.caches" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../mps/solutions/University.Schedule.mps.backend.build/source_gen" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../mps/solutions/University.Schedule.mps.backend.build/source_gen.caches" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../mps/solutions/University.Schedule.mps.backend.sandbox/source_gen" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../mps/solutions/University.Schedule.mps.backend.sandbox/source_gen.caches" />
+    </content>
+  </component>
+</module>

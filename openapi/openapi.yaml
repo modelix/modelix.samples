@@ -76,13 +76,15 @@ components:
           type: integer
           minimum: 0
           format: int32
-        hasRemoteEquipment:
-          type: boolean
-          default: false
+        equipment:
+          type: array
+          items:
+            type: string
       required:
         - roomRef
         - name
         - maxPlaces
+        - equipment
     Lecture:
       title: Lecture
       type: object
@@ -97,12 +99,17 @@ components:
           type: integer
         room:
           $ref: '#/components/schemas/RoomRef'
+        requiredEquipment:
+          type: array
+          items:
+            type: string
       required:
         - lectureRef
         - name
         - description
         - maxParticipants
         - room
+        - requiredEquipment
     RoomRef:
       title: RoomRef
       type: string

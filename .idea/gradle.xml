@@ -4,14 +4,14 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
-        <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/model-server" />
             <option value="$PROJECT_DIR$/mps" />
-            <option value="$PROJECT_DIR$/mps/metamodel" />
+            <option value="$PROJECT_DIR$/mps/metamodel-api-kts" />
+            <option value="$PROJECT_DIR$/mps/metamodel-api-ts" />
             <option value="$PROJECT_DIR$/mps/project-modelserver-backend" />
             <option value="$PROJECT_DIR$/mps/project-mps-backend" />
             <option value="$PROJECT_DIR$/rest-api-model-ql" />

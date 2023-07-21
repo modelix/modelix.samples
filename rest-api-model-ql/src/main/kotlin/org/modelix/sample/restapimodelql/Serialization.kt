@@ -3,13 +3,9 @@ package org.modelix.sample.restapimodelql
 import University.Schedule.N_Lecture
 import University.Schedule.N_Room
 import com.google.gson.*
-import org.modelix.metamodel.typedReference
 import org.modelix.metamodel.untypedReference
 import org.modelix.model.api.serialize
-import org.modelix.sample.restapimodelql.models.Lecture
-import org.modelix.sample.restapimodelql.models.LectureList
-import org.modelix.sample.restapimodelql.models.Room
-import org.modelix.sample.restapimodelql.models.RoomList
+import org.modelix.sample.restapimodelql.models.*
 import org.slf4j.LoggerFactory
 import java.lang.reflect.Type
 import java.util.EnumMap
@@ -21,11 +17,12 @@ private val logger = LoggerFactory.getLogger("Serialization")
  * data class [Lecture].
  */
 fun N_Lecture.toJson() = Lecture(
-    lectureRef = this.typedReference().ref.serialize(),
+    lectureRef = this.untypedReference().serialize(),
     name = this.name,
     description = this.description,
-    maxParticipants = this.maxParticipants,
-    room = this.room.untypedReference().serialize()
+    maxParticipants = this.maximumCapacity,
+    room = this.isInRoom?.untypedReference()?.serialize() ?: "",
+    requiredEquipment = this.requiredEquipment.map { it.equipment.name }
 )
 
 /**
@@ -35,8 +32,8 @@ fun N_Lecture.toJson() = Lecture(
 fun N_Room.toJson() = Room(
     roomRef = this.untypedReference().serialize(),
     name = this.name,
-    maxPlaces = this.maxPlaces,
-    hasRemoteEquipment = this.hasRemoteEquipment
+    maxPlaces = this.maximumCapacity,
+    equipment = this.equipment.map { it.equipment.name }
 )
 
 fun List<N_Room>.toJson() = RoomList(this.mapNotNull {

@@ -2,6 +2,8 @@
 <project version="4">
   <component name="MPSProject">
     <projectModules>
+      <modulePath path="$PROJECT_DIR$/../devkits/University.Schedule.Devkit/University.Schedule.Devkit.devkit" folder="" />
+      <modulePath path="$PROJECT_DIR$/../languages/University.Schedule.Time/University.Schedule.Time.mpl" folder="" />
       <modulePath path="$PROJECT_DIR$/../languages/University.Schedule/University.Schedule.mpl" folder="" />
       <modulePath path="$PROJECT_DIR$/../solutions/University.Schedule.mps.backend.build/University.Schedule.mps.backend.build.msd" folder="" />
       <modulePath path="$PROJECT_DIR$/../solutions/University.Schedule.mps.backend.sandbox/University.Schedule.mps.backend.sandbox.msd" folder="" />

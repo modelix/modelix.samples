@@ -32,10 +32,9 @@ metamodel {
 
     // restrictions on languages and solutions
     modulesFrom(projectDir.resolve("languages"))
-    modulesFrom(projectDir.resolve("solutions"))
 
     // further restrictions on language/solution names
-    includeNamespace("University.Schedule.sandbox")
+    includeLanguage("University.Schedule.Time")
     includeLanguage("University.Schedule")
 
     // include dependencies from the shared dependencies folder
@@ -45,7 +44,8 @@ metamodel {
 
     // the target project into which the kotlin API will be build
     // (requires the project to exist in the gradle setup)
-    kotlinDir = project(":mps:metamodel").projectDir.resolve("src/main/kotlin")
+    kotlinDir = project(":mps:metamodel-api-kts").projectDir.resolve("src/main/kotlin")
+    typescriptDir = project(":mps:metamodel-api-ts").projectDir.resolve("src/")
 
     // name of the registration helper class
     registrationHelperName = "University.Schedule.GeneratedLanguages"

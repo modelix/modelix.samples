@@ -61,11 +61,11 @@ class Api(private val repo: ReplicatedRepository) : DefaultApi {
     }
 
     override fun listLectures(): LectureList = executeRead { area ->
-        getAllRootNodes(area).filterIsInstance<N_Courses>().flatMap { it.lectures }.toJson()
+        getAllRootNodes(area).filterIsInstance<N_LectureList>().flatMap { it.lectures }.toJson()
     }
 
     override fun listRooms(): RoomList = executeRead { area ->
-        getAllRootNodes(area).filterIsInstance<N_Rooms>().flatMap { it.rooms }.toJson()
+        getAllRootNodes(area).filterIsInstance<N_RoomList>().flatMap { it.rooms }.toJson()
     }
 
 }

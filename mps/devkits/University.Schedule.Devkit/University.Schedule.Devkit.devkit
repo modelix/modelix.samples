@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dev-kit name="University.Schedule.Devkit" uuid="3f0b14cf-38db-4a9e-ae9e-6c078c16c2da">
+  <exported-language name="cafa79c7-9e66-4df7-8f06-84e4e6a7c5e6(University.Schedule.Time)" />
+  <exported-language name="96533389-8d4c-46f2-b150-8d89155f7fca(University.Schedule)" />
+</dev-kit>
+

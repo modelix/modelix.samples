@@ -8,21 +8,37 @@
     </dl>
     <dl class="property-list">
         <dt class="property-list__key">Lecture name</dt>
-        <dd class="property-list__value"><input type="text" [(ngModel)]="lecture.name" (keyup)="update()"></dd>
+        <dd class="property-list__value">
+            <input type="text" class="text-detail" [(ngModel)]="lecture.name" (keyup)="update()">
+        </dd>
     </dl>
     <dl class="property-list">
         <dt class="property-list__key">Max participants</dt>
-        <dd class="property-list__value"><input type="number" [(ngModel)]="lecture.maxParticipants" (keyup)="update()"></dd>
+        <dd class="property-list__value">
+            <input type="number" class="text-detail" [(ngModel)]="lecture.maxParticipants" (keyup)="update()">
+        </dd>
     </dl>
     <dl class="property-list">
         <dt class="property-list__key">Description</dt>
-        <dd class="property-list__value"><textarea [(ngModel)]="lecture.description" name="Description" mdInput  rows="5" (keyup)="update()"></textarea></dd>
+        <dd class="property-list__value">
+            <textarea class="text-detail" [(ngModel)]="lecture.description" name="Description" mdInput rows="5" (keyup)="update()"></textarea>
+        </dd>
+    </dl>
+    <dl class="property-list">
+        <dt class="property-list__key">Requires Equipment</dt>
+        <dd class="property-list__value">
+            <div class="text-detail">{{lecture.requiredEquipment}}</div>
+        </dd>
     </dl>
     <dl class="property-list">
         <dt class="property-list__key">Is in Room</dt>
-        <dd class="property-list__value,code"><a routerLink="/rooms/{{lecture.room}}">
-            <span class="badge">{{lecture.room}}</span> {{lecture.room}}
-        </a></dd>
+        <dd class="property-list__value">
+            <div class="text-detail">
+                <a routerLink="/rooms/{{lecture.room}}">
+                    {{lecture.room}}<br>
+                </a>
+            </div>
+        </dd>
     </dl>
 
     <br>
