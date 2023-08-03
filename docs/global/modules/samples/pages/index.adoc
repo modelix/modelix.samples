@@ -8,7 +8,7 @@ IMPORTANT: The examples are currently work in progress and are develop alongside
 include::samples:partial$short-description.adoc[]
 
 None of the examples try to reuse editors defined in MPS.
-If your goal is to reuse MPS editors as is then modelix itself ships with a projector integration to achieve this.
+If your goal is to reuse MPS editors as is then modelix itself ships with a https://lp.jetbrains.com/projector/[Projector] integration to achieve this.
 
 While all the examples use the same language defined in MPS they are not meant as one complete example but rather as individual parts.
 The purpose of the examples is to give inspiration of what is possible with modelix and make you think and envision your own use-cases.
