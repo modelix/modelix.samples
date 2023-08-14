@@ -10,7 +10,7 @@ specificlanguagesMps = "1.5.0"
 mpsGradlePlugin = "1.7.288.4ea765f"
 
 # modelix
-modelixCore = "2.10.8"
+modelixCore = "2.16.0"
 mpsModelServerSyncPlugin = "2021.2.145"
 
 # backend 1 / SPA
