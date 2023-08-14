@@ -14,7 +14,7 @@ modelixCore = "2.10.8"
 mpsModelServerSyncPlugin = "2021.2.145"
 
 # backend 1 / SPA
-ktor = "2.3.2"
+ktor = "2.3.3"
 
 # backend 2
 quarkusPlatform = "2.14.0.Final"
