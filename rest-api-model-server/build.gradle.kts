@@ -6,6 +6,9 @@ plugins {
 }
 
 dependencies {
+    // Enforce usage of our declard Kotlin version in Quarkus
+    // see. https://quarkus.io/guides/kotlin#kotlin-version
+    implementation(enforcedPlatform(libs.kotlin.bom))
     implementation(enforcedPlatform(libs.quarkus.bom))
     implementation("io.quarkus:quarkus-resteasy-reactive")
     implementation("io.quarkus:quarkus-kotlin")
