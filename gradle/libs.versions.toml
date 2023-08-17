@@ -10,15 +10,18 @@ specificlanguagesMps = "1.5.0"
 mpsGradlePlugin = "1.7.288.4ea765f"
 
 # modelix
-modelixCore = "2.16.0"
+modelixCore = "2.16.3"
 mpsModelServerSyncPlugin = "2021.2.145"
 
 # backend 1 / SPA
 ktor = "2.3.3"
 
 # backend 2
-quarkusPlatform = "2.14.0.Final"
-quarkusPlugin = "2.14.0.Final"
+# When increasing the version of quarkus,
+# see if you can raise the version of the Kotlin API used by the generated code
+# in mps/metamodel-api-kts/build.gradle.kts
+quarkusPlatform = "2.16.9.Final"
+quarkusPlugin = "2.16.9.Final"
 
 # other
 openapi = "6.6.0"
