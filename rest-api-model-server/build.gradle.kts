@@ -6,6 +6,9 @@ plugins {
 }
 
 dependencies {
+    // The version of the Kotlin stdlib included
+    // by libs.plugins.kotlin.jvm and libs.modelix.model.client
+    // is overridden by the version from the Quarkus platform.
     implementation(enforcedPlatform(libs.quarkus.bom))
     implementation("io.quarkus:quarkus-resteasy-reactive")
     implementation("io.quarkus:quarkus-kotlin")
@@ -18,7 +21,6 @@ dependencies {
 
     implementation(libs.ktor.client.core)
     implementation(libs.modelix.model.client)
-    implementation(libs.kotlin.stdlib)
 
     implementation(project(":mps:metamodel-api-kts"))
 }
