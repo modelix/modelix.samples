@@ -52,7 +52,6 @@ modelix-light-model-client = { group = "org.modelix", name = "light-model-client
 quarkus-bom = { group = "io.quarkus.platform", name = "quarkus-bom", version.ref = "quarkusPlatform" }
 
 # kotlin/ktor
-kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib-jdk8", version.ref = "kotlin" }
 ktor-server-default-headers = { group = "io.ktor", name = "ktor-server-default-headers", version.ref = "ktor" }
 ktor-server-content-negotiation = { group = "io.ktor", name = "ktor-server-content-negotiation", version.ref = "ktor" }
 ktor-server-auto-head-response = { group = "io.ktor", name = "ktor-server-auto-head-response", version.ref = "ktor" }
