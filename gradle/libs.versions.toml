@@ -21,7 +21,7 @@ ktor = "2.3.4"
 # see if you can raise the version of the Kotlin API used by the generated code
 # in mps/metamodel-api-kts/build.gradle.kts
 quarkusPlatform = "2.16.9.Final"
-quarkusPlugin = "2.16.9.Final"
+quarkusPlugin = "3.4.1"
 
 # other
 openapi = "7.0.1"
