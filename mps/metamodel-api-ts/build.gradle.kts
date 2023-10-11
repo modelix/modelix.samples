@@ -1,13 +1,8 @@
-// INFO: This sub-project is not yet used. It is included to show the generated TS files from the model-api-gen.
-//
-//
-plugins {
-    application
-    alias(libs.plugins.kotlin.jvm)
-    alias(libs.plugins.node.gradle)
-}
+import com.github.gradle.node.npm.task.NpmTask
 
-dependencies {
+plugins {
+    base
+    alias(libs.plugins.node.gradle)
 }
 
 node {
@@ -15,10 +10,15 @@ node {
     version.set(libs.versions.node)
 }
 
-//val npmRun by tasks.creating(com.github.gradle.node.npm.task.NpmTask::class) {
-//    dependsOn(tasks.getByName("build"))
-//    args.addAll("run-script", "ng", "serve")
-//}
+tasks.named("npm_run_build") {
+    dependsOn(":mps:generateMetaModelSources")
+}
 
-//tasks.getByName("build").dependsOn("npmInstall")
+tasks.named<NpmTask>("npm_pack") {
+    dependsOn("npm_run_build")
+    args.addAll("--pack-destination", "./build/packages")
+}
 
+tasks.assemble {
+    dependsOn("npm_pack")
+}
