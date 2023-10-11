@@ -11,6 +11,7 @@
   "dependencies": {
     "@mdi/font": "7.0.96",
     "core-js": "^3.29.0",
+    "metamodel-api-ts": "file:../mps/metamodel-api-ts/build/packages/metamodel-api-ts-1.0.0.tgz",
     "roboto-fontface": "*",
     "vue": "^3.2.0",
     "vue-router": "^4.0.0",
