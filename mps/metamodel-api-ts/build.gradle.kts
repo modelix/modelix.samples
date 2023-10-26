@@ -15,8 +15,12 @@ tasks.named("npm_run_build") {
 }
 
 tasks.named<NpmTask>("npm_pack") {
+    val packageDirectory = project.layout.buildDirectory.dir("packages").get().asFile
     dependsOn("npm_run_build")
-    args.addAll("--pack-destination", "./build/packages")
+    doFirst {
+        packageDirectory.mkdirs()
+    }
+    args.addAll("--pack-destination", packageDirectory.path)
 }
 
 tasks.assemble {
