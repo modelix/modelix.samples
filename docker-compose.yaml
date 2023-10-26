@@ -1,0 +1,21 @@
+services:
+  model-server:
+    # Keep the version in sync with the modelix version in gradle/libs.versions.toml
+    image: modelix/modelix-model:3.5.0
+    ports:
+      - 28101:28101
+    volumes:
+      - ./model-server/courses.modelserver.dump:/courses.modelserver.dump
+    command: ["./run-model-server.sh", "-inmemory", "-dumpin", "/courses.modelserver.dump"]
+  spa-overview-angular:
+      image: nginx
+      ports:
+        - 4200:80
+      volumes:
+        - ./spa-overview-angular/dist/spa-overview-angular:/usr/share/nginx/html
+  spa-management-vue:
+    image: nginx
+    ports:
+      - 3000:80
+    volumes:
+      - ./spa-management-vue/dist:/usr/share/nginx/html

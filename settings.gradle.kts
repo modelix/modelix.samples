@@ -43,3 +43,4 @@ include("rest-api-model-server")
 include("spa-dashboard-angular")
 // a single page application which can write on the model through a model client
 include("spa-management-vue")
+include("spa-overview-angular")
