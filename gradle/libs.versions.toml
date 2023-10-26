@@ -6,7 +6,6 @@
 # MPS
 mpsBase = "2021.2.6"
 mpsExtensions = "2021.2.2569.a5e1b8d"
-specificlanguagesMps = "1.5.0"
 mpsGradlePlugin = "1.7.288.4ea765f"
 
 # modelix
@@ -71,7 +70,6 @@ logback-classic = { group = "ch.qos.logback", name = "logback-classic", version.
 
 [plugins]
 # MPS/modelix
-specificlanguages-mps = {id = "com.specificlanguages.mps", version.ref = "specificlanguagesMps"}
 itemis-mps-gradle-common = { id = "de.itemis.mps.gradle.common", version.ref = "mpsBase" }
 modelix-model-api-gen = { id = "org.modelix.model-api-gen", version.ref = "modelixCore" }
 
