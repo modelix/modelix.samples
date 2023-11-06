@@ -1,0 +1,18 @@
+<table class="table is-hoverable is-striped is-narrow">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Lecture</th>
+            <th>Room</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let lectureOccurence of this.lectureOccurences">
+            <td>{{formatDate(lectureOccurence.datetime)}}</td>
+            <td>{{formatTime(lectureOccurence.datetime)}}</td>
+            <td>{{lectureOccurence.lectureName}}</td>
+            <td>{{lectureOccurence.roomName}}</td>
+        </tr>
+    </tbody>
+</table>
