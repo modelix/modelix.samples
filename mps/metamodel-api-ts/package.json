@@ -1,0 +1,23 @@
+{
+  "name": "metamodel-api-ts",
+  "version": "1.0.0",
+  "description": "TypeScript code generated from the meta model",
+  "main": "build/dist/index.js",
+  "types": "build/dist/index.d.ts",
+  "files": [
+    "build/dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@tsconfig/recommended": "^1.0.2",
+    "typescript": "^5.1.6"
+  },
+  "dependencies": {
+  },
+  "peerDependencies": {
+    "@modelix/ts-model-api": "3.11.0"
+  }
+}
