@@ -18,6 +18,7 @@
             <option value="$PROJECT_DIR$/rest-api-model-server" />
             <option value="$PROJECT_DIR$/spa-dashboard-angular" />
             <option value="$PROJECT_DIR$/spa-management-vue" />
+            <option value="$PROJECT_DIR$/spa-overview-angular" />
           </set>
         </option>
       </GradleProjectSettings>
