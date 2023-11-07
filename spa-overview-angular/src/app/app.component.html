@@ -1,0 +1,20 @@
+<div id="page">
+  <nav class="menu" id="navigation" role="navigation">
+    <ul class="menu-list">
+      <li><a routerLink="/">Overview</a></li>
+    </ul>
+    <p class="menu-label">
+      Rooms
+    </p>
+    <ul class="menu-list">
+      <li *ngFor="let room of this.getRooms()">
+        <a routerLink="/room/{{room.unwrap().getReference()}}">{{room.name}}</a>
+      </li>
+    </ul>
+  </nav>
+  <main id="content">
+    <div class="container is-max-desktop">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+</div>

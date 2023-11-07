@@ -1,0 +1,7 @@
+<div class="content">
+    <ng-template [ngIf]="getRoom()" let-room>
+        <h2 class="subtitle">Lectures room {{room.name}}</h2>
+        <app-lecture-table [lectureOccurences]="getLectureOccurences()" />
+    </ng-template>
+    <ng-template #elseBlock>Room with reference {{roomReference}} does not exist.</ng-template>
+</div>
