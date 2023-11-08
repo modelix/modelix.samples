@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.kotlin.jvm) apply false
     alias(libs.plugins.kotlin.kapt) apply false
-    alias(libs.plugins.specificlanguages.mps) apply false
     alias(libs.plugins.node.gradle) apply false
     // we use the java plugin so that we can use the implementation in the
     // subprojects block to declare modelix platform dependencies for all
