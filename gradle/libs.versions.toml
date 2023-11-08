@@ -19,7 +19,7 @@ modelixCore = "3.11.0"
 mpsModelServerSyncPlugin = "2021.2.157"
 
 # backend 1 / SPA
-ktor = "2.3.5"
+ktor = "2.3.6"
 
 # backend 2
 # When increasing the version of quarkus,
@@ -67,6 +67,9 @@ ktor-server-cors = { group = "io.ktor", name = "ktor-server-cors", version.ref =
 ktor-server-websockets = { group = "io.ktor", name = "ktor-server-websockets", version.ref = "ktor" }
 ktor-client-cio = { group = "io.ktor", name = "ktor-client-cio", version.ref = "ktor" }
 ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
+ktor-client-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-client-auth = { group = "io.ktor", name = "ktor-client-auth", version.ref = "ktor" }
+ktor-serialization-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
 
 # other
 ant-junit = { group = "org.apache.ant", name = "ant-junit", version.ref = "antJunit" }
