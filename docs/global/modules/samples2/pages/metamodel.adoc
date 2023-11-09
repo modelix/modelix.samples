@@ -1,0 +1,58 @@
+= Metamodel for the samples
+:navtitleshort-description.adoc: Metamodel
+
+The MPS language (aka. metamodel) used in all examples is the same.
+It is fairly small as describes simplified lecture schedule.
+
+NOTE: The language intentionally does not use expressions, creating editors for expressions by hand is tedious, and modelix has no support for generating these editors for you.
+
+// TODO Olekz upate, after describing uses casdes
+The main concepts of the language are:
+
+- Room: where lecture are held. Each room has a maximum capacity of students, a name and some additional properties.
+- Lecture:
+Have a name, some description and reference a room where they are held. And also have a schedule which determines when
+they are held and if they repeat through the whole semester or are a one time lecture.
+- Student:
+A student with a name and birthday.
+- Assignment:
+Lecture assignments for a single student.
+
+Some concepts are contained a root node like a `Rooms` container to make structuring the editors in MPS easier:
+
+
+image::domain_mermaid.png[]
+
+
+[source,mermaid]
+--
+classDiagram
+    class Rooms {
+      <<root>>
+    }
+    class Courses {
+      <<root>>
+    }
+
+    class Students {
+      <<root>>
+    }
+
+    class LectureAssignments {
+      <<root>>
+    }
+
+    Rooms *-- Room : 0..n
+    Courses *-- Lecture: 0..n
+    Lecture .. Room: 1
+    Lecture *-- Schedule: 1
+    OneOff <|-- Schedule
+    Recurring <|-- Schedule
+    Schedule *-- DateAndTime:1
+    Students *-- Student: 0..n
+    Student *-- DateAndTime:born [1]
+    LectureAssignments .. Student: 1
+    LectureAssignments *-- Assignment: 0..n
+    Assignment .. Lecture:1
+--
+
