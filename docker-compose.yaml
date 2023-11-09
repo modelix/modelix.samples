@@ -4,7 +4,7 @@ services:
     # Due to the bug MODELIX-606 we need to use an earlier version for the 'fill from MPS use case'
     image: modelix/model-server:3.1.0
     profiles:
-      - uc-1
+      - useCase1
     ports:
       - 28101:28101
     command: ["./run-model-server.sh", "-inmemory"]
@@ -13,9 +13,9 @@ services:
     # Keep the version in sync with the modelix version in gradle/libs.versions.toml
     image: modelix/model-server:3.11.0
     profiles:
-      - uc-2a
-      - uc-2b
-      - uc-3
+      - useCase2a
+      - useCase2b
+      - useCase3
     ports:
       - 28101:28101
     volumes:
@@ -25,22 +25,26 @@ services:
   rest-api-model-server:
     image: modelix/rest-api-model-server:latest
     profiles:
-      - uc-2a
+      - useCase2a
+    ports:
+      - 8090:8090
+      - 8080:8080
+
   spa-dashboard-angular:
     image: nginx
     ports:
       - 4200:80
     profiles:
-      - uc-2a
-      - uc-2b
+      - useCase2a
+      - useCase2b
     volumes:
-      - ./spa-dashboard-angular/dist/spa-overview-angular:/usr/share/nginx/html
+      - ./spa-dashboard-angular/dist:/usr/share/nginx/html
 
 
   spa-overview-angular:
       image: nginx
       profiles:
-        - uc-3
+        - useCase3
       ports:
         - 4200:80
       volumes:
@@ -49,7 +53,7 @@ services:
   spa-management-vue:
     image: nginx
     profiles:
-      - uc-3
+      - useCase3
     ports:
       - 3000:80
     volumes:
