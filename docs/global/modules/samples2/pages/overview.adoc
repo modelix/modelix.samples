@@ -8,17 +8,20 @@ to create custom solutions.
 On this page, you can get an overview of all uses cases,
 and see how they are related and what their essential differences are.
 
-== Introduction
+* Use case 1: Read model data through a web backend
+.. The backend directly connects to a running MPS.
+.. The backend directly connects to a modelix model server kept in sync with a running MPS.
+* Use case 2: Read model data through a web frontend
++
+The frontend directly connects to a modelix model server kept in sync with a running MPS.
 
-include::samples2:partial$short-description.adoc[]
 
-None of the examples try to reuse editors defined in MPS.
-If your goal is to reuse MPS editors as is then modelix itself ships with a https://lp.jetbrains.com/projector/[Projector] integration to achieve this.
-
-While all the examples use the same language defined in MPS they are not meant as one complete example but rather as individual parts.
-The purpose of the examples is to give inspiration of what is possible with modelix and make you think and envision your own use cases.
+image::system-diagram-full.svg[]
 
 == Use case 1
+
+In the first use case, we access model data in a web backend.
+This data is served by a REST API to a dashboard.
 
 === Use case 1a
 
