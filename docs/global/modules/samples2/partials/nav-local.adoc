@@ -1,0 +1,3 @@
+* Samples
+** xref:samples2:index.adoc[]
+** xref:samples2:overview.adoc[]

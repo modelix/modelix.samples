@@ -1,0 +1,3 @@
+// * xref:samples2:tutorial/startup-usecases.adoc[]
+* xref:samples2:tutorial/start-usecase-1-a.adoc[]
+* xref:samples2:tutorial/start-usecase-1-b.adoc[]

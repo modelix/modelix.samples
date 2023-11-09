@@ -1,0 +1,3 @@
+//* Samples
+//* xref:samples2:howto/index.adoc[Samples]
+

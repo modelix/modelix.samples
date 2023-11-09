@@ -1,0 +1,8 @@
+//* xref:samples2:reference/index.adoc[Samples]
+* xref:samples2:reference/architecture.adoc[]
+* xref:samples2:reference/meta-model-model-api.adoc[]
+* xref:samples2:reference/dashboard.adoc[]
+* xref:samples2:reference/model-server.adoc[]
+* xref:samples2:reference/openapi.adoc[]
+** xref:samples2:reference/rest-api-model-ql.adoc[]
+** xref:samples2:reference/rest-api-model-server.adoc[]
