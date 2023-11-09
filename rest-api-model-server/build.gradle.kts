@@ -19,8 +19,26 @@ dependencies {
     testImplementation("io.quarkus:quarkus-junit5")
     testImplementation("io.rest-assured:rest-assured")
 
-    implementation(libs.ktor.client.core)
     implementation(libs.modelix.model.client)
+    implementation(libs.ktor.client.core)
+    constraints {
+        // The Ktor version 2.3.5 from the modelix release 23.2,
+        // has a bug that makes it break for Quarkus.
+        //
+        // The bug stems from an upgraded Kotlin version,
+        // which broke backward compatibility.
+        // See https://youtrack.jetbrains.com/issue/KTOR-6354
+        //
+        // The Ktor version 2.3.6 provides a fix,
+        // but that Ktor version is not used in modelix release 23.2.
+        //
+        // Because of that, we are explicitly constraining the Ktor version
+        // of Ktor libraries to 2.3.6 or later (specified in libs.version.toml)
+        implementation(libs.ktor.client.cio)
+        implementation(libs.ktor.client.auth)
+        implementation(libs.ktor.client.content.negotiation)
+        implementation(libs.ktor.serialization.json)
+    }
 
     implementation(project(":mps:metamodel-api-kts"))
 }
