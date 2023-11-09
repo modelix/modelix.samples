@@ -1,20 +1,38 @@
 services:
+
   model-server:
     # Keep the version in sync with the modelix version in gradle/libs.versions.toml
-    image: modelix/modelix-model:3.11.0
+    image: modelix/model-server:3.11.0
+    profiles:
+      - uc1
     ports:
       - 28101:28101
     volumes:
       - ./model-server/courses.modelserver.dump:/courses.modelserver.dump
     command: ["./run-model-server.sh", "-inmemory", "-dumpin", "/courses.modelserver.dump"]
+
+  model-server-empty:
+    # Due to the bug MODELIX-606 we need to use an earlier version for the 'fill from MPS use case'
+    image: modelix/model-server:3.1.0
+    profiles:
+      - uc0
+    ports:
+      - 28101:28101
+    command: ["./run-model-server.sh", "-inmemory"]
+
   spa-overview-angular:
       image: nginx
+      profiles:
+        - uc1
       ports:
         - 4200:80
       volumes:
         - ./spa-overview-angular/dist/spa-overview-angular:/usr/share/nginx/html
+
   spa-management-vue:
     image: nginx
+    profiles:
+      - uc1
     ports:
       - 3000:80
     volumes:
