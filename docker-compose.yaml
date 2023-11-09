@@ -24,11 +24,15 @@ services:
 
   rest-api-model-server:
     image: modelix/rest-api-model-server:latest
+    # Needs to be specified, so that container runs in Docker on Mac with ARM
+    platform: linux/x86_64
     profiles:
-      - useCase2a
+      - useCase2b
     ports:
-      - 8090:8090
-      - 8080:8080
+      # The dashboard expects our service to be running under 8090.
+      - 8090:8080
+    environment:
+      - MODELIX_CLIENT_SERVER_URI=http://model-server:28101
 
   spa-dashboard-angular:
     image: nginx
