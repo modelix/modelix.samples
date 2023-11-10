@@ -2,6 +2,7 @@ plugins {
     application
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.openapi.generator)
+    id("io.ktor.plugin") version "2.3.5"
 }
 
 val openApiFile = layout.projectDirectory.file("../openapi/openapi.yaml")
@@ -68,4 +69,11 @@ java.sourceSets.getByName("main").java.srcDir(file("$buildDir/openapi-generator/
 
 application {
     mainClass.set("org.modelix.sample.restapimodelql.ApplicationKt")
+}
+
+ktor {
+    docker {
+        localImageName.set("modelix/rest-api-model-ql")
+        imageTag.set("latest")
+    }
 }

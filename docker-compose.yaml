@@ -14,25 +14,37 @@ services:
     image: modelix/model-server:3.11.0
     profiles:
       - useCase2a
-      - useCase2b
       - useCase3
     ports:
       - 28101:28101
     volumes:
       - ./model-server/courses.modelserver.dump:/courses.modelserver.dump
     command: ["./run-model-server.sh", "-inmemory", "-dumpin", "/courses.modelserver.dump"]
+    network_mode: "host"
 
   rest-api-model-server:
     image: modelix/rest-api-model-server:latest
     # Needs to be specified, so that container runs in Docker on Mac with ARM
     platform: linux/x86_64
     profiles:
-      - useCase2b
+      - useCase2a
     ports:
       # The dashboard expects our service to be running under 8090.
       - 8090:8080
     environment:
       - MODELIX_CLIENT_SERVER_URI=http://model-server:28101
+
+  rest-api-model-ql:
+    image: modelix/rest-api-model-ql:latest
+    profiles:
+      - useCase2b
+    ports:
+      # The dashboard expects our service to be running under 8090.
+      - 8090:8080
+      - 48302:48302
+    environment:
+      - MODELIX_CLIENT_SERVER_URI=http://model-server:28101
+    network_mode: "host"
 
   spa-dashboard-angular:
     image: nginx
