@@ -57,6 +57,20 @@ services:
 #      - useCase3b
     volumes:
       - ./spa-dashboard-angular/dist:/usr/share/nginx/html
+    command: |
+      bash -c 'bash -s <<EOF
+        cat > /etc/nginx/conf.d/default.conf <<EON
+          server {
+            listen 80 default_server;
+            root /usr/share/nginx/html;          
+            location / {
+              # configure Nginx to work for client side routing
+              try_files \\\$$uri \\\$$uri/ /index.html;
+            }
+          }
+      EON
+      nginx -g "daemon off;"
+      EOF'
 
   spa-overview-angular:
       image: nginx
@@ -67,6 +81,20 @@ services:
         - 4200:80
       volumes:
         - ./spa-overview-angular/dist/spa-overview-angular:/usr/share/nginx/html
+      command: |
+        bash -c 'bash -s <<EOF
+          cat > /etc/nginx/conf.d/default.conf <<EON
+            server {
+              listen 80 default_server;
+              root /usr/share/nginx/html;          
+              location / {
+                # configure Nginx to work for client side routing
+                try_files \\\$$uri \\\$$uri/ /index.html;
+              }
+            }
+        EON
+        nginx -g "daemon off;"
+        EOF'
 
   spa-management-vue:
     image: nginx
@@ -77,3 +105,17 @@ services:
       - 3000:80
     volumes:
       - ./spa-management-vue/dist:/usr/share/nginx/html
+    command: |
+      bash -c 'bash -s <<EOF
+        cat > /etc/nginx/conf.d/default.conf <<EON
+          server {
+            listen 80 default_server;
+            root /usr/share/nginx/html;          
+            location / {
+              # configure Nginx to work for client side routing
+              try_files \\\$$uri \\\$$uri/ /index.html;
+            }
+          }
+      EON
+      nginx -g "daemon off;"
+      EOF'
