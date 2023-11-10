@@ -19,3 +19,7 @@ val npmRun by tasks.creating(com.github.gradle.node.npm.task.NpmTask::class) {
 }
 
 tasks.getByName("build").dependsOn("npmInstall")
+
+tasks.assemble {
+    dependsOn("npm_run_build")
+}

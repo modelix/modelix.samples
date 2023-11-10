@@ -18,6 +18,7 @@ dependencies {
     implementation("io.quarkus:quarkus-arc")
     testImplementation("io.quarkus:quarkus-junit5")
     testImplementation("io.rest-assured:rest-assured")
+    implementation("io.quarkus:quarkus-container-image-jib")
 
     implementation(libs.modelix.model.client)
     implementation(libs.ktor.client.core)

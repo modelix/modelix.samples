@@ -1,21 +1,121 @@
 services:
+
+  model-server-empty:
+    # Due to the bug MODELIX-606 we need to use an earlier version for the 'fill from MPS use case'
+    image: modelix/model-server:3.1.0
+    container_name: model-server-empty
+    profiles:
+      - useCase1
+    ports:
+      - 28101:28101
+    command: ["./run-model-server.sh", "-inmemory"]
+
   model-server:
     # Keep the version in sync with the modelix version in gradle/libs.versions.toml
-    image: modelix/modelix-model:3.11.0
+    image: modelix/model-server:3.11.0
+    container_name: model-server
+    profiles:
+      - useCase2
+      - useCase3
+#      - useCase3b
     ports:
       - 28101:28101
     volumes:
       - ./model-server/courses.modelserver.dump:/courses.modelserver.dump
     command: ["./run-model-server.sh", "-inmemory", "-dumpin", "/courses.modelserver.dump"]
+
+  rest-api-model-server:
+    image: modelix/rest-api-model-server:latest
+    container_name: rest-api-model-server
+    # Needs to be specified, so that container runs in Docker on Mac with ARM
+    platform: linux/x86_64
+    profiles:
+      - useCase3
+    ports:
+      # The dashboard expects our service to be running under 8090.
+      - 8090:8080
+    environment:
+      - MODELIX_CLIENT_SERVER_URI=http://model-server:28101
+
+# This use case is currently being reworked
+#  rest-api-model-ql:
+#    image: modelix/rest-api-model-ql:latest
+#    container_name: rest-api-model-ql
+#    profiles:
+#      - useCase3b
+#    ports:
+#      # The dashboard expects our service to be running under 8090.
+#      - 8090:8080
+
+  spa-dashboard-angular:
+    container_name: spa-dashboard-angular
+    image: nginx
+    ports:
+      - 4201:80
+    profiles:
+      - useCase3
+#      - useCase3b
+    volumes:
+      - ./spa-dashboard-angular/dist:/usr/share/nginx/html
+    command: |
+      bash -c 'bash -s <<EOF
+        cat > /etc/nginx/conf.d/default.conf <<EON
+          server {
+            listen 80 default_server;
+            root /usr/share/nginx/html;          
+            location / {
+              # configure Nginx to work for client side routing
+              try_files \\\$$uri \\\$$uri/ /index.html;
+            }
+          }
+      EON
+      nginx -g "daemon off;"
+      EOF'
+
   spa-overview-angular:
       image: nginx
+      container_name: spa-overview-angular
+      profiles:
+        - useCase2
       ports:
         - 4200:80
       volumes:
         - ./spa-overview-angular/dist/spa-overview-angular:/usr/share/nginx/html
+      command: |
+        bash -c 'bash -s <<EOF
+          cat > /etc/nginx/conf.d/default.conf <<EON
+            server {
+              listen 80 default_server;
+              root /usr/share/nginx/html;          
+              location / {
+                # configure Nginx to work for client side routing
+                try_files \\\$$uri \\\$$uri/ /index.html;
+              }
+            }
+        EON
+        nginx -g "daemon off;"
+        EOF'
+
   spa-management-vue:
     image: nginx
+    container_name: spa-management-vue
+    profiles:
+      - useCase2
     ports:
       - 3000:80
     volumes:
       - ./spa-management-vue/dist:/usr/share/nginx/html
+    command: |
+      bash -c 'bash -s <<EOF
+        cat > /etc/nginx/conf.d/default.conf <<EON
+          server {
+            listen 80 default_server;
+            root /usr/share/nginx/html;          
+            location / {
+              # configure Nginx to work for client side routing
+              try_files \\\$$uri \\\$$uri/ /index.html;
+            }
+          }
+      EON
+      nginx -g "daemon off;"
+      EOF'
