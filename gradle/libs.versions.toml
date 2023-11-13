@@ -24,7 +24,7 @@ ktor = "2.3.6"
 # When increasing the version of quarkus,
 # see if you can raise the version of the Kotlin API used by the generated code
 # in mps/metamodel-api-kts/build.gradle.kts
-quarkusPlatform = "2.16.9.Final"
+quarkusPlatform = "2.16.12.Final"
 quarkusPlugin = "2.16.9.Final"
 
 # other
