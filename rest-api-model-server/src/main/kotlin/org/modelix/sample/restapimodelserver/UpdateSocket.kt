@@ -4,10 +4,7 @@ import University.Schedule.*
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.ktor.util.collections.*
 import org.modelix.metamodel.typed
-import org.modelix.model.api.IBranchListener
-import org.modelix.model.api.ITree
-import org.modelix.model.api.ITreeChangeVisitor
-import org.modelix.model.api.PNodeAdapter
+import org.modelix.model.api.*
 import org.modelix.model.area.PArea
 import org.modelix.model.client.ReplicatedRepository
 import org.slf4j.LoggerFactory
@@ -64,14 +61,26 @@ class UpdateSocket(private val repo: ReplicatedRepository, private val mapper: O
             try {
                 when (node.typed()) {
                     is N_Room -> broadcast(ChangeNotification(WhatChanged.ROOM, node.typed<N_Room>().toJson()))
-                    is N_RoomList -> broadcast(ChangeNotification(WhatChanged.ROOM_LIST, node.typed<N_RoomList>().rooms.toList().toJson()))
+                    is N_RoomList -> broadcast(
+                        ChangeNotification(
+                            WhatChanged.ROOM_LIST,
+                            node.typed<N_RoomList>().rooms.toList().toJson()
+                        )
+                    )
+
                     is N_Lecture -> broadcast(ChangeNotification(WhatChanged.LECTURE, node.typed<N_Lecture>().toJson()))
-                    is N_LectureList -> broadcast(ChangeNotification(WhatChanged.LECTURE_LIST, node.typed<N_LectureList>().lectures.toList().toJson()))
+                    is N_LectureList -> broadcast(
+                        ChangeNotification(
+                            WhatChanged.LECTURE_LIST,
+                            node.typed<N_LectureList>().lectures.toList().toJson()
+                        )
+                    )
+
                     else -> logger.warn("Could not handle change")
                 }
-            } catch (e: RuntimeException){
+            } catch (e: RuntimeException) {
                 // see https://github.com/modelix/modelix.core/issues/31
-                logger.warn("Ignoring change due to invalid model: "+ e.message)
+                logger.warn("Ignoring change due to invalid model: " + e.message)
             }
         }
     }
@@ -107,9 +116,46 @@ class UpdateSocket(private val repo: ReplicatedRepository, private val mapper: O
 
     @OnMessage
     fun onMessage(session: Session, message: String) {
-//        val msg: ChangeNotification = ObjectMapper().readValue(message, ChangeNotification::class.java)
         logger.warn("New Message [session={} message={}]", session, message)
-        broadcast(message)
+        val parsedMessage: ChangeNotification = mapper.readValue(message, ChangeNotification::class.java)
+
+        val area = PArea(repo.branch)
+        area.executeWrite {
+            try {
+                when (parsedMessage.whatChanged) {
+                    WhatChanged.ROOM -> {
+                        val room = parsedMessage.change as LinkedHashMap<*, *>
+                        updateRoom(room, area)
+                    }
+                    WhatChanged.LECTURE -> {
+                        val lecture = parsedMessage.change as LinkedHashMap<*, *>
+                        updateLecture(lecture, area)
+                    }
+                    else -> {}
+                }
+                broadcast(message)
+            } catch (e: RuntimeException) {
+                logger.warn("Ignoring change due to invalid message", e)
+            }
+        }
     }
 
+    private fun updateRoom(room: LinkedHashMap<*, *>, area: PArea) {
+        val nRoom: N_Room = INodeReferenceSerializer.deserialize(room["roomRef"] as String).resolveNode(area)!!.typed() as N_Room
+        nRoom.name = room["name"] as String
+        nRoom.maximumCapacity = room["maxPlaces"] as Int
+        // todo: handle new equipment
+    }
+
+    private fun updateLecture(lecture: LinkedHashMap<*, *>, area: PArea) {
+        val nLecture: N_Lecture =
+            INodeReferenceSerializer.deserialize(lecture["lectureRef"] as String).resolveNode(area)!!.typed() as N_Lecture
+        val nRoom: N_Room? = lecture["room"]?.let {
+            (INodeReferenceSerializer.deserialize(it as String).resolveNode(area)?.typed() as N_Room?)
+        }
+        nLecture.name = lecture["name"] as String
+        nLecture.description = lecture["description"] as String
+        nLecture.isInRoom = nRoom
+        nLecture.maximumCapacity = lecture["maxParticipants"] as Int
+    }
 }
