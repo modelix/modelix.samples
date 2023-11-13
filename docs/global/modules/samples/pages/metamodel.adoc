@@ -1,0 +1,134 @@
+= Metamodel for the samples
+:navtitle: Metamodel
+
+The MPS language (aka. metamodel) used in all examples is the same.
+It is fairly small as describes a simplified lecture schedule.
+
+NOTE: The language intentionally does not use expressions.
+Creating editors for expressions manually is tedious,
+and modelix has no support yet for generating these editors for you.
+// TODO https://issues.modelix.org/issue/MODELIX-609
+
+The main concepts of the language are:
+
+- `RoomList`
++
+Root node that contains rooms.
++
+- `Room`
+- `LectureList`
++
+Root node that contains lectures.
++
+- `Lecture`
++
+Lectures are held in rooms.
+- `Schedule`
++
+A lecture is scheduled.
++
+** `OnetimeSchedule`
++
+A lecture can be scheduled once.
+** `WeeklyRecurringSchedule`
++
+Or a lecture can be scheduled weekly until an end date
++
+
+NOTE: You will find more concepts in the language like `SemesterPlan`,
+`Tutor` and `Equipment` they are not used in the samples as of now.
+
+image::metamodel.svg[Static,1920]
+
+
+// classDiagram
+//      class INamedConcept {
+//         <<Interface>>
+//         name: string
+//    }
+//
+//     class RoomList {
+//         <<root>>
+//         rooms: Room[0..n]
+//     }
+//
+//     class LectureList {
+//         <<root>>
+//         lectures: Lecture[0..n]
+//     }
+//
+//     class TutorList {
+//         <<root>>
+//         tutors: Tutor[0..n]
+//     }
+//
+//     class Room {
+//         roomNumber: string
+//         maximumCapacity: integer
+//         equipment: Equipment[0..n]
+//     }
+//
+//     class Lecture {
+//         isInRoom: Room[0..1]
+//         description: string
+//         maximumCapacity: integer
+//         schedule: Schedule
+//         requiredEquipment: Equipment[0..n]
+//     }
+//
+//     class Person {
+//         dateOfBirth: Date
+//     }
+//
+//     class Tutor {
+//         offersLecture: LectureReference[1..n]
+//     }
+//
+//     class LectureReference {
+//         lecture: Lecture
+//     }
+//
+//     class Schedule {
+//         time: Time
+//     }
+//
+//     class OnetimeSchedule {
+//         date: Date
+//     }
+//
+//     class WeeklyRecurringSchedule {
+//         startDate: Date
+//         endDate: Date
+//     }
+//
+//     class Time {
+//         time: string
+//     }
+//
+//     class Date {
+//         date: string
+//     }
+//
+//     class Equipment {
+//         <<enum>>
+//     }
+//
+//     Person <|-- Tutor
+//     Person <-- Date
+//     RoomList *-- Room
+//     LectureList *-- Lecture
+//     Tutor *-- LectureReference
+//     LectureReference <-- Lecture
+//     TutorList *-- Tutor
+//     Lecture <-- Room
+//     INamedConcept <|-- Room
+//     INamedConcept <|-- Lecture
+//     INamedConcept <|-- Tutor
+//     Lecture <-- Schedule
+//     Schedule <|-- OnetimeSchedule
+//     Schedule <|-- WeeklyRecurringSchedule
+//     Schedule <-- Time
+//     OnetimeSchedule <-- Date
+//     WeeklyRecurringSchedule <-- Date
+//     Room <-- Equipment
+//     Lecture <-- Equipment

@@ -1,33 +1,35 @@
-= Welcome to the modelix samples!
-:navtitle: Welcome
+= Introduction
+:navtitle: Introduction
 
-IMPORTANT: The examples are currently work in progress and are develop alongside the modelix platform development.
-
-== Introduction
-
-include::samples:partial$short-description.adoc[]
+include::partial$short-description.adoc[]
 
 None of the examples try to reuse editors defined in MPS.
-If your goal is to reuse MPS editors as is then modelix itself ships with a https://lp.jetbrains.com/projector/[Projector] integration to achieve this.
+If your goal is to reuse MPS editors as is, then modelix itself ships with a https://lp.jetbrains.com/projector/[Projector] integration to achieve this.
 
 While all the examples use the same language defined in MPS they are not meant as one complete example but rather as individual parts.
-The purpose of the examples is to give inspiration of what is possible with modelix and make you think and envision your own use-cases.
+The purpose of the examples is to give inspiration for what is possible with modelix and make you think about and envision your own use cases.
 
 
-== Getting Started
+== Technical prerequisites
 
-include::modelix:ROOT:tutorial/build-component.adoc[leveloffset=+2]
+To work with the samples, you need the following software installed.:
 
-=== Entry Points
+* MPS `2021.2.6`
+* Java 11
+* Docker and https://docs.docker.com/compose/[Docker Compose]
++
+Alternatives like https://podman.io/[Podman] might work, but have not been tested.
 
-Once the initial build has completes you can dive in with the following:
+== Getting started
 
-a. Read explanations in the xref:samples:explanation/courses-domain.adoc[]
-b. Read the use-cases these samples cover in the xref:samples:explanation/usecases.adoc[]
-c. Understand the repository in the xref:samples:explanation/structure.adoc[]
-d. Inspect and edit the project with the code editor of your choice.
-* The top folder in the repository provides `IntelliJ` configurations,
-* the `mps` folder is a sub-project can be opened using `MPS 2021.2.6`, and
-* the `spa-dashboard-angular` folder is a `WebStorm` project.
-e. Start sample components which realize use case xref:samples:tutorial/startup-usecases.adoc[]
-
+* Clone https://github.com/modelix/modelix.samples[samples repository]
+* Start building all components with `./gradlew build` inside the repository
++
+NOTE: Building everything in the beginning is not strictly necessary, but it enables you to let the build run, while you explore the documentation further.
++
+* Explore the documentation
+** Start with the xref:overview.adoc[overview]
+** Or go directly to one of the samples
+*** xref:use_case_1.adoc[]
+*** xref:use_case_2.adoc[]
+*** xref:use_case_3.adoc[]

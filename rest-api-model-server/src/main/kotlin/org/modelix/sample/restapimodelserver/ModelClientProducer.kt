@@ -17,6 +17,6 @@ class ModelClientProducer {
     @ApplicationScoped
     fun repo(client: RestWebModelClient, config: ModelClientConfiguration): ReplicatedRepository =
         ReplicatedRepository(client, RepositoryId(config.repositoryId()), config.branch()) {
-            config.user().orElse(null)
+            config.user().orElse("anonymous user")
         }
 }
