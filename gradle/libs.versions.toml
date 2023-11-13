@@ -33,7 +33,7 @@ kotlin = "1.9.20"
 antJunit = "1.10.14"
 junit = "4.13.2"
 logback = "1.4.11"
-nodeGradle = "7.0.0"
+nodeGradle = "7.0.1"
 node = "16.18.0"
 
 
