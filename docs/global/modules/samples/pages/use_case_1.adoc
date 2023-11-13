@@ -1,0 +1,75 @@
+= Use case 1: Model server and MPS
+:navtitle: 1. Model server and MPS
+
+This use case shows
+how model data can be synced between an MPS instance and a xref:core:reference/component-model-server.adoc[model server].
+This makes model data, previously accessible only in a running MPS or via files, available through a server.
+
+The synchronization needs
+to be initialized from MPS
+using the https://artifacts.itemis.cloud/service/rest/repository/browse/maven-mps/org/modelix/mps/model-server-sync-plugin/[model-server-sync-plugin].
+
+== Demonstration
+
+.Initiating synchronization and synchronizing change
+image::use_case_1.gif[]
+
+.Initiating synchronization and synchronizing change (sequence diagram)
+image::use_case_1_sequence.svg[Static,1920]
+// [Static,1920] is specifying how the SVG should be shown
+// see. https://docs.asciidoctor.org/asciidoc/latest/macros/image-svg/
+
+== Instructions
+
+=== Setup MPS
+
+Execute the following command to set up the MPS project under `mps/project-mps-backend`.
+It installs the
+https://artifacts.itemis.cloud/service/rest/repository/browse/maven-mps/org/modelix/mps/model-server-sync-plugin/[model-server-sync-plugin] and its dependencies.
+
+.Command to set up the MPS project
+[source,shell]
+----
+./gradlew mps:project-mps-backend:build
+----
+
+=== Start a model server
+
+.Command to start a model server
+[source,shell]
+----
+docker-compose --profile useCase1 up
+----
+
+This command starts a model server under http://localhost:28101/[]
+
+=== Start MPS
+
+Open the `mps/project-mps-backend` in MPS `2021.2.6`.
+
+=== Connect to the model server
+
+* In the 'Cloud' tool window, right-click on `Cloud` and select `Add Model Server`
++
+.Adding a model server
+image::use_case_1_step_1.png[]
+*  Enter `http://localhost:28101/` as the model servers URL
++
+.Entering the address of the model server
+image::use_case_1_step_2.png[]
+* In the Cloud tool window, right-click on the added server and select `Add Repository`
++
+.Adding a repository
+image::use_case_1_step_3.png[]
+* Enter `courses` as the repository name
++
+.Entering repository name
+image::use_case_1_step_4.png[]
+* Right-click the `University.Schedule.mps.backend.sandbox` solution and select `Cloud Actions > Copy on Cloud and Sync -> http://localhost:28101/courses`
++
+.Synchronizing solution
+image::use_case_1_step_5.png[]
+* Explore synchronized data in the `Cloud` tool window
++
+.Exploring synchronized data
+image::use_case_1_step_6.png[]
