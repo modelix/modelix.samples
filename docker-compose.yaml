@@ -1,3 +1,20 @@
+# Before running Nginx, this command writes a
+# configuration file suitable for single-page applications.
+x-nginx-command: &nginx-command |
+  bash -c 'bash -s <<EOF
+  cat > /etc/nginx/conf.d/default.conf <<EON
+  server {
+    listen 80 default_server;
+    root /usr/share/nginx/html;
+    location / {
+       # configure Nginx to work for client side routing
+      try_files \\\$$uri \\\$$uri/ /index.html;
+    }
+  }
+  EON
+  nginx -g "daemon off;"
+  EOF'
+
 services:
 
   model-server-empty:
@@ -17,12 +34,12 @@ services:
     profiles:
       - useCase2
       - useCase3
-#      - useCase3b
+    #      - useCase3b
     ports:
       - 28101:28101
     volumes:
       - ./model-server/courses.modelserver.dump:/courses.modelserver.dump
-    command: ["./run-model-server.sh", "-inmemory", "-dumpin", "/courses.modelserver.dump"]
+    command: [ "./run-model-server.sh", "-inmemory", "-dumpin", "/courses.modelserver.dump" ]
 
   rest-api-model-server:
     image: modelix/rest-api-model-server:latest
@@ -37,15 +54,15 @@ services:
     environment:
       - MODELIX_CLIENT_SERVER_URI=http://model-server:28101
 
-# This use case is currently being reworked
-#  rest-api-model-ql:
-#    image: modelix/rest-api-model-ql:latest
-#    container_name: rest-api-model-ql
-#    profiles:
-#      - useCase3b
-#    ports:
-#      # The dashboard expects our service to be running under 8090.
-#      - 8090:8080
+  # This use case is currently being reworked
+  #  rest-api-model-ql:
+  #    image: modelix/rest-api-model-ql:latest
+  #    container_name: rest-api-model-ql
+  #    profiles:
+  #      - useCase3b
+  #    ports:
+  #      # The dashboard expects our service to be running under 8090.
+  #      - 8090:8080
 
   spa-dashboard-angular:
     container_name: spa-dashboard-angular
@@ -54,47 +71,21 @@ services:
       - 4201:80
     profiles:
       - useCase3
-#      - useCase3b
+    #      - useCase3b
     volumes:
       - ./spa-dashboard-angular/dist:/usr/share/nginx/html
-    command: |
-      bash -c 'bash -s <<EOF
-        cat > /etc/nginx/conf.d/default.conf <<EON
-          server {
-            listen 80 default_server;
-            root /usr/share/nginx/html;          
-            location / {
-              # configure Nginx to work for client side routing
-              try_files \\\$$uri \\\$$uri/ /index.html;
-            }
-          }
-      EON
-      nginx -g "daemon off;"
-      EOF'
+    command: *nginx-command
 
   spa-overview-angular:
-      image: nginx
-      container_name: spa-overview-angular
-      profiles:
-        - useCase2
-      ports:
-        - 4200:80
-      volumes:
-        - ./spa-overview-angular/dist/spa-overview-angular:/usr/share/nginx/html
-      command: |
-        bash -c 'bash -s <<EOF
-          cat > /etc/nginx/conf.d/default.conf <<EON
-            server {
-              listen 80 default_server;
-              root /usr/share/nginx/html;          
-              location / {
-                # configure Nginx to work for client side routing
-                try_files \\\$$uri \\\$$uri/ /index.html;
-              }
-            }
-        EON
-        nginx -g "daemon off;"
-        EOF'
+    image: nginx
+    container_name: spa-overview-angular
+    profiles:
+      - useCase2
+    ports:
+      - 4200:80
+    volumes:
+      - ./spa-overview-angular/dist/spa-overview-angular:/usr/share/nginx/html
+    command: *nginx-command
 
   spa-management-vue:
     image: nginx
@@ -105,17 +96,4 @@ services:
       - 3000:80
     volumes:
       - ./spa-management-vue/dist:/usr/share/nginx/html
-    command: |
-      bash -c 'bash -s <<EOF
-        cat > /etc/nginx/conf.d/default.conf <<EON
-          server {
-            listen 80 default_server;
-            root /usr/share/nginx/html;          
-            location / {
-              # configure Nginx to work for client side routing
-              try_files \\\$$uri \\\$$uri/ /index.html;
-            }
-          }
-      EON
-      nginx -g "daemon off;"
-      EOF'
+    command: *nginx-command
