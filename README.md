@@ -2,7 +2,7 @@
 
 This is collection of samples using the modelix platform.
 
-For detailed information - including building and running the samples - please refer to the [sample component documentation](https://docs.modelix.org/modelix/latest/samples).
+For detailed information - including building and running the samples - please refer to the [sample component documentation](https://docs.modelix.org/modelix/main/samples/).
 
 
 # modelix
