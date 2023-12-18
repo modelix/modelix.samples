@@ -5,7 +5,7 @@
 [versions]
 # MPS
 mpsBase = "2021.2.6"
-mpsExtensions = "2021.2.2569.a5e1b8d"
+mpsExtensions = "2023.2.2697.35c375c"
 mpsGradlePlugin = "1.7.288.4ea765f"
 
 # modelix
