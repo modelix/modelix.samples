@@ -18,8 +18,7 @@ x-nginx-command: &nginx-command |
 services:
 
   model-server-empty:
-    # Due to the bug MODELIX-606 we need to use an earlier version for the 'fill from MPS use case'
-    image: modelix/model-server:3.1.0
+    image: modelix/model-server:3.18.1
     container_name: model-server-empty
     profiles:
       - useCase1
@@ -29,7 +28,7 @@ services:
 
   model-server:
     # Keep the version in sync with the modelix version in gradle/libs.versions.toml
-    image: modelix/model-server:3.16.0
+    image: modelix/model-server:3.18.1
     container_name: model-server
     profiles:
       - useCase2
