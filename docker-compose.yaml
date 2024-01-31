@@ -19,8 +19,8 @@ services:
 
   model-server-empty:
     # Keep the version in sync with the modelix version in gradle/libs.versions.toml
-    image: modelix/model-server:4.2.1
-    container_name: model-server-empty
+    image: modelix/model-server:4.5.0
+    container_name: modelix-samples-model-server-empty
     profiles:
       - useCase1
     ports:
@@ -29,11 +29,12 @@ services:
 
   model-server:
     # Keep the version in sync with the modelix version in gradle/libs.versions.toml
-    image: modelix/model-server:4.2.1
-    container_name: model-server
+    image: modelix/model-server:4.5.0
+    container_name: modelix-samples-model-server
     profiles:
       - useCase2
       - useCase3
+      - all
     #      - useCase3b
     ports:
       - 28101:28101
@@ -43,11 +44,12 @@ services:
 
   rest-api-model-server:
     image: modelix/rest-api-model-server:latest
-    container_name: rest-api-model-server
+    container_name: modelix-samples-rest-api-model-server
     # Needs to be specified, so that container runs in Docker on Mac with ARM
     platform: linux/x86_64
     profiles:
       - useCase3
+      - all
     ports:
       # The dashboard expects our service to be running under 8090.
       - 8090:8080
@@ -65,12 +67,13 @@ services:
   #      - 8090:8080
 
   spa-dashboard-angular:
-    container_name: spa-dashboard-angular
+    container_name: modelix-samples-spa-dashboard-angular
     image: nginx
     ports:
       - 4201:80
     profiles:
       - useCase3
+      - all
     #      - useCase3b
     volumes:
       - ./spa-dashboard-angular/dist:/usr/share/nginx/html
@@ -81,6 +84,7 @@ services:
     container_name: spa-overview-angular
     profiles:
       - useCase2
+      - all
     ports:
       - 4200:80
     volumes:
@@ -89,9 +93,10 @@ services:
 
   spa-management-vue:
     image: nginx
-    container_name: spa-management-vue
+    container_name: modelix-samples-spa-management-vue
     profiles:
       - useCase2
+      - all
     ports:
       - 3000:80
     volumes:
