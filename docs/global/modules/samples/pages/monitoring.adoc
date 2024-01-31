@@ -1,0 +1,50 @@
+= Monitoring the `model-server`
+:navtitle: Monitoring the `model-server`
+
+Besides the afore mentioned use cases, the samples also include a `model-server` monitoring setup.
+This setup uses the `/metrics` endpoint  xref:core:howto/metrics.adoc[provided by the `model-server` by default].
+
+== Instructions
+
+=== Start the components
+
+.Command to start the monitoring profile
+[source,shell]
+----
+docker-compose --profile monitoring up
+----
+
+This command starts the following components:
+
+* `model-server` at http://localhost:28101/[],
+* Prometheus database at http://localhost:9090/[], and
+* Grafana dashboard at http://localhost:3001/[].
+
+
+NOTE: Make sure you picked the correct instance at the top of the Grafana dashboard.
+
+[NOTE]
+====
+Depending on your operating system or docker setup, you might need to adjust the targets defined in the `prometheus.yml` and `datasource.yml`.
+
+Also, the docker network setup might need adjustments in the `docker-compose.yaml`.
+====
+
+
+=== Engage with the `model-server`
+
+In order to see noteworthy changes in the monitoring setup, you can simply direct any request towards the `model-server`.
+This process can be simplified by using the Swagger UI included in the `model-server` over at http://127.0.0.1:28101/swagger[].
+
+NOTE: You can also start the other use cases in parallel.
+
+[NOTE]
+====
+If you want to start everything at the same time, you can simply start the `all` profile via
+
+.Command to start the monitoring profile
+[source,shell]
+----
+docker-compose --profile all up
+----
+====

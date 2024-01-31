@@ -6,3 +6,4 @@
 *** xref:samples:use_case_1.adoc[]
 *** xref:samples:use_case_2.adoc[]
 *** xref:samples:use_case_3.adoc[]
+** xref:samples:monitoring.adoc[]

@@ -34,6 +34,7 @@ services:
     profiles:
       - useCase2
       - useCase3
+      - monitoring
       - all
     #      - useCase3b
     ports:
@@ -81,7 +82,7 @@ services:
 
   spa-overview-angular:
     image: nginx
-    container_name: spa-overview-angular
+    container_name: modelix-samples-spa-overview-angular
     profiles:
       - useCase2
       - all
@@ -102,3 +103,39 @@ services:
     volumes:
       - ./spa-management-vue/dist:/usr/share/nginx/html
     command: *nginx-command
+
+  prometheus:
+    image: prom/prometheus
+    container_name: modelix-samples-prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    ports:
+      - 9090:9090
+    profiles:
+      - monitoring
+      - all
+    restart: unless-stopped
+    volumes:
+      - ./monitoring/prometheus:/etc/prometheus
+      - prom_data:/prometheus
+
+  grafana:
+    image: grafana/grafana-oss
+    container_name: modelix-samples-grafana
+    ports:
+      - 3001:3000
+    profiles:
+      - monitoring
+      - all
+    restart: unless-stopped
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=grafana
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH=/etc/grafana/provisioning/dashboards/model-server-dashboard.json
+    volumes:
+      - ./monitoring/grafana/datasources:/etc/grafana/provisioning/datasources/
+      - ./monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards/
+
+volumes:
+  prom_data:
