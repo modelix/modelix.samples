@@ -21,13 +21,13 @@ This command starts the following components:
 * Grafana dashboard at http://localhost:3001/[].
 
 
-NOTE: Make sure you picked the correct instance at the top of the Grafana dashboard.
+NOTE: If you use a locally running `model-server, make sure you picked the correct instance at the top of the Grafana dashboard. Otherwise, the dashboard might show no data.
 
 [NOTE]
 ====
 Depending on your operating system or docker setup, you might need to adjust the targets defined in the `prometheus.yml` and `datasource.yml`.
 
-Also, the docker network setup might need adjustments in the `docker-compose.yaml`.
+Also, the docker network setup might need adjustments in the `docker-compose.yaml`, e.g. when ports are already occupied or  if you run a `model-server` https://stackoverflow.com/questions/46973456/docker-access-localhost-port-from-container[locally and not via docker].
 ====
 
 

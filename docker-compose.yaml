@@ -14,13 +14,16 @@ x-nginx-command: &nginx-command |
   EON
   nginx -g "daemon off;"
   EOF'
+  
+# global project name
+name: modelix-samples
 
 services:
 
   model-server-empty:
     # Keep the version in sync with the modelix version in gradle/libs.versions.toml
     image: modelix/model-server:4.5.0
-    container_name: modelix-samples-model-server-empty
+    container_name: ${COMPOSE_PROJECT_NAME}-model-server-empty
     profiles:
       - useCase1
     ports:
@@ -30,7 +33,7 @@ services:
   model-server:
     # Keep the version in sync with the modelix version in gradle/libs.versions.toml
     image: modelix/model-server:4.5.0
-    container_name: modelix-samples-model-server
+    container_name: ${COMPOSE_PROJECT_NAME}-model-server
     profiles:
       - useCase2
       - useCase3
@@ -45,7 +48,7 @@ services:
 
   rest-api-model-server:
     image: modelix/rest-api-model-server:latest
-    container_name: modelix-samples-rest-api-model-server
+    container_name: ${COMPOSE_PROJECT_NAME}-rest-api-model-server
     # Needs to be specified, so that container runs in Docker on Mac with ARM
     platform: linux/x86_64
     profiles:
@@ -68,7 +71,7 @@ services:
   #      - 8090:8080
 
   spa-dashboard-angular:
-    container_name: modelix-samples-spa-dashboard-angular
+    container_name: ${COMPOSE_PROJECT_NAME}-spa-dashboard-angular
     image: nginx
     ports:
       - 4201:80
@@ -82,7 +85,7 @@ services:
 
   spa-overview-angular:
     image: nginx
-    container_name: modelix-samples-spa-overview-angular
+    container_name: ${COMPOSE_PROJECT_NAME}-spa-overview-angular
     profiles:
       - useCase2
       - all
@@ -94,7 +97,7 @@ services:
 
   spa-management-vue:
     image: nginx
-    container_name: modelix-samples-spa-management-vue
+    container_name: ${COMPOSE_PROJECT_NAME}-spa-management-vue
     profiles:
       - useCase2
       - all
@@ -106,7 +109,7 @@ services:
 
   prometheus:
     image: prom/prometheus
-    container_name: modelix-samples-prometheus
+    container_name: ${COMPOSE_PROJECT_NAME}-prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
     ports:
@@ -116,12 +119,12 @@ services:
       - all
     restart: unless-stopped
     volumes:
-      - ./monitoring/prometheus:/etc/prometheus
+      - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
       - prom_data:/prometheus
 
   grafana:
     image: grafana/grafana-oss
-    container_name: modelix-samples-grafana
+    container_name: ${COMPOSE_PROJECT_NAME}-grafana
     ports:
       - 3001:3000
     profiles:
