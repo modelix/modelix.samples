@@ -33,3 +33,4 @@ NOTE: Building everything in the beginning is not strictly necessary, but it ena
 *** xref:use_case_1.adoc[]
 *** xref:use_case_2.adoc[]
 *** xref:use_case_3.adoc[]
+*** xref:monitoring.adoc[]

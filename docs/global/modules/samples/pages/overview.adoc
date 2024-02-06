@@ -79,7 +79,13 @@ See the xref:use_case_3.adoc[Use case 3 page] for details.
 // that exposes its data through the xref:core:reference/component-mps-model-server-plugin.adoc[model-server-plugin].
 //
 
+[#monitoring]
+== Monitoring the `model-server`
+
+This is not strictly a use case but rather a bonus to increase the transparency and visibility of the requests happening in the background.
+xref:core:howto/metrics.adoc[The `model-server` always provides a `/metrics`
+endpoint] which allows you to obtain data on several inner workings, such as HTTP connections or JVM statistics.
+As soon as you start a `model-server`, you can thus run a dedicated monitoring database (e.g. Prometheus) and a dashboard (e.g. Grafana) to obtain and visualize metrics respectively.
 
 
-
-
+See the xref:monitoring.adoc[Monitoring page] for details.
