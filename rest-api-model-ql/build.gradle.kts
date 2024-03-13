@@ -2,7 +2,7 @@ plugins {
     application
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.openapi.generator)
-    id("io.ktor.plugin") version "2.3.8"
+    id("io.ktor.plugin") version "2.3.9"
 }
 
 val openApiFile = layout.projectDirectory.file("../openapi/openapi.yaml")
