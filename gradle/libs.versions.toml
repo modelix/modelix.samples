@@ -28,7 +28,7 @@ quarkusPlatform = "2.16.12.Final"
 quarkusPlugin = "2.16.12.Final"
 
 # other
-openapi = "7.4.0"
+openapi = "7.5.0"
 kotlin = "1.9.23"
 antJunit = "1.10.14"
 junit = "4.13.2"
