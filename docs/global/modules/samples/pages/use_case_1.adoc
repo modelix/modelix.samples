@@ -21,6 +21,10 @@ image::use_case_1_sequence.svg[Static,1920]
 
 == Instructions
 
+=== Get the code
+
+Clone or download the code from the https://github.com/modelix/modelix.samples/[samples repository].
+
 === Setup MPS
 
 Execute the following command to set up the MPS project under `mps/project-mps-backend`.

@@ -30,8 +30,8 @@ See the xref:use_case_1.adoc[Use case 1 page] for details.
 In this use case, we connect web frontends to a xref:core:reference/component-model-server.adoc[model server].
 The web frontends read from and write model data to the model server.
 
-One web frontend can be used to edit model data and is implemented with https://vuejs.org/[Vue.js].
-The other one serves as an overview and is implemented with https://angular.io/[Angular].
+One web frontend can be used to edit model data and is implemented with Vue.js.
+The other one serves as an overview and is implemented with Angular.
 
 You can see
 how changes made in one connected application are instantly reflected in another connected application.
