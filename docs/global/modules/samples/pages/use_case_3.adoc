@@ -40,8 +40,8 @@ image::use_case_3_sequence.svg[Static,1920]
 
 // sequenceDiagram
 //     actor back-office
-//     actor tutor
 //     actor student
+//     actor tutor
 //     participant Dashboard frontend (tutor)
 //     participant Dashboard frontend (student)
 //     participant Dashboard backend
@@ -50,30 +50,44 @@ image::use_case_3_sequence.svg[Static,1920]
 //
 //     tutor->>Dashboard frontend (tutor): make change
 //     Dashboard frontend (tutor)-->>tutor: display change
-//     Dashboard frontend (tutor)->>Dashboard backend: communicate change
-//     Dashboard backend->>Model server: communicate change
+//     Dashboard frontend (tutor)->>Dashboard backend: propagate change
+//     Dashboard backend->>Model server: propagate change
 //     Model server-->>Dashboard backend:
 //     Dashboard backend-->>Dashboard frontend (tutor):
-//     Dashboard backend->>Dashboard frontend (student): communicate change
+//     Dashboard backend->>Dashboard frontend (student): propagate change
 //     Dashboard frontend (student)-->>student: display change
-//     Model server->>MPS: communicate change
+//     Model server->>MPS: propagate change
 //     MPS-->>Model server:
 //     MPS-->>back-office: display change
 //
 //     back-office->>MPS: make change
 //     MPS-->>back-office: display change
-//     MPS->>Model server: communicate change
+//     MPS->>Model server: propagate change
 //     Model server-->>MPS:
-//     Model server->>Dashboard backend: communicate change
+//     Model server->>Dashboard backend: propagate change
 //     Dashboard backend-->>Model server:
-//     Dashboard backend->>Dashboard frontend (tutor): communicate change
+//     Dashboard backend->>Dashboard frontend (tutor): propagate change
 //     Dashboard frontend (tutor)-->>tutor: display change
-//     Dashboard backend->>Dashboard frontend (student): communicate change
-//     Dashboard frontend (student)-->>tutor: display change
+//     Dashboard backend->>Dashboard frontend (student): propagate change
+//     Dashboard frontend (student)-->>student: display change
 
-== Build
+In this demonstration
 
-Use Gradle to build the relevant components.
+1. Data is changed in one of the opened web frontends.
+2. These changes are first propagated to the web backend.
+3. The web backend propagates the changes to the model server.
+4. The web backend also propagates the changes to the other opened web frontend.
+5. The model server syncs the changes into MPS.
+6. Model data is edited again in MPS by reverting the made changes.
+7. Those changes are then also propagated to the model server.
+8. The model server propagates the changes to the web backend.
+9. The web backend propagates the changes to all opened web frontends.
+
+== Instructions
+
+You can try the demo yourself by downloading the https://github.com/modelix/modelix.samples/[samples repository].
+
+In the downloaded repository, use Gradle to build the relevant components.
 
 .Command to build the needed components
 [source,shell]
@@ -93,20 +107,18 @@ They are used in the `spa-management-vue` and `spa-overview-angular`.
 * builds the web backend `rest-api-model-server`
 * builds the web frontend `spa-dashboard-angular`
 
-== Start
-
-Start up the components.
+Start the components:
 
 [source,shell]
 ----
 docker-compose --profile useCase3 up
 ----
 
-This starts:
+This starts
 
 * a xref:core:reference/component-model-server.adoc[model server] with initial data under http://localhost:28101/
-* the *web backend* under http://localhost:8090/
-* the *web frontend* under http://localhost:4201/
+* the *web backend* at http://localhost:8090/
+* the *web frontend* at http://localhost:4201/
 
 === MPS (optionally)
 
@@ -116,15 +128,7 @@ This MPS project has a plugin installed and configured to sync the model content
 
 xref:use_case_1.adoc[Use case 1] describes the synchronization between a model client and an MPS instance.
 
-== Use
-
-Now you can modify the model through the web frontend.
-Those changes are first communicated to the web backend.
-From there, they are communicated to the model server.
-
-The model server syncs those changes to other open web applications. You can see this by opening the dashboard a second time in a different tab.
-
-If you have an MPS instance running and connected to the model server, changes made in MPS are synced with web applications, and vice versa.
+=== Web frontends from use case 2 (optionally)
 
 You can also start the web frontends from xref:use_case_2.adoc[use case 2]
 and see how changes to the model are propagated there.
