@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@mdi/font": "7.3.67",
-    "@modelix/vue-model-api": "7.1.5",
+    "@modelix/vue-model-api": "7.3.0",
     "core-js": "^3.33.1",
     "date-fns": "^2.30.0",
     "metamodel-api-ts": "file:../mps/metamodel-api-ts/build/packages/metamodel-api-ts-1.0.0.tgz",
