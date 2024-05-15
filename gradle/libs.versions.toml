@@ -18,7 +18,7 @@ modelixCore = "7.3.0"
 mpsModelServerSyncPlugin = "2021.2.157"
 
 # backend 1 / SPA
-ktor = "2.3.10"
+ktor = "2.3.11"
 
 # backend 2
 # When increasing the version of quarkus,
