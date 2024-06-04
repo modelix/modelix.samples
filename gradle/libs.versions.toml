@@ -14,7 +14,7 @@ mpsGradlePlugin = "1.7.288.4ea765f"
 # * mps/metamodel-api-ts/package.json
 # * spa-management-vue/package.json
 # * spa-overview-angular/package.json
-modelixCore = "7.5.1"
+modelixCore = "8.0.1"
 mpsModelServerSyncPlugin = "2021.2.157"
 
 # backend 1 / SPA
