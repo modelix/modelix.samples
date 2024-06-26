@@ -4,11 +4,14 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/modelix-samples.iml" filepath="$PROJECT_DIR$/.idea/modules/modelix-samples.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/mps/modelix-samples.mps.iml" filepath="$PROJECT_DIR$/.idea/modules/mps/modelix-samples.mps.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mps/metamodel-api-ts/modelix-samples.mps.metamodel-api-ts.iml" filepath="$PROJECT_DIR$/.idea/modules/mps/metamodel-api-ts/modelix-samples.mps.metamodel-api-ts.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/mps/metamodel/modelix-samples.mps.metamodel.main.iml" filepath="$PROJECT_DIR$/.idea/modules/mps/metamodel/modelix-samples.mps.metamodel.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/mps/project-modelserver-backend/modelix-samples.mps.project-modelserver-backend.iml" filepath="$PROJECT_DIR$/.idea/modules/mps/project-modelserver-backend/modelix-samples.mps.project-modelserver-backend.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/mps/project-mps-backend/modelix-samples.mps.project-mps-backend.iml" filepath="$PROJECT_DIR$/.idea/modules/mps/project-mps-backend/modelix-samples.mps.project-mps-backend.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/rest-api-model-server/modelix-samples.rest-api-model-server.test.iml" filepath="$PROJECT_DIR$/.idea/modules/rest-api-model-server/modelix-samples.rest-api-model-server.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/spa-dashboard-angular/modelix-samples.spa-dashboard-angular.iml" filepath="$PROJECT_DIR$/.idea/modules/spa-dashboard-angular/modelix-samples.spa-dashboard-angular.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/spa-management-vue/modelix-samples.spa-management-vue.iml" filepath="$PROJECT_DIR$/.idea/modules/spa-management-vue/modelix-samples.spa-management-vue.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/spa-overview-angular/modelix-samples.spa-overview-angular.iml" filepath="$PROJECT_DIR$/.idea/modules/spa-overview-angular/modelix-samples.spa-overview-angular.iml" />
     </modules>
   </component>
 </project>
