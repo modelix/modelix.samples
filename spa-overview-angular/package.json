@@ -18,7 +18,7 @@
     "@angular/platform-browser": "^16.2.12",
     "@angular/platform-browser-dynamic": "^16.2.12",
     "@angular/router": "^16.2.12",
-    "@modelix/model-client": "8.9.0",
+    "@modelix/model-client": "8.10.0",
     "bulma": "^0.9.4",
     "date-fns": "^2.30.0",
     "metamodel-api-ts": "file:../mps/metamodel-api-ts/build/packages/metamodel-api-ts-1.0.0.tgz",
