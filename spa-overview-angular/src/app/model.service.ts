@@ -11,7 +11,7 @@ const { connectClient } = org.modelix.model.client2;
 const modelServerURL = 'http://localhost:28101/v2';
 const repositoryId = 'courses';
 const branchId = 'master';
-type BranchJS = org.modelix.model.client2.BranchJS
+type BranchJS = org.modelix.model.client2.BranchJS;
 
 @Injectable({
   providedIn: 'root',
@@ -30,13 +30,13 @@ export class ModelService {
     // to trigger change detection only if actually something changed in the model.
     this.ngZone.runOutsideAngular(() => {
       connectClient(modelServerURL)
-        .then((client) =>
-          client.connectBranch(repositoryId, branchId, (_change) => {
+        .then((client) => client.startReplicatedModel(repositoryId, branchId))
+        .then((replicatedModel) => {
+          const branch = replicatedModel.getBranch();
+          branch.addListener((_change) => {
             this.triggerChangeDetection();
-          })
-        )
-        .then((branch) => {
-          this.extractModel(branch)
+          });
+          this.extractModel(branch);
           this.triggerChangeDetection();
         })
         .catch((error) => {
@@ -50,16 +50,16 @@ export class ModelService {
   extractModel(branch: BranchJS) {
     const untypedModuleNode = branch.rootNode.getAllChildren().at(0);
     if (untypedModuleNode === undefined) {
-      throw Error("No module found.")
+      throw Error("No module found.");
     }
     const module = LanguageRegistry.INSTANCE.wrapNode(
       untypedModuleNode
     ) as N_Module;
     const model = module.models.asArray().at(0);
     if (model === undefined) {
-      throw Error("No model found.")
+      throw Error("No model found.");
     }
-    this.model = model
+    this.model = model;
   }
 
   triggerChangeDetection() {
