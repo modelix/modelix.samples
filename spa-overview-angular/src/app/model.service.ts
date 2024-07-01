@@ -30,8 +30,9 @@ export class ModelService {
     // to trigger change detection only if actually something changed in the model.
     this.ngZone.runOutsideAngular(() => {
       connectClient(modelServerURL)
-        .then((client) => client.connectBranch(repositoryId, branchId))
-        .then((branch) => {
+        .then((client) => client.startReplicatedModel(repositoryId, branchId))
+        .then((replicatedModel) => {
+          const branch = replicatedModel.getBranch();
           branch.addListener((_change) => {
             this.triggerChangeDetection();
           });
