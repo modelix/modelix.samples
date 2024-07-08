@@ -4,7 +4,7 @@
 
 <script lang="ts" setup>
 import { LanguageRegistry } from "@modelix/ts-model-api";
-import { useModelClient, useRootNode } from "@modelix/vue-model-api";
+import { useModelClient, useReplicatedModel } from "@modelix/vue-model-api";
 import { registerLanguages } from "metamodel-api-ts";
 import { N_Module } from "metamodel-api-ts/build/dist/L_org_modelix_model_repositoryconcepts";
 import { Ref, computed, provide } from "vue";
@@ -19,7 +19,7 @@ const branchId = "master";
 const { client, error: serverError } = useModelClient(modelServerURL);
 // The `rootNode` is not the MPS root node,
 // but just the top most node in the branch on the model server.
-const { rootNode, error: branchError } = useRootNode(
+const { rootNode, error: branchError } = useReplicatedModel(
   client,
   repositoryId,
   branchId,
