@@ -18,6 +18,6 @@
   "dependencies": {
   },
   "peerDependencies": {
-    "@modelix/ts-model-api": "8.15.4"
+    "@modelix/ts-model-api": "8.16.0"
   }
 }
