@@ -17,7 +17,8 @@
     "roboto-fontface": "*",
     "vue": "^3.3.6",
     "vue-router": "^4.2.5",
-    "vuetify": "^3.3.22"
+    "vuetify": "^3.3.22",
+    "ws": "^8.17.1"
   },
   "devDependencies": {
     "@babel/types": "^7.23.0",
@@ -31,6 +32,7 @@
     "unplugin-fonts": "^1.0.3",
     "vite": "^4.5.0",
     "vite-plugin-vuetify": "^1.0.2",
-    "vue-tsc": "^1.8.20"
+    "vue-tsc": "^1.8.20",
+    "ws": "^8.17.1"
   }
 }

@@ -22,6 +22,7 @@
     "angular-in-memory-web-api": "~0.16.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
+    "ws": "^7.5.10",
     "zone.js": "~0.13.0"
   },
   "devDependencies": {
@@ -41,6 +42,7 @@
     "karma-jasmine-html-reporter": "~2.0.0",
     "protractor": "~7.0.0",
     "ts-node": "~10.9.0",
-    "typescript": "~5.1.3"
+    "typescript": "~5.1.3",
+    "ws": "^7.5.10"
   }
 }
