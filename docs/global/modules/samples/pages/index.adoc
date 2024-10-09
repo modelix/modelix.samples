@@ -15,7 +15,7 @@ The purpose of the examples is to give inspiration for what is possible with mod
 To work with the samples, you need the following software installed.:
 
 * MPS `2021.2.6`
-* Java 11
+* Java 21
 * Docker and https://docs.docker.com/compose/[Docker Compose]
 +
 Alternatives like https://podman.io/[Podman] might work, but have not been tested.
