@@ -31,8 +31,6 @@ include("model-server")
 //
 // APIs
 //
-//  API using ktor and a light model-server client (light)
-include("rest-api-model-ql")
 // API using quarkus and a direct model-server connection (advanced)
 include("rest-api-model-server")
 
