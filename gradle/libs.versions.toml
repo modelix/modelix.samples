@@ -4,7 +4,7 @@
 
 [versions]
 # MPS
-mpsBase = "2021.2.6"
+mpsBase = "2024.1.1"
 mpsExtensions = "2021.2.2874.a6090d8"
 mpsGradlePlugin = "1.7.288.4ea765f"
 
