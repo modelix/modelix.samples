@@ -60,16 +60,6 @@ services:
     environment:
       - MODELIX_CLIENT_SERVER_URI=http://model-server:28101
 
-  # This use case is currently being reworked
-  #  rest-api-model-ql:
-  #    image: modelix/rest-api-model-ql:latest
-  #    container_name: rest-api-model-ql
-  #    profiles:
-  #      - useCase3b
-  #    ports:
-  #      # The dashboard expects our service to be running under 8090.
-  #      - 8090:8080
-
   spa-dashboard-angular:
     container_name: ${COMPOSE_PROJECT_NAME}-spa-dashboard-angular
     image: nginx
